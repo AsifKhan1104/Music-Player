@@ -51,7 +51,6 @@ public class WelcomeActivity extends FragmentActivity {
 		overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
 		setContentView(R.layout.activity_welcome);
-		//setTheme(R.style.AppThemeLight);
 
 		if (getActionBar()!=null)
 			getActionBar().hide();

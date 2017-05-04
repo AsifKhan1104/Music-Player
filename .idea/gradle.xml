@@ -9,6 +9,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/dragsortlistviewlibrary" />
+            <option value="$PROJECT_DIR$/picasso" />
+            <option value="$PROJECT_DIR$/quickScroll" />
+            <option value="$PROJECT_DIR$/velocityviewpagerlibrary" />
+            <option value="$PROJECT_DIR$/viewpagerindicatorlibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

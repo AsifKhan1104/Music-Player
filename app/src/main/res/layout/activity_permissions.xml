@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/now_playing_controls_background_light">
+
+    <TextView
+        android:id="@+id/permission_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/permission"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0099CC"
+        android:textSize="35sp" />
+
+    <TextView
+        android:id="@+id/permission_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/permission_header"
+        android:layout_below="@+id/permission_header"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/permission_text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/permission_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/permission_header"
+        android:layout_below="@+id/permission_text_1"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/permission_storage"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/permission_text_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/permission_header"
+        android:layout_below="@+id/permission_text_2"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/permission_read_storage_explanation"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black" />
+</RelativeLayout>

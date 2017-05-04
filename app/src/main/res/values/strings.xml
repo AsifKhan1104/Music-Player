@@ -507,7 +507,7 @@
     <string name="google_play_music_instructions">Jams can stream your Google Play Music library to your device. You must have the official Google Play Music app installed to use this feature.</string>
     <string name="dont_use_google_play_music">Don\'t use Google Play Music</string>
     <string name="ready_to_scan">Ready to Scan</string>
-    <string name="ready_to_scan_instructions">Musicia will now build your music library and album art. Feel free to close the app during this process.</string>
+    <string name="ready_to_scan_instructions">App will now build your music library and album art. Feel free to close the app during this process.</string>
     <string name="swipe_left_to_continue">Swipe left to continue.</string>
     <string name="signed_in_as">Signed in as</string>
     <string name="google_play_music_disclaimer">*Google neither supports nor endorses Jams Music Player and its use of the Google Play Music service. Jams will access your music library using unofficial APIs. Google may choose to change their service at any time and cause this app to lose access to your library. Proceed at your own risk.</string>
@@ -866,7 +866,7 @@
     <string name="select_music_folders">Select Music Folders</string>
     <string name="refresh_music_library">Refresh Music Library</string>
     <string name="permission_read_external_storage">Allow Read External Storage permission to enjoy the app.</string>
-    <string name="permission_denial_message">Please reopen the app again and provide required permissions to access the songs.</string>
+    <string name="permission_denial_message">To view Music Folders you need to provide this permission.</string>
     <string name="timer_set_success">Timer set successfully</string>
     <string name="timer_error_message">Please select any future time</string>
 

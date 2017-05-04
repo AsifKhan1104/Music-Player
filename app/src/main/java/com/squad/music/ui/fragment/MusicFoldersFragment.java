@@ -1,7 +1,11 @@
 package com.squad.music.ui.fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.utility.MarshMallowUtils;
 
 public class MusicFoldersFragment extends Fragment {
 
@@ -29,9 +34,11 @@ public class MusicFoldersFragment extends Fragment {
     private MusicFoldersSelectionFragment mMusicFoldersSelectionFragment = null;
     private TextView mWelcomeHeader;
     private RadioGroup mMusicFoldersOptions;
+    private RadioButton mMusicFoldersRadioButton;
     private TranslateAnimation mSlideInAnimation;
     private TranslateAnimation mSlideOutAnimation;
     private RelativeLayout mFoldersLayout;
+    private static final int REQUEST_READ_PERMISSION = 101;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +82,7 @@ public class MusicFoldersFragment extends Fragment {
         mWelcomeHeader.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Light"));
 
         mMusicFoldersOptions = (RadioGroup) rootView.findViewById(R.id.music_library_welcome_radio_group);
+        mMusicFoldersRadioButton = (RadioButton) rootView.findViewById(R.id.pick_folders_radio);
         RadioButton getAllSongsRadioButton = (RadioButton) mMusicFoldersOptions.findViewById(R.id.get_all_songs_radio);
         RadioButton letMePickFoldersRadioButton = (RadioButton) mMusicFoldersOptions.findViewById(R.id.pick_folders_radio);
 
@@ -100,12 +108,40 @@ public class MusicFoldersFragment extends Fragment {
                 case R.id.pick_folders_radio:
                     mFoldersLayout.startAnimation(mSlideInAnimation);
                     mFoldersLayout.setEnabled(true);
+
+                    // permission dialog
+                    checkForPermissions();
                     break;
             }
 
         }
 
     };
+
+    // To check a single permission call (for marshmallow permission system)
+    private void checkForPermissions() {
+        if (!MarshMallowUtils.isPermissionGranted(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            MarshMallowUtils.requestPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_READ_PERMISSION, getString(R.string.permission_read_external_storage));
+        }
+    }
+
+    //put the callback(if needed) on request for permission (allowed or denied)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_READ_PERMISSION && grantResults.length == 1) {
+            //do your code here
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mMusicFoldersRadioButton.setChecked(true);
+            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                MarshMallowUtils.showDialog(getActivity(), getString(R.string.permission_denial_message), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        }
+    }
 
     /**
      * Slide out animation listener.

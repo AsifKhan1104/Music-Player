@@ -867,6 +867,7 @@
     <string name="refresh_music_library">Refresh Music Library</string>
     <string name="permission_read_external_storage">Allow Read External Storage permission to enjoy the app.</string>
     <string name="permission_denial_message">To view Music Folders you needed to provide this permission.</string>
+    <string name="permission_denial_conseq">You have not granted required permissions to use this feature. Please restart app and grant permission.</string>
     <string name="timer_set_success">Timer set successfully</string>
     <string name="timer_error_message">Please select any future time</string>
 

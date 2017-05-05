@@ -1,5 +1,6 @@
 package com.squad.music.ui.fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,10 +17,12 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.utility.MarshMallowUtils;
 
 public class MusicFoldersFragment extends Fragment {
 
@@ -103,12 +106,20 @@ public class MusicFoldersFragment extends Fragment {
                     mFoldersLayout.startAnimation(mSlideInAnimation);
                     mFoldersLayout.setEnabled(true);
 
+                    checkForPermissions();
                     break;
             }
 
         }
 
     };
+
+    // To check a single permission call (for marshmallow permission system)
+    private void checkForPermissions() {
+        if (!MarshMallowUtils.isPermissionGranted(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Toast.makeText(getActivity(), getString(R.string.permission_denial_conseq), Toast.LENGTH_LONG).show();
+        }
+    }
 
     /**
      * Slide out animation listener.

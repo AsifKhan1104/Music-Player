@@ -48,4 +48,7 @@
 
     <!-- A dark Holo shade of orange -->
     <color name="holo_orange_dark">#ffff8800</color>
+
+    <color name="list_1">#343434</color>
+    <color name="list_2">#222222</color>
 </resources>

@@ -22,74 +22,74 @@ import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.ui.activity.MainActivity;
 
 public class BuildingLibraryProgressFragment extends Fragment implements AsyncBuildLibraryTask.OnBuildLibraryProgressUpdate {
-	
-	private Context mContext;
-	private Common mApp;
-	private View mRootView;
-	private RelativeLayout mProgressElementsContainer;
-	private TextView mCurrentTaskText;
-	private ProgressBar mProgressBar;
-	private Animation mFadeInAnimation;
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		
-		mContext = getActivity().getApplicationContext();
-		mApp = (Common) mContext;
-		mRootView = (View) getActivity().getLayoutInflater().inflate(R.layout.fragment_building_library_progress, null);
-		
-		mProgressElementsContainer = (RelativeLayout) mRootView.findViewById(R.id.progress_elements_container);
-		mProgressElementsContainer.setVisibility(View.INVISIBLE);
-		
-		mCurrentTaskText = (TextView) mRootView.findViewById(R.id.building_library_task);
-		mCurrentTaskText.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Light"));
-        mCurrentTaskText.setPaintFlags(mCurrentTaskText.getPaintFlags() 
-        						       | Paint.ANTI_ALIAS_FLAG
-        						       | Paint.SUBPIXEL_TEXT_FLAG);
-        
+
+    private Context mContext;
+    private Common mApp;
+    private View mRootView;
+    private RelativeLayout mProgressElementsContainer;
+    private TextView mCurrentTaskText;
+    private ProgressBar mProgressBar;
+    private Animation mFadeInAnimation;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mContext = getActivity().getApplicationContext();
+        mApp = (Common) mContext;
+        mRootView = (View) getActivity().getLayoutInflater().inflate(R.layout.fragment_building_library_progress, null);
+
+        mProgressElementsContainer = (RelativeLayout) mRootView.findViewById(R.id.progress_elements_container);
+        mProgressElementsContainer.setVisibility(View.INVISIBLE);
+
+        mCurrentTaskText = (TextView) mRootView.findViewById(R.id.building_library_task);
+        mCurrentTaskText.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Light"));
+        mCurrentTaskText.setPaintFlags(mCurrentTaskText.getPaintFlags()
+                | Paint.ANTI_ALIAS_FLAG
+                | Paint.SUBPIXEL_TEXT_FLAG);
+
         mProgressBar = (ProgressBar) mRootView.findViewById(R.id.building_library_progress);
-        mProgressBar.setMax(1000000); 
-        
+        mProgressBar.setMax(1000000);
+
         mFadeInAnimation = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
         mFadeInAnimation.setAnimationListener(fadeInListener);
         mFadeInAnimation.setDuration(700);
-        
+
         return mRootView;
     }
-	
-	/**
-	 * Fade in animation listener.
-	 */
-	private AnimationListener fadeInListener = new AnimationListener() {
 
-		@Override
-		public void onAnimationEnd(Animation arg0) {
-			mProgressElementsContainer.setVisibility(View.VISIBLE);
-			
-		}
+    /**
+     * Fade in animation listener.
+     */
+    private AnimationListener fadeInListener = new AnimationListener() {
 
-		@Override
-		public void onAnimationRepeat(Animation arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+        @Override
+        public void onAnimationEnd(Animation arg0) {
+            mProgressElementsContainer.setVisibility(View.VISIBLE);
 
-		@Override
-		public void onAnimationStart(Animation arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	};
-	
-	@Override
-	public void onStartBuildingLibrary() {
-		mProgressElementsContainer.startAnimation(mFadeInAnimation);
-		
-	}
+        }
 
-	@Override
-	public void onProgressUpdate(AsyncBuildLibraryTask task, String mCurrentTask,
+        @Override
+        public void onAnimationRepeat(Animation arg0) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onAnimationStart(Animation arg0) {
+            // TODO Auto-generated method stub
+
+        }
+
+    };
+
+    @Override
+    public void onStartBuildingLibrary() {
+        mProgressElementsContainer.startAnimation(mFadeInAnimation);
+
+    }
+
+    @Override
+    public void onProgressUpdate(AsyncBuildLibraryTask task, String mCurrentTask,
                                  int overallProgress, int maxProgress,
                                  boolean mediaStoreTransferDone) {
         /**
@@ -99,22 +99,22 @@ public class BuildingLibraryProgressFragment extends Fragment implements AsyncBu
          * multiply the overallProgress by 4 (the building library task only takes
          * up a quarter of the overall progress bar).
          */
-		mProgressBar.setProgress(overallProgress*4);
+        mProgressBar.setProgress(overallProgress * 4);
 
         //This fragment only shows the MediaStore transfer progress.
         if (mediaStoreTransferDone)
             onFinishBuildingLibrary(task);
-		
-	}
 
-	@Override
-	public void onFinishBuildingLibrary(AsyncBuildLibraryTask task) {
+    }
+
+    @Override
+    public void onFinishBuildingLibrary(AsyncBuildLibraryTask task) {
         task.mBuildLibraryProgressUpdate.remove(0);
-		Intent intent = new Intent(mContext, MainActivity.class);
-		//intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		mContext.startActivity(intent);
+        Intent intent = new Intent(mContext, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
 
-	}
-	
+    }
+
 }
 

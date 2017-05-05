@@ -1,5 +1,6 @@
 package com.squad.music.ui.activity;
 
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,17 +19,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    //Context and Common object(s).
+    private Context mContext;
+    private Common mApp;
+
     private Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        //Context and Common object(s).
+        mContext = getApplicationContext();
+        mApp = (Common) getApplicationContext();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,6 +60,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Check if this is the first time the app is being started.
+        if (mApp.getSharedPreferences().getBoolean(Common.FIRST_RUN, true) == true) {
+            //showAlbumArtScanningDialog();
+            mApp.getSharedPreferences().edit().putBoolean(Common.FIRST_RUN, false).commit();
+        }
     }
 
     @Override

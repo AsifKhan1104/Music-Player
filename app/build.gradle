@@ -32,6 +32,7 @@ dependencies {
     compile project(':quickScroll')
     compile project(':velocityviewpagerlibrary')
     compile project(':viewpagerindicatorlibrary')
+    compile project(':picasso')
     // jar dependencies
     compile files('libs/android-async-http-1.4.2-66-g4b6eb97.jar')
     compile files('libs/commons-io-2.4.jar')
@@ -52,7 +53,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.2'
-    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.android.gms:play-services:10.2.4'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v13:25.3.1'

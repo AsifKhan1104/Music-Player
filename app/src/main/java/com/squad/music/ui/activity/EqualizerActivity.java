@@ -11,9 +11,10 @@ import android.graphics.Paint;
 import android.media.audiofx.PresetReverb;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,12 +47,13 @@ import com.squad.music.ui.dialog.EQGenresListDialog;
 
 import java.util.ArrayList;
 
-public class EqualizerActivity extends FragmentActivity {
+public class EqualizerActivity extends AppCompatActivity {
 
     //Context.
     protected Context mContext;
     private Common mApp;
     private EqualizerActivity mFragment;
+    private Toolbar mToolbar;
 
     //Equalizer container elements.
     private ScrollView mScrollView;
@@ -133,9 +135,11 @@ public class EqualizerActivity extends FragmentActivity {
 
         //setTheme();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_equalizer);
+        setContentView(R.layout.activity_equalizer);
 
         //Equalizer container elements.
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         mScrollView = (ScrollView) findViewById(R.id.equalizerScrollView);
         mScrollView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
 
@@ -1082,12 +1086,12 @@ public class EqualizerActivity extends FragmentActivity {
     };
 
     /**
-     * Initializes the ActionBar.
+     * Initializes the menu.
      */
-    private void showEqualizerActionBar(Menu menu) {
+    /*private void showEqualizerActionBar(Menu menu) {
 
         //Set the Actionbar color.
-        getActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
+        getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
 
         //Hide all menu items except the toggle button and "done" icon.
         menu.findItem(R.id.action_equalizer).setVisible(false);
@@ -1096,13 +1100,13 @@ public class EqualizerActivity extends FragmentActivity {
         menu.findItem(R.id.action_settings).setVisible(false);
         menu.findItem(R.id.action_done).setVisible(true);
 
-        /**
+        *//**
          * The Toggle button in the actionbar doesn't work at this point. The setChecked()
          * method doesn't do anything, so there's no way to programmatically set the
          * switch to its correct position when the equalizer fragment is first shown.
          * Users will just have to rely on the "Reset" button in the equalizer fragment
          * to effectively switch off the equalizer.
-         */
+         *//*
         menu.findItem(R.id.action_equalizer_toggle).setVisible(false); //Hide the toggle for now.
 
         //Set the toggle listener.
@@ -1163,7 +1167,7 @@ public class EqualizerActivity extends FragmentActivity {
                 return false;
         }
 
-    }
+    }*/
 
     @Override
     public void onPause() {

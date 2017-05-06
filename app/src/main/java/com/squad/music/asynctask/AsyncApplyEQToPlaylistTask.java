@@ -6,13 +6,13 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.squad.music.R;
+import com.squad.music.ui.activity.EqualizerActivity;
 
 public class AsyncApplyEQToPlaylistTask extends AsyncTask<String, Void, Boolean> {
     private Context mContext;
-    /*UNCOMMENT THIS*/
-    //private EqualizerActivity mEqualizerFragment;
+    private EqualizerActivity mEqualizerFragment;
     private ProgressDialog pd;
-    
+
 	int max = 10000;
 	int progressIncrement;
 	int progress = 0;
@@ -20,15 +20,14 @@ public class AsyncApplyEQToPlaylistTask extends AsyncTask<String, Void, Boolean>
 	String songArtist = "";
 	String titlePlaylist = "";
     String songAlbum = "";
-	
-    public AsyncApplyEQToPlaylistTask(Context context/*, EqualizerActivity fragment*/, String playlistName) {
+
+    public AsyncApplyEQToPlaylistTask(Context context, EqualizerActivity fragment, String playlistName) {
     	mContext = context;
-        /*UNCOMMENT THIS*/
-    	//mEqualizerFragment = fragment;
+    	mEqualizerFragment = fragment;
     	titlePlaylist = playlistName;
-    	
+
     }
-    
+
     protected void onPreExecute() {
 		pd = new ProgressDialog(mContext);
 		pd.setIndeterminate(false);
@@ -36,12 +35,12 @@ public class AsyncApplyEQToPlaylistTask extends AsyncTask<String, Void, Boolean>
 		pd.setCancelable(false);
 		pd.setTitle(mContext.getResources().getString(R.string.applying_equalizer_to) + " " + titlePlaylist);
 		pd.show();
-    	
+
     }
- 
+
     @Override
     protected Boolean doInBackground(String... params) {
-    	
+
     	/*int which = Integer.parseInt(params[0]);
     	
         //Get a cursor with the list of all user-created playlists.
@@ -87,30 +86,30 @@ public class AsyncApplyEQToPlaylistTask extends AsyncTask<String, Void, Boolean>
     	
 		playlistCursor.close();*/
     	return true;
-	    
+
     }
-    
+
     @Override
     protected void onProgressUpdate(Void... v) {
 		//Update the progress on the progress dialog.
 		progress = progress + progressIncrement;
 		pd.setProgress(progress);
 		pd.setMessage(mContext.getResources().getString(R.string.applying_to) + " " + songTitle);
-    	
+
     }
 
     @Override
     protected void onPostExecute(Boolean successStatus) {
     	pd.dismiss();
-    	
+
     	if (successStatus==true) {
-        	Toast.makeText(mContext, 
+        	Toast.makeText(mContext,
 		 				   mContext.getResources().getString(R.string.equalizer_applied_to_songs_in) + " " + titlePlaylist + ".",
 		 				   Toast.LENGTH_LONG).show();
     	} else {
         	Toast.makeText(mContext, R.string.error_occurred, Toast.LENGTH_LONG).show();
     	}
-		
+
 	}
 
 }

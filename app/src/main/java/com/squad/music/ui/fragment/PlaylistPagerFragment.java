@@ -1,10 +1,11 @@
 package com.squad.music.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +26,10 @@ import com.squad.music.R;
 import com.squad.music.animations.TranslateAnimation;
 import com.squad.music.helper.SongHelper;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.ui.activity.EqualizerActivity;
 import com.squad.music.ui.activity.NowPlayingActivity;
+import com.squad.music.ui.dialog.ABRepeatDialog;
+import com.squad.music.utility.imagetransformers.PicassoMirrorReflectionTransformer;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -36,28 +40,28 @@ import java.io.File;
 
 public class PlaylistPagerFragment extends Fragment implements SongHelper.AlbumArtLoadedListener {
 
-	private Context mContext;
-	private Common mApp;
-	private ViewGroup mRootView;
-	private int mPosition;
-	private SongHelper mSongHelper;
-	private PopupMenu popup;
+    private Context mContext;
+    private Common mApp;
+    private ViewGroup mRootView;
+    private int mPosition;
+    private SongHelper mSongHelper;
+    private PopupMenu popup;
 
     private RelativeLayout bottomDarkPatch;
     private RelativeLayout songInfoLayout;
-	private TextView songNameTextView;
-	private TextView artistAlbumNameTextView;
-	private ImageView coverArt;
-	private ImageView overflowIcon;
-	
-	private boolean mAreLyricsVisible = false;
-	private ScrollView mLyricsScrollView;
-	private TextView mLyricsTextView;
-	private TextView mLyricsEmptyTextView;
+    private TextView songNameTextView;
+    private TextView artistAlbumNameTextView;
+    private ImageView coverArt;
+    private ImageView overflowIcon;
+
+    private boolean mAreLyricsVisible = false;
+    private ScrollView mLyricsScrollView;
+    private TextView mLyricsTextView;
+    private TextView mLyricsEmptyTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        
+
         mContext = getActivity();
         mApp = (Common) mContext.getApplicationContext();
 
@@ -65,67 +69,42 @@ public class PlaylistPagerFragment extends Fragment implements SongHelper.AlbumA
         mPosition = getArguments().getInt("POSITION");
 
         overflowIcon = (ImageView) mRootView.findViewById(R.id.now_playing_overflow_icon);
-    	coverArt = (ImageView) mRootView.findViewById(R.id.coverArt);
+        coverArt = (ImageView) mRootView.findViewById(R.id.coverArt);
         bottomDarkPatch = (RelativeLayout) mRootView.findViewById(R.id.bottomDarkPatch);
         songInfoLayout = (RelativeLayout) mRootView.findViewById(R.id.songInfoLayout);
         songNameTextView = (TextView) mRootView.findViewById(R.id.songName);
-    	artistAlbumNameTextView = (TextView) mRootView.findViewById(R.id.artistAlbumName);
-    	
-    	mLyricsScrollView = (ScrollView) mRootView.findViewById(R.id.lyrics_scroll_view);
-    	mLyricsTextView = (TextView) mRootView.findViewById(R.id.lyrics);
-    	mLyricsEmptyTextView = (TextView) mRootView.findViewById(R.id.lyrics_empty);
-        
-    	mLyricsTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
-    	mLyricsEmptyTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
-    	songNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
-    	artistAlbumNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+        artistAlbumNameTextView = (TextView) mRootView.findViewById(R.id.artistAlbumName);
+
+        mLyricsScrollView = (ScrollView) mRootView.findViewById(R.id.lyrics_scroll_view);
+        mLyricsTextView = (TextView) mRootView.findViewById(R.id.lyrics);
+        mLyricsEmptyTextView = (TextView) mRootView.findViewById(R.id.lyrics_empty);
+
+        mLyricsTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+        mLyricsEmptyTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+        songNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+        artistAlbumNameTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
 
         //Allow the TextViews to scroll if they extend beyond the layout margins.
         songNameTextView.setSelected(true);
         artistAlbumNameTextView.setSelected(true);
-    	
-    	//Initialize the pop up menu.
-    	popup = new PopupMenu(getActivity(), overflowIcon);
-		popup.getMenuInflater().inflate(R.menu.now_playing_overflow_menu, popup.getMenu());
+
+        //Initialize the pop up menu.
+        popup = new PopupMenu(getActivity(), overflowIcon);
+        popup.getMenuInflater().inflate(R.menu.now_playing_overflow_menu, popup.getMenu());
         popup.setOnMenuItemClickListener(menuItemClickListener);
 
         mSongHelper = new SongHelper();
         mSongHelper.setAlbumArtLoadedListener(this);
 
-        if (mApp.getOrientation()==Common.ORIENTATION_LANDSCAPE)
+        if (mApp.getOrientation() == Common.ORIENTATION_LANDSCAPE)
             mSongHelper.populateSongData(mContext, mPosition);
-		else
-		    /*UNCOMMENT IT*/
+        else
+            mSongHelper.populateSongData(mContext, mPosition, new PicassoMirrorReflectionTransformer());
 
-            //mSongHelper.populateSongData(mContext, mPosition, new PicassoMirrorReflectionTransformer());
-
-    	songNameTextView.setText(mSongHelper.getTitle());
-    	artistAlbumNameTextView.setText(mSongHelper.getAlbum() + " - " + mSongHelper.getArtist());
+        songNameTextView.setText(mSongHelper.getTitle());
+        artistAlbumNameTextView.setText(mSongHelper.getAlbum() + " - " + mSongHelper.getArtist());
         overflowIcon.setOnClickListener(overflowClickListener);
 
-        //Kitkat padding.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            int navigationBarHeight = Common.getNavigationBarHeight(mContext);
-            int bottomPadding = songInfoLayout.getPaddingBottom();
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) bottomDarkPatch.getLayoutParams();
-
-            if (navigationBarHeight > 0) {
-                /* The nav bar already has padding, so remove the extra 15dp
-                 * padding that was applied in the layout file.
-                 */
-                int marginPixelsValue = (int) mApp.convertDpToPixels(15, mContext);
-                bottomPadding -= marginPixelsValue;
-                params.height -= marginPixelsValue;
-            }
-
-            bottomPadding += navigationBarHeight;
-            songInfoLayout.setPadding(0, 0, 0, bottomPadding);
-
-            params.height += navigationBarHeight;
-            bottomDarkPatch.setLayoutParams(params);
-
-        }
-    	
         return mRootView;
     }
 
@@ -156,11 +135,8 @@ public class PlaylistPagerFragment extends Fragment implements SongHelper.AlbumA
 
             switch (item.getItemId()) {
                 case R.id.equalizer:
-                    /*UNCOMMENT IT*/
-
-
-                    /*Intent intent = new Intent(getActivity(), EqualizerActivity.class);
-                    startActivity(intent);*/
+                    Intent intent = new Intent(getActivity(), EqualizerActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.save_clear_current_position:
                     String songId = mApp.getService().getCurrentSong().getId();
@@ -198,11 +174,9 @@ public class PlaylistPagerFragment extends Fragment implements SongHelper.AlbumA
 
                     break;
                 case R.id.a_b_repeat:
-                    /*UNCOMMENT IT*/
-
-                    /*FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                     ABRepeatDialog dialog = new ABRepeatDialog();
-                    dialog.show(ft, "repeatSongRangeDialog");*/
+                    dialog.show(ft, "repeatSongRangeDialog");
                     break;
                 case R.id.current_queue:
                     ((NowPlayingActivity) getActivity()).toggleCurrentQueueDrawer();
@@ -246,82 +220,82 @@ public class PlaylistPagerFragment extends Fragment implements SongHelper.AlbumA
     /**
      * Callback method for album art loading.
      */
-	@Override
-	public void albumArtLoaded() {
-		coverArt.setImageBitmap(mSongHelper.getAlbumArt());
-	}
+    @Override
+    public void albumArtLoaded() {
+        coverArt.setImageBitmap(mSongHelper.getAlbumArt());
+    }
 
     /**
      * Reads lyrics from the audio file's tag and displays them.
      */
-	class AsyncLoadLyricsTask extends AsyncTask<Boolean, Boolean, Boolean> {
+    class AsyncLoadLyricsTask extends AsyncTask<Boolean, Boolean, Boolean> {
 
-		String mLyrics = "";
-		
-		@Override
-		protected Boolean doInBackground(Boolean... arg0) {
-			String songFilePath = mApp.getService().getCurrentSong().getFilePath();
-			AudioFile audioFile = null;
-			Tag tag = null;
-			try {
-				audioFile = AudioFileIO.read(new File(songFilePath));
-				
-				if (audioFile!=null)
-					tag = audioFile.getTag();
-				else
-					return false;
-				
-				if (tag!=null)
-					mLyrics = tag.getFirst(FieldKey.LYRICS);
-				else
-					return false;
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			return true;
-		}
-		
-		@Override
-		public void onPostExecute(Boolean result) {
-			super.onPostExecute(result);
-			
-			if (mLyrics!=null && !mLyrics.isEmpty()) {
-				mLyricsTextView.setText(mLyrics);
-				mLyricsTextView.setVisibility(View.VISIBLE);
-				mLyricsEmptyTextView.setVisibility(View.INVISIBLE);
-			} else {
-				mLyrics = mContext.getResources().getString(R.string.no_embedded_lyrics_found);
-				mLyricsTextView.setText(mLyrics);
-				mLyricsTextView.setVisibility(View.INVISIBLE);
-				mLyricsEmptyTextView.setVisibility(View.VISIBLE);
-			}
-			
-			//Slide up the album art to show the lyrics.
-	    	TranslateAnimation slideUpAnimation = new TranslateAnimation(coverArt, 400, new AccelerateInterpolator(),
-					 													 View.INVISIBLE,
-					 													 Animation.RELATIVE_TO_SELF, 0.0f, 
-					 													 Animation.RELATIVE_TO_SELF, 0.0f, 
-					 													 Animation.RELATIVE_TO_SELF, 0.0f, 
-					 													 Animation.RELATIVE_TO_SELF, -2.0f);
+        String mLyrics = "";
 
-	    	slideUpAnimation.animate();
-	    	
-		}
-		
-	}
+        @Override
+        protected Boolean doInBackground(Boolean... arg0) {
+            String songFilePath = mApp.getService().getCurrentSong().getFilePath();
+            AudioFile audioFile = null;
+            Tag tag = null;
+            try {
+                audioFile = AudioFileIO.read(new File(songFilePath));
+
+                if (audioFile != null)
+                    tag = audioFile.getTag();
+                else
+                    return false;
+
+                if (tag != null)
+                    mLyrics = tag.getFirst(FieldKey.LYRICS);
+                else
+                    return false;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return true;
+        }
+
+        @Override
+        public void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+
+            if (mLyrics != null && !mLyrics.isEmpty()) {
+                mLyricsTextView.setText(mLyrics);
+                mLyricsTextView.setVisibility(View.VISIBLE);
+                mLyricsEmptyTextView.setVisibility(View.INVISIBLE);
+            } else {
+                mLyrics = mContext.getResources().getString(R.string.no_embedded_lyrics_found);
+                mLyricsTextView.setText(mLyrics);
+                mLyricsTextView.setVisibility(View.INVISIBLE);
+                mLyricsEmptyTextView.setVisibility(View.VISIBLE);
+            }
+
+            //Slide up the album art to show the lyrics.
+            TranslateAnimation slideUpAnimation = new TranslateAnimation(coverArt, 400, new AccelerateInterpolator(),
+                    View.INVISIBLE,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, 0.0f,
+                    Animation.RELATIVE_TO_SELF, -2.0f);
+
+            slideUpAnimation.animate();
+
+        }
+
+    }
 
     /**
      * Slides down the album art to hide lyrics.
      */
     private void hideLyrics() {
         TranslateAnimation slideDownAnimation = new TranslateAnimation(coverArt, 400, new DecelerateInterpolator(2.0f),
-                                                                       View.VISIBLE,
-                                                                       Animation.RELATIVE_TO_SELF, 0.0f,
-                                                                       Animation.RELATIVE_TO_SELF, 0.0f,
-                                                                       Animation.RELATIVE_TO_SELF, -2.0f,
-                                                                       Animation.RELATIVE_TO_SELF, 0.0f);
+                View.VISIBLE,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, -2.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f);
 
         slideDownAnimation.animate();
     }

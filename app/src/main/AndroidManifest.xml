@@ -219,6 +219,59 @@
             android:name=".ui.activity.EqualizerActivity"
             android:exported="true"
             android:label="@string/equalizer"></activity>
+
+        <!-- Large widget configuration activity -->
+
+        <activity android:name=".widget.LargeWidgetConfigActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Small widget configuration activity -->
+
+        <activity android:name=".widget.SmallWidgetConfigActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Dummy activity that launches Fragment dialogs from the Main Settings Activity -->
+
+        <activity
+            android:name=".ui.activity.PreferenceDialogLauncherActivity"
+            android:label="@string/app_name"></activity>
+
+        <!-- Now Playing Queue Activity -->
+
+        <activity
+            android:name=".ui.activity.NowPlayingQueueActivity"
+            android:label="@string/now_playing_queue"></activity>
+
+        <!-- Blacklist Manager -->
+
+        <activity
+            android:name=".ui.activity.BlacklistManagerActivity"
+            android:label="@string/title_activity_blacklist_manager"></activity>
+
+        <!-- Music Libraries Editor Activity -->
+
+        <activity
+            android:name=".ui.activity.MusicLibraryEditorActivity"
+            android:label="@string/music_library_editor"></activity>
+
+        <!-- Music Libraries Editor Activity -->
+
+        <activity
+            android:name=".ui.activity.PlaylistEditorActivity"
+            android:label="@string/playlists"></activity>
+
+        <activity
+            android:name=".ui.activity.BrowserSubListActivity"
+            android:label="@string/title_activity_browser_sub"></activity>
+        <activity
+            android:name=".ui.activity.BrowserSubGridActivity"
+            android:label="@string/title_activity_browsser_sub_grid"></activity>
     </application>
 
 </manifest>

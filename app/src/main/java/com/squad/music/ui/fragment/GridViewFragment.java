@@ -95,24 +95,6 @@ public class GridViewFragment extends Fragment {
             mGridView.setNumColumns(3);
         }
 
-        //KitKat translucent navigation/status bar.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            int topPadding = Common.getStatusBarHeight(mContext);
-
-            //Calculate navigation bar height.
-            int navigationBarHeight = 0;
-            int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
-            }
-
-            mGridViewContainer.setPadding(0, topPadding, 0, 0);
-            mGridView.setClipToPadding(false);
-            mGridView.setPadding(0, mGridView.getPaddingTop(), 0, navigationBarHeight);
-            mQuickScroll.setPadding(0, 0, 0, navigationBarHeight);
-
-        }
-
         //Set the empty views.
         mEmptyTextView = (TextView) mRootView.findViewById(R.id.empty_view_text);
         mEmptyTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Light"));

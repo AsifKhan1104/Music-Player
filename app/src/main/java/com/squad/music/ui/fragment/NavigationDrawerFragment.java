@@ -92,16 +92,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         browsersListView.setDividerHeight(0);
 
-        //KitKat translucent navigation/status bar.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            int navBarHeight = Common.getNavigationBarHeight(mContext);
-            if (browsersListView != null) {
-                browsersListView.setPadding(0, 0, 0, navBarHeight);
-                browsersListView.setClipToPadding(false);
-            }
-
-        }
-
         return rootView;
     }
 

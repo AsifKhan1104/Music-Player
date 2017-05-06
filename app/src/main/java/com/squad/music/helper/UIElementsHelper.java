@@ -261,9 +261,9 @@ public class UIElementsHelper {
 		
 		mApp = (Common) context.getApplicationContext();
 		
-		Drawable drawable = new ColorDrawable(0xFFB0120A);
+		Drawable drawable = new ColorDrawable(context.getResources().getColor(R.color.colorPrimary));
         if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLUE)) {
-			drawable = new ColorDrawable(0xFF0099CC);
+			drawable = new ColorDrawable(context.getResources().getColor(R.color.colorPrimary));
 			
 		} else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GRAY)) {
             drawable = new ColorDrawable(Color.parseColor("#555555"));

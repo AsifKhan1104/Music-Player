@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialogF
 
         //Check if this is the first time the app is being started.
         if (mApp.getSharedPreferences().getBoolean(Common.FIRST_RUN, true) == true) {
-            //showAlbumArtScanningDialog();
+            showAlbumArtScanningDialog();
             mApp.getSharedPreferences().edit().putBoolean(Common.FIRST_RUN, false).commit();
         }
     }

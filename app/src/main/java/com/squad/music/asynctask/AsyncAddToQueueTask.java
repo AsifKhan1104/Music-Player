@@ -125,7 +125,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                 }
 
             } else {
-				/* Loop through the mCursor of the songs that will be enqueued and add the 
+                /* Loop through the mCursor of the songs that will be enqueued and add the
 				 * loop's counter value to the size of the current mCursor. This will add 
 				 * the additional mCursor indeces of the new, merged mCursor to playbackIndecesList.
 				 */

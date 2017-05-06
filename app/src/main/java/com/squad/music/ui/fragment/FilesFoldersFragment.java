@@ -124,25 +124,6 @@ public class FilesFoldersFragment extends Fragment {
 
         listView.setDividerHeight(1);
 
-		//KitKat translucent navigation/status bar.
-        if (Build.VERSION.SDK_INT==Build.VERSION_CODES.KITKAT) {
-        	int topPadding = Common.getStatusBarHeight(mContext);
-
-            //Calculate navigation bar height.
-            int navigationBarHeight = 0;
-            int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
-            }
-            
-            if (rootView!=null) {
-            	rootView.setPadding(0, topPadding, 0, 0);
-            }
-            
-            listView.setClipToPadding(false);
-            listView.setPadding(0, 0, 0, navigationBarHeight);
-        }
-
         rootDir = mApp.getSharedPreferences().getString("DEFAULT_FOLDER", Environment.getExternalStorageDirectory().getPath());
         currentDir = rootDir;
         mHandler.postDelayed(new Runnable() {

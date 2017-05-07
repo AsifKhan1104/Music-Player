@@ -21,7 +21,7 @@
         android:id="@+id/save_clear_current_position"
         android:title="@string/save_current_position"/>
 
-	<item
+	<!--<item
 	    android:id="@+id/go_to"
-	    android:title="@string/go_to" />
+	    android:title="@string/go_to" />-->
 </menu>

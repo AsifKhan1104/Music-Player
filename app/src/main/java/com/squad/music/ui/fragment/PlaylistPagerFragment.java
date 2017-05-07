@@ -181,12 +181,12 @@ public class PlaylistPagerFragment extends Fragment implements SongHelper.AlbumA
                 case R.id.current_queue:
                     ((NowPlayingActivity) getActivity()).toggleCurrentQueueDrawer();
                     break;
-                case R.id.go_to:
+                /*case R.id.go_to:
                     PopupMenu goToPopupMenu = new PopupMenu(getActivity(), overflowIcon);
                     goToPopupMenu.inflate(R.menu.show_more_menu);
                     goToPopupMenu.setOnMenuItemClickListener(goToMenuClickListener);
                     goToPopupMenu.show();
-                    break;
+                    break;*/
             }
 
             return false;
@@ -222,7 +222,10 @@ public class PlaylistPagerFragment extends Fragment implements SongHelper.AlbumA
      */
     @Override
     public void albumArtLoaded() {
-        coverArt.setImageBitmap(mSongHelper.getAlbumArt());
+        if (mSongHelper.getAlbumArt() != null)
+            coverArt.setImageBitmap(mSongHelper.getAlbumArt());
+        else
+            coverArt.setBackgroundResource(R.drawable.cover_art_default);
     }
 
     /**

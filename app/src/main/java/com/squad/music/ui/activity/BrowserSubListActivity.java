@@ -6,8 +6,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -35,7 +35,7 @@ import com.squad.music.ui.fragment.QueueDrawerFragment;
 
 import java.util.HashMap;
 
-public class BrowserSubListActivity extends FragmentActivity {
+public class BrowserSubListActivity extends AppCompatActivity {
 
     //Context and common objects.
     private Context mContext;

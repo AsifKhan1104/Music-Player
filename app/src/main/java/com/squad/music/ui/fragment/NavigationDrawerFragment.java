@@ -3,7 +3,6 @@ package com.squad.music.ui.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -139,25 +138,25 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 case 0:
                     ((MainActivity) getActivity()).setCurrentFragmentId(Common.ARTISTS_FRAGMENT);
                     break;
-                case 1:
+                /*case 1:
                     ((MainActivity) getActivity()).setCurrentFragmentId(Common.ALBUM_ARTISTS_FRAGMENT);
-                    break;
-                case 2:
+                    break;*/
+                case 1:
                     ((MainActivity) getActivity()).setCurrentFragmentId(Common.ALBUMS_FRAGMENT);
                     break;
-                case 3:
+                case 2:
                     ((MainActivity) getActivity()).setCurrentFragmentId(Common.SONGS_FRAGMENT);
                     break;
-                case 4:
+                case 3:
                     ((MainActivity) getActivity()).setCurrentFragmentId(Common.PLAYLISTS_FRAGMENT);
                     break;
-                case 5:
+                case 4:
                     ((MainActivity) getActivity()).setCurrentFragmentId(Common.GENRES_FRAGMENT);
                     break;
-                case 6:
+                case 5:
                     ((MainActivity) getActivity()).setCurrentFragmentId(Common.FOLDERS_FRAGMENT);
                     break;
-                case 7:
+                case 6:
                     /*Intent intent = new Intent(getActivity(), SettingsActivity.class);
                     startActivity(intent);*/
                     break;

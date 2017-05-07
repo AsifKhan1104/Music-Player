@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.squad.music.Common;
@@ -33,6 +34,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
     private boolean mPlayNext = false;
     private String mPlayingNext = "";
     private boolean mShowToast = false;
+    private AppCompatActivity mActivity;
 
     public AsyncAddToQueueTask(Context context,
                                Fragment fragment,
@@ -57,6 +59,40 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
         mAlbumArtistName = albumArtistName;
 
         mFragment = fragment;
+        mEnqueueType = enqueueType;
+
+        if (mApp.getService() != null) {
+            if (mApp.getService().getPlaybackIndecesList() != null) {
+                originalPlaybackIndecesSize = mApp.getService().getPlaybackIndecesList().size();
+            }
+        } else {
+            mShowToast = true;
+        }
+    }
+
+    public AsyncAddToQueueTask(Context context,
+                               AppCompatActivity activity,
+                               String enqueueType,
+                               String artistName,
+                               String albumName,
+                               String songTitle,
+                               String genreName,
+                               String playlistId,
+                               String playlistName,
+                               String albumArtistName) {
+
+        mContext = context;
+        mApp = (Common) mContext;
+
+        mArtistName = artistName;
+        mAlbumName = albumName;
+        mSongTitle = songTitle;
+        mGenreName = genreName;
+        mPlaylistId = playlistId;
+        mPlaylistName = playlistName;
+        mAlbumArtistName = albumArtistName;
+
+        mActivity = activity;
         mEnqueueType = enqueueType;
 
         if (mApp.getService() != null) {
@@ -126,7 +162,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
 
             } else {
                 /* Loop through the mCursor of the songs that will be enqueued and add the
-				 * loop's counter value to the size of the current mCursor. This will add 
+                 * loop's counter value to the size of the current mCursor. This will add
 				 * the additional mCursor indeces of the new, merged mCursor to playbackIndecesList.
 				 */
                 for (int i = 0; i < mCursor.getCount(); i++) {
@@ -311,7 +347,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
             mPlayingNext = mContext.getResources().getString(R.string.the_most_recently_played_songs);
         } else if (mEnqueueType.equals("PLAYLIST")) {
            /* String selection = " AND " + DBAccessHelper.MUSIC_LIBRARY_PLAYLISTS_NAME + "." 
-            				 + DBAccessHelper.PLAYLIST_ID + "=" + "'" + mPlaylistId + "'";
+                             + DBAccessHelper.PLAYLIST_ID + "=" + "'" + mPlaylistId + "'";
             
             if (mApp.isGooglePlayMusicEnabled()) {
             	mCursor = dbHelper.getAllSongsInPlaylistSearchable(selection);
@@ -404,8 +440,13 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                     break;
                 }
 
-                mFragment.getActivity().startActivity(intent);
-                mFragment.getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                if (mFragment != null) {
+                    mFragment.getActivity().startActivity(intent);
+                    mFragment.getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                } else {
+                    mActivity.startActivity(intent);
+                    mActivity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                }
                 break;
             case 1:
                 int numberOfSongs = mCursor.getCount();

@@ -2,21 +2,29 @@ package com.squad.music.ui.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andraskindler.quickscroll.Scrollable;
 import com.squad.music.Common;
 import com.squad.music.R;
+import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.BrowserSubListActivity;
+import com.squad.music.ui.dialog.AddToPlaylistDialog;
+import com.squad.music.ui.dialog.CautionEditArtistsDialog;
+import com.squad.music.ui.dialog.ID3sArtistEditorDialog;
 
 import java.util.HashMap;
 
@@ -178,7 +186,7 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
         public void onClick(View v) {
             PopupMenu menu = new PopupMenu(mContext, v);
             menu.inflate(R.menu.artist_overflow_menu);
-            //menu.setOnMenuItemClickListener(popupMenuItemClickListener);
+            menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mName = (String) v.getTag(R.string.artist);
             menu.show();
 
@@ -188,8 +196,8 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
 
     /**
      * Menu item click listener for the pop up menu.
-     *//*
-    private OnMenuItemClickListener popupMenuItemClickListener = new OnMenuItemClickListener() {
+     */
+    private PopupMenu.OnMenuItemClickListener popupMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
 
 		@Override
 		public boolean onMenuItemClick(MenuItem item) {
@@ -198,7 +206,7 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
         	case R.id.edit_artist_tags:
         		//Edit Artist Tags.
         		if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true)==true) {
-            		FragmentTransaction transaction = mListViewFragment.getFragmentManager().beginTransaction();
+            		FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
             		Bundle bundle = new Bundle();
             		bundle.putString("EDIT_TYPE", "ARTIST");
             		bundle.putString("ARTIST", mName);
@@ -206,19 +214,19 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
             		dialog.setArguments(bundle);
             		dialog.show(transaction, "cautionArtistsDialog");
         		} else {
-    				FragmentTransaction ft = mListViewFragment.getFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
     				Bundle bundle = new Bundle();
     				bundle.putString("EDIT_TYPE", "ARTIST");
     				bundle.putString("ARTIST", mName);
     				ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
     				dialog.setArguments(bundle);
-    				dialog.show(ft, "id3ArtistEditorDialog");
+    				dialog.show(transaction, "id3ArtistEditorDialog");
         		}
         		break;
         	case R.id.add_to_queue: 
         		//Add to Queue.
         		AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
-        														   mListViewFragment,
+        														   mActivity,
         														   "ARTIST",
         														   mName, 
         														   null,
@@ -231,7 +239,7 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
         		break;
         	case R.id.play_next:
         		AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
-																		   mListViewFragment,
+																		   mActivity,
 																		   "ARTIST",
 																		   mName, 
 																		   null,
@@ -244,7 +252,7 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
         		break;
         	case R.id.add_to_playlist:
         		//Add to Playlist
-        		FragmentTransaction ft = mListViewFragment.getFragmentManager().beginTransaction();
+        		FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
 				AddToPlaylistDialog dialog = new AddToPlaylistDialog();
 				Bundle bundle = new Bundle();
 				bundle.putString("ADD_TYPE", "ARTIST");
@@ -258,8 +266,8 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
         		Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
         		
         		//Update the ListView.
-        		mListViewFragment.mHandler.post(mListViewFragment.queryRunnable);
-        		mListViewFragment.getListViewAdapter().notifyDataSetChanged();
+        		/*mListViewFragment.mHandler.post(mListViewFragment.queryRunnable);
+        		mListViewFragment.getListViewAdapter().notifyDataSetChanged();*/
 
         		break;
         	
@@ -268,7 +276,7 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
 			return false;
 		}
     	
-    };*/
+    };
 
     /**
      * Holder subclass for ListViewCardsAdapter.

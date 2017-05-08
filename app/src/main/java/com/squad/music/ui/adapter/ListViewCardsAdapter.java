@@ -27,6 +27,7 @@ import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.dialog.AddToPlaylistDialog;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
 import com.squad.music.ui.dialog.ID3sArtistEditorDialog;
+import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.utility.imagetransformers.PicassoCircularTransformer;
 
@@ -55,7 +56,8 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     public static final int FIELD_3 = 6;
     public static final int FIELD_4 = 7;
     public static final int FIELD_5 = 8;
-    
+    public static final int SONG_URI = 9;
+
     public ListViewCardsAdapter(Context context, ListViewFragment listViewFragment,
                                 HashMap<Integer, String> dbColumnsMap) {
     	
@@ -206,7 +208,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
 			PopupMenu menu = new PopupMenu(mContext, v);
 			menu.inflate(R.menu.artist_overflow_menu);
 			menu.setOnMenuItemClickListener(popupMenuItemClickListener);
-			mName = (String) v.getTag(R.string.artist);
+			mName = (String) v.getTag(R.string.file_path);
 		    menu.show();
 			
 		}
@@ -235,11 +237,11 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
         		} else {
     				FragmentTransaction ft = mListViewFragment.getFragmentManager().beginTransaction();
     				Bundle bundle = new Bundle();
-    				bundle.putString("EDIT_TYPE", "ARTIST");
-    				bundle.putString("ARTIST", mName);
-    				ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
+    				bundle.putString("EDIT_TYPE", "SONG");
+    				bundle.putString("SONG", mName);
+    				ID3sSongEditorDialog dialog = new ID3sSongEditorDialog();
     				dialog.setArguments(bundle);
-    				dialog.show(ft, "id3ArtistEditorDialog");
+    				dialog.show(ft, "id3SongEditorDialog");
         		}
         		break;
         	case R.id.add_to_queue:

@@ -43,6 +43,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
             android:layout_toLeftOf="@+id/quickscroll"
             android:drawSelectorOnTop="true"
             android:visibility="visible">

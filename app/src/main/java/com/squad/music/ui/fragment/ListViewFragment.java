@@ -115,8 +115,12 @@ public class ListViewFragment extends Fragment {
         options.inJustDecodeBounds = false;
         options.inPurgeable = true;
 
-        mHandler.postDelayed(queryRunnable, 400);
+        startRunnable();
         return mRootView;
+    }
+
+    public void startRunnable(){
+        mHandler.postDelayed(queryRunnable, 400);
     }
 
     /**

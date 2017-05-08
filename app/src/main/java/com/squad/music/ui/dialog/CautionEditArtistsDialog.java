@@ -28,7 +28,7 @@ public class CautionEditArtistsDialog extends DialogFragment {
     private TextView cautionText;
 
     private String EDIT_TYPE;
-    private String ARTIST;
+    private String SONG;
 
     private TextView dontShowAgainText;
     private CheckBox dontShowAgainCheckbox;
@@ -41,7 +41,7 @@ public class CautionEditArtistsDialog extends DialogFragment {
         dialogFragment = this;
 
         EDIT_TYPE = this.getArguments().getString("EDIT_TYPE");
-        ARTIST = this.getArguments().getString("ARTIST");
+        SONG = this.getArguments().getString("SONG");
 
         rootView = (View) parentActivity.getLayoutInflater().inflate(R.layout.fragment_caution_edit_artists, null);
 
@@ -99,10 +99,11 @@ public class CautionEditArtistsDialog extends DialogFragment {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putString("EDIT_TYPE", EDIT_TYPE);
-                bundle.putString("ARTIST", ARTIST);
-                ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
+                bundle.putString("SONG", SONG);
+                ID3sSongEditorDialog dialog = new ID3sSongEditorDialog();
+                dialog.setTargetFragment(dialogFragment.getTargetFragment(), 1);
                 dialog.setArguments(bundle);
-                dialog.show(ft, "id3ArtistEditorDialog");
+                dialog.show(ft, "id3SongEditorDialog");
 
             }
 

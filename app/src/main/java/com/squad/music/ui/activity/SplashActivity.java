@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -87,7 +88,7 @@ public class SplashActivity extends AppCompatActivity {
     // To check a single permission call (for marshmallow permission system)
     private void checkForPermissions() {
         if (!MarshMallowUtils.isPermissionGranted(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            MarshMallowUtils.requestPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_READ_PERMISSION, getString(R.string.permission_read_external_storage));
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_PERMISSION);
         } else {
             goToLauncherScreen();
         }

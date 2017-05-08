@@ -229,9 +229,10 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
         		if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true)==true) {
             		FragmentTransaction transaction = mListViewFragment.getFragmentManager().beginTransaction();
             		Bundle bundle = new Bundle();
-            		bundle.putString("EDIT_TYPE", "ARTIST");
-            		bundle.putString("ARTIST", mName);
+                    bundle.putString("EDIT_TYPE", "SONG");
+                    bundle.putString("SONG", mName);
             		CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
+                    dialog.setTargetFragment(mListViewFragment, 1);
             		dialog.setArguments(bundle);
             		dialog.show(transaction, "cautionArtistsDialog");
         		} else {
@@ -240,6 +241,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     				bundle.putString("EDIT_TYPE", "SONG");
     				bundle.putString("SONG", mName);
     				ID3sSongEditorDialog dialog = new ID3sSongEditorDialog();
+                    dialog.setTargetFragment(mListViewFragment, 1);
     				dialog.setArguments(bundle);
     				dialog.show(ft, "id3SongEditorDialog");
         		}

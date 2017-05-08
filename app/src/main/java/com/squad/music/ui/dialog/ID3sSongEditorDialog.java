@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.ui.fragment.ListViewFragment;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -760,6 +761,9 @@ public class ID3sSongEditorDialog extends DialogFragment {
                 }
 
             }
+
+            // Now refresh the fragment list
+            ((ListViewFragment) dialogFragment.getTargetFragment()).startRunnable();
 
         } else {
             Toast.makeText(mContext, R.string.unable_to_edit_song_tags, Toast.LENGTH_SHORT).show();

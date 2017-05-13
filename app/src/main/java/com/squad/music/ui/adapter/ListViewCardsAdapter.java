@@ -43,7 +43,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
 	private Common mApp;
 	private ListViewFragment mListViewFragment;
     public static ListViewHolder mHolder = null;
-    private String mName = "";
+    private String mSongSource = "", mSongTitle="";
     
     //HashMap for DB column names.
     private HashMap<Integer, String> mDBColumnsMap;
@@ -208,9 +208,10 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
 			PopupMenu menu = new PopupMenu(mContext, v);
 			menu.inflate(R.menu.artist_overflow_menu);
 			menu.setOnMenuItemClickListener(popupMenuItemClickListener);
-			mName = (String) v.getTag(R.string.file_path);
+			mSongSource = (String) v.getTag(R.string.file_path);
+			mSongTitle = (String) v.getTag(R.string.title_text);
 		    menu.show();
-			
+
 		}
     	
     };
@@ -230,7 +231,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
             		FragmentTransaction transaction = mListViewFragment.getFragmentManager().beginTransaction();
             		Bundle bundle = new Bundle();
                     bundle.putString("EDIT_TYPE", "SONG");
-                    bundle.putString("SONG", mName);
+                    bundle.putString("SONG", mSongSource);
             		CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
                     dialog.setTargetFragment(mListViewFragment, 1);
             		dialog.setArguments(bundle);
@@ -239,7 +240,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     				FragmentTransaction ft = mListViewFragment.getFragmentManager().beginTransaction();
     				Bundle bundle = new Bundle();
     				bundle.putString("EDIT_TYPE", "SONG");
-    				bundle.putString("SONG", mName);
+    				bundle.putString("SONG", mSongSource);
     				ID3sSongEditorDialog dialog = new ID3sSongEditorDialog();
                     dialog.setTargetFragment(mListViewFragment, 1);
     				dialog.setArguments(bundle);
@@ -250,10 +251,10 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
         		//Add to Queue.
         		AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
         														   mListViewFragment,
-        														   "ARTIST",
-        														   mName, 
+        														   "SONG",
         														   null,
-        														   null, 
+        														   null,
+        														   mSongTitle,
         														   null, 
         														   null,
         														   null,
@@ -264,7 +265,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
         		AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
 																		   mListViewFragment,
 																		   "ARTIST",
-																		   mName, 
+																		   mSongSource,
 																		   null,
 																		   null, 
 																		   null, 
@@ -279,13 +280,13 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
 				AddToPlaylistDialog dialog = new AddToPlaylistDialog();
 				Bundle bundle = new Bundle();
 				bundle.putString("ADD_TYPE", "ARTIST");
-				bundle.putString("ARTIST", mName);
+				bundle.putString("ARTIST", mSongSource);
 				dialog.setArguments(bundle);
 				dialog.show(ft, "AddToPlaylistDialog");
 				break;
         	case R.id.blacklist_artist:
         		//Blacklist Artist
-        		mApp.getDBAccessHelper().setBlacklistForArtist(mName, true);
+        		mApp.getDBAccessHelper().setBlacklistForArtist(mSongSource, true);
         		Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
         		
         		//Update the ListView.

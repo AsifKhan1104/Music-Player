@@ -107,16 +107,6 @@ public class QueueDrawerFragment extends Fragment {
 
         });
 
-        //KitKat translucent navigation/status bar.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            int navBarHeight = Common.getNavigationBarHeight(mContext);
-            if (mListView != null) {
-                mListView.setPadding(0, 0, 0, navBarHeight);
-                mListView.setClipToPadding(false);
-            }
-
-        }
-
         return rootView;
     }
 
@@ -200,22 +190,6 @@ public class QueueDrawerFragment extends Fragment {
 
             mListView.setDividerHeight(1);
             mListView.setFastScrollEnabled(true);
-
-            //KitKat ListView margins.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
-                //Calculate navigation bar height.
-                int navigationBarHeight = 0;
-                int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-                if (resourceId > 0) {
-                    navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
-                }
-
-                mListView.setClipToPadding(false);
-                mListView.setPadding(0, 0, 0, navigationBarHeight);
-
-            }
-
         }
 
         mListViewAdapter = new QueueDrawerAdapter(mContext, mApp.getService().getPlaybackIndecesList());

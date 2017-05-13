@@ -199,11 +199,11 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                         + DBAccessHelper.SONG_TITLE + "=" + "'" + mSongTitle + "'" + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'";
             } else {
-                selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
+                selection = /*DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
                         + DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbumName + "'" + " AND "
-                        + DBAccessHelper.SONG_TITLE + "=" + "'" + mSongTitle + "'" + " AND "
+                        + */DBAccessHelper.SONG_TITLE + "=" + "'" + mSongTitle + "'"/* + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'" + " AND "
-                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
+                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'"*/;
             }
 
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
@@ -481,19 +481,26 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
             Toast.makeText(mContext, "No song is playing", Toast.LENGTH_SHORT).show();
 
         //Send out a broadcast that loads the new queue across the app.
-        Intent intent = new Intent("com.squad.music.NEW_SONG_UPDATE_UI");
+        /*Intent intent = new Intent("com.squad.music.NEW_SONG_UPDATE_UI");
         intent.putExtra("MESSAGE", "com.squad.music.NEW_SONG_UPDATE_UI");
-        intent.putExtra("INIT_QUEUE_DRAWER_ADAPTER", true);
+        intent.putExtra("INIT_QUEUE_DRAWER_ADAPTER", true);*/
+
+        //Update the UI.
+        String[] updateFlags = new String[]{Common.NEW_QUEUE_ORDER};
+        String[] flagValues = new String[]{mApp.getService().getCurrentSongIndex() + ""};
+        mApp.broadcastUpdateUICommand(updateFlags, flagValues);
 
         //Start preparing the next song if the current song is the last track.
-        if (mApp.getService().getCurrentSongIndex() == (originalPlaybackIndecesSize - 1)) {
+        if (mApp.getService() != null) {
+            if (mApp.getService().getCurrentSongIndex() == (originalPlaybackIndecesSize - 1)) {
 
-            //Check if the service is running.
-            if (mApp.isServiceRunning()) {
-                mApp.getService().prepareAlternateMediaPlayer();
+                //Check if the service is running.
+                if (mApp.isServiceRunning()) {
+                    mApp.getService().prepareAlternateMediaPlayer();
+
+                }
 
             }
-
         }
 
     }

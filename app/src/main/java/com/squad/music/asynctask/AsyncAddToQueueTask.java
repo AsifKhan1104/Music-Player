@@ -173,7 +173,6 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                 }
 
                 mApp.getService().enqueueCursor(mCursor, mPlayNext);
-
             } else {
                 //The service doesn't seem to be running. We'll explicitly stop it, just in case, and then launch NowPlayingActivity.class.
                 Intent serviceIntent = new Intent(mContext, AudioPlaybackService.class);
@@ -478,6 +477,12 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
+
+        if (mPlayNext) {
+            //Check which mMediaPlayer is currently playing, and prepare the other mediaPlayer.
+            mApp.getService().prepareAlternateMediaPlayer();
+
+        }
 
         if (mShowToast) {
             Toast.makeText(mContext, mContext.getString(R.string.add_to_queue_no_song_playing), Toast.LENGTH_SHORT).show();

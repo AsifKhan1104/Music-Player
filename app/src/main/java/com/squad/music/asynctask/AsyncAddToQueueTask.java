@@ -111,77 +111,79 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
     @Override
     protected Boolean doInBackground(Boolean... params) {
 
-        //Specifies if the user is trying to add song(s) to play next.
-        if (params.length > 0) {
-            mPlayNext = params[0];
-        }
+        if (!mShowToast) {
+            //Specifies if the user is trying to add song(s) to play next.
+            if (params.length > 0) {
+                mPlayNext = params[0];
+            }
 
 
-        //Escape any rogue apostrophes.
-        if (mArtistName != null && mArtistName.contains("'")) {
-            mArtistName = mArtistName.replace("'", "''");
-        }
+            //Escape any rogue apostrophes.
+            if (mArtistName != null && mArtistName.contains("'")) {
+                mArtistName = mArtistName.replace("'", "''");
+            }
 
-        if (mAlbumName != null && mAlbumName.contains("'")) {
-            mAlbumName = mAlbumName.replace("'", "''");
-        }
+            if (mAlbumName != null && mAlbumName.contains("'")) {
+                mAlbumName = mAlbumName.replace("'", "''");
+            }
 
-        if (mSongTitle != null && mSongTitle.contains("'")) {
-            mSongTitle = mSongTitle.replace("'", "''");
-        }
+            if (mSongTitle != null && mSongTitle.contains("'")) {
+                mSongTitle = mSongTitle.replace("'", "''");
+            }
 
-        if (mGenreName != null && mGenreName.contains("''")) {
-            mGenreName = mGenreName.replace("'", "''");
-        }
+            if (mGenreName != null && mGenreName.contains("''")) {
+                mGenreName = mGenreName.replace("'", "''");
+            }
 
-        if (mAlbumArtistName != null && mAlbumArtistName.contains("'")) {
-            mAlbumArtistName = mAlbumArtistName.replace("'", "''");
-        }
+            if (mAlbumArtistName != null && mAlbumArtistName.contains("'")) {
+                mAlbumArtistName = mAlbumArtistName.replace("'", "''");
+            }
 
-        //Fetch the cursor based on the type of set of songs that are being enqueued.
-        assignCursor();
+            //Fetch the cursor based on the type of set of songs that are being enqueued.
+            assignCursor();
 
-        //Check if the service is currently active.
-        if (mApp.isServiceRunning()) {
+            //Check if the service is currently active.
+            if (mApp.isServiceRunning()) {
 
-            if (mPlayNext) {
+                if (mPlayNext) {
                 /* Loop through the mCursor of the songs that will be enqueued and add the
                  * loop's counter value to the size of the current mCursor. This will add
-				 * the additional mCursor indeces of the new, merged mCursor to playbackIndecesList. 
+				 * the additional mCursor indeces of the new, merged mCursor to playbackIndecesList.
 				 * The new indeces must be placed after the current song's index.
 				 */
-                int playNextIndex = 0;
-                if (mApp.isServiceRunning()) {
-                    playNextIndex = mApp.getService().getCurrentSongIndex() + 1;
-                }
+                    int playNextIndex = 0;
+                    if (mApp.isServiceRunning()) {
+                        playNextIndex = mApp.getService().getCurrentSongIndex() + 1;
+                    }
 
-                for (int i = 0; i < mCursor.getCount(); i++) {
-                    mApp.getService().getPlaybackIndecesList().add(playNextIndex + i,
-                            mApp.getService().getCursor().getCount() + i);
-                }
+                    for (int i = 0; i < mCursor.getCount(); i++) {
+                        mApp.getService().getPlaybackIndecesList().add(playNextIndex + i,
+                                mApp.getService().getCursor().getCount() + i);
+                    }
 
-            } else {
+                } else {
                 /* Loop through the mCursor of the songs that will be enqueued and add the
                  * loop's counter value to the size of the current mCursor. This will add
 				 * the additional mCursor indeces of the new, merged mCursor to playbackIndecesList.
 				 */
-                for (int i = 0; i < mCursor.getCount(); i++) {
-                    mApp.getService().getPlaybackIndecesList().add(mApp.getService().getCursor().getCount() + i);
+                    for (int i = 0; i < mCursor.getCount(); i++) {
+                        mApp.getService().getPlaybackIndecesList().add(mApp.getService().getCursor().getCount() + i);
+                    }
+
                 }
 
+                mApp.getService().enqueueCursor(mCursor, mPlayNext);
+
+            } else {
+                //The service doesn't seem to be running. We'll explicitly stop it, just in case, and then launch NowPlayingActivity.class.
+                Intent serviceIntent = new Intent(mContext, AudioPlaybackService.class);
+                mContext.stopService(serviceIntent);
+
+                publishProgress(new Integer[]{0});
             }
 
-            mApp.getService().enqueueCursor(mCursor, mPlayNext);
-
-        } else {
-            //The service doesn't seem to be running. We'll explicitly stop it, just in case, and then launch NowPlayingActivity.class.
-            Intent serviceIntent = new Intent(mContext, AudioPlaybackService.class);
-            mContext.stopService(serviceIntent);
-
-            publishProgress(new Integer[]{0});
+            publishProgress(new Integer[]{1});
         }
-
-        publishProgress(new Integer[]{1});
 
         return true;
     }
@@ -477,29 +479,30 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
     protected void onPostExecute(Boolean result) {
         super.onPostExecute(result);
 
-        if (mShowToast)
-            Toast.makeText(mContext, "No song is playing", Toast.LENGTH_SHORT).show();
+        if (mShowToast) {
+            Toast.makeText(mContext, mContext.getString(R.string.add_to_queue_no_song_playing), Toast.LENGTH_SHORT).show();
+        } else {
+            //Send out a broadcast that loads the new queue across the app.
+            /*Intent intent = new Intent("com.squad.music.NEW_SONG_UPDATE_UI");
+              intent.putExtra("MESSAGE", "com.squad.music.NEW_SONG_UPDATE_UI");
+              intent.putExtra("INIT_QUEUE_DRAWER_ADAPTER", true);*/
 
-        //Send out a broadcast that loads the new queue across the app.
-        /*Intent intent = new Intent("com.squad.music.NEW_SONG_UPDATE_UI");
-        intent.putExtra("MESSAGE", "com.squad.music.NEW_SONG_UPDATE_UI");
-        intent.putExtra("INIT_QUEUE_DRAWER_ADAPTER", true);*/
+            //Update the UI.
+            String[] updateFlags = new String[]{Common.UPDATE_PAGER_POSTIION};
+            String[] flagValues = new String[]{mApp.getService().getCurrentSongIndex() + ""};
+            mApp.broadcastUpdateUICommand(updateFlags, flagValues);
 
-        //Update the UI.
-        String[] updateFlags = new String[]{Common.UPDATE_PAGER_POSTIION};
-        String[] flagValues = new String[]{mApp.getService().getCurrentSongIndex() + ""};
-        mApp.broadcastUpdateUICommand(updateFlags, flagValues);
+            //Start preparing the next song if the current song is the last track.
+            if (mApp.getService() != null) {
+                if (mApp.getService().getCurrentSongIndex() == (originalPlaybackIndecesSize - 1)) {
 
-        //Start preparing the next song if the current song is the last track.
-        if (mApp.getService() != null) {
-            if (mApp.getService().getCurrentSongIndex() == (originalPlaybackIndecesSize - 1)) {
+                    //Check if the service is running.
+                    if (mApp.isServiceRunning()) {
+                        mApp.getService().prepareAlternateMediaPlayer();
 
-                //Check if the service is running.
-                if (mApp.isServiceRunning()) {
-                    mApp.getService().prepareAlternateMediaPlayer();
+                    }
 
                 }
-
             }
         }
 

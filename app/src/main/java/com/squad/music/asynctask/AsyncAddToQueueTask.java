@@ -486,7 +486,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
         intent.putExtra("INIT_QUEUE_DRAWER_ADAPTER", true);*/
 
         //Update the UI.
-        String[] updateFlags = new String[]{Common.NEW_QUEUE_ORDER};
+        String[] updateFlags = new String[]{Common.UPDATE_PAGER_POSTIION};
         String[] flagValues = new String[]{mApp.getService().getCurrentSongIndex() + ""};
         mApp.broadcastUpdateUICommand(updateFlags, flagValues);
 

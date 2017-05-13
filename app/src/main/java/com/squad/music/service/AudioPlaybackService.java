@@ -1029,11 +1029,11 @@ public class AudioPlaybackService extends Service {
         getCursor().moveToPosition(mPlaybackIndecesList.get(mCurrentSongIndex));
         mEnqueuePerformed = true;
 
-        if (playNext) {
+        /*if (playNext) {
             //Check which mMediaPlayer is currently playing, and prepare the other mediaPlayer.
             prepareAlternateMediaPlayer();
 
-        }
+        }*/
 
     }
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -52,7 +53,11 @@ public class AddToPlaylistDialog2 extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.custom_playlist_dialog, container, false);
+
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        View view = inflater.inflate(R.layout.custom_playlist_dialog, container, false);
+        return view;
     }
 
     @Override
@@ -67,7 +72,6 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         // Get field from view
         mLinearLayoutCreatePlaylist = (LinearLayout) view.findViewById(R.id.linear_layout_create_playlist);
         mLinearLayoutPlaylist = (LinearLayout) view.findViewById(R.id.linear_layout_playlist);
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         showPlaylistsInList(view);
 

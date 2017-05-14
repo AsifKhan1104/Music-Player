@@ -875,4 +875,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="add_to_queue_no_song_playing">No Song is playing. Kindly play a song.</string>
+    <string name="playlist_header">Playlist</string>
 </resources>

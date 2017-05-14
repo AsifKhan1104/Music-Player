@@ -24,7 +24,7 @@ import com.squad.music.R;
 import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
-import com.squad.music.ui.dialog.AddToPlaylistDialog;
+import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.ui.fragment.ListViewFragment;
@@ -41,7 +41,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     private Common mApp;
     private ListViewFragment mListViewFragment;
     public static ListViewHolder mHolder = null;
-    private String mSongSource = "", mSongTitle = "";
+    private String mSongSource = "", mSongTitle = "", mArtist = "";
 
     //HashMap for DB column names.
     private HashMap<Integer, String> mDBColumnsMap;
@@ -54,7 +54,6 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     public static final int FIELD_3 = 6;
     public static final int FIELD_4 = 7;
     public static final int FIELD_5 = 8;
-    public static final int SONG_URI = 9;
 
     public ListViewCardsAdapter(Context context, ListViewFragment listViewFragment,
                                 HashMap<Integer, String> dbColumnsMap) {
@@ -208,6 +207,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mSongSource = (String) v.getTag(R.string.file_path);
             mSongTitle = (String) v.getTag(R.string.title_text);
+            mArtist = (String) v.getTag(R.string.field_2);
             menu.show();
 
         }
@@ -274,13 +274,9 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     break;
                 case R.id.add_to_playlist:
                     //Add to Playlist
-                    FragmentTransaction ft = mListViewFragment.getFragmentManager().beginTransaction();
-                    AddToPlaylistDialog dialog = new AddToPlaylistDialog();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("ADD_TYPE", "ARTIST");
-                    bundle.putString("ARTIST", mSongSource);
-                    dialog.setArguments(bundle);
-                    dialog.show(ft, "AddToPlaylistDialog");
+                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance("ARTIST", mArtist);
+                    dialog.show(mListViewFragment.getFragmentManager(), "AddToPlaylistDialog");
+
                     break;
                 case R.id.blacklist_artist:
                     //Blacklist Artist

@@ -5,15 +5,25 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.database.MergeCursor;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 
 import com.squad.music.R;
+import com.squad.music.asynctask.AsyncAddSongsToPlaylistTask;
 import com.squad.music.asynctask.AsyncCreateNewPlaylistTask;
+import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddToPlaylistDialog extends DialogFragment {
 
@@ -30,71 +40,88 @@ public class AddToPlaylistDialog extends DialogFragment {
 
         mContext = getActivity().getApplicationContext();
 
-/*		//Retrieve the arguments.
-		ADD_TYPE = getArguments().getString("ADD_TYPE");
-		
-		if (ADD_TYPE.equals("ARTIST")) {
-			ARTIST = getArguments().getString("ARTIST");
-		} else if (ADD_TYPE.equals("ALBUM_ARTIST")) {
-			ALBUM_ARTIST = getArguments().getString("ALBUM_ARTIST");
-		} else if (ADD_TYPE.equals("ALBUM")) {
-			ARTIST = getArguments().getString("ARTIST");
-			ALBUM = getArguments().getString("ALBUM");
-		} else if (ADD_TYPE.equals("SONG")) {
-			ARTIST = getArguments().getString("ARTIST");
-			ALBUM = getArguments().getString("ALBUM");
-			SONG = getArguments().getString("SONG");
-		} else if (ADD_TYPE.equals("GENRE")) {
-			GENRE = getArguments().getString("GENRE");
-		} else if (ADD_TYPE.equals("ALBUM_BY_ALBUM_ARTIST")) {
-			ALBUM = getArguments().getString("ALBUM");
-			ALBUM_ARTIST = getArguments().getString("ALBUM_ARTIST");
-		}*/
+        //Retrieve the arguments.
+        ADD_TYPE = getArguments().getString("ADD_TYPE");
+
+        if (ADD_TYPE.equals("ARTIST")) {
+            ARTIST = getArguments().getString("ARTIST");
+        } else if (ADD_TYPE.equals("ALBUM_ARTIST")) {
+            ALBUM_ARTIST = getArguments().getString("ALBUM_ARTIST");
+        } else if (ADD_TYPE.equals("ALBUM")) {
+            ARTIST = getArguments().getString("ARTIST");
+            ALBUM = getArguments().getString("ALBUM");
+        } else if (ADD_TYPE.equals("SONG")) {
+            ARTIST = getArguments().getString("ARTIST");
+            ALBUM = getArguments().getString("ALBUM");
+            SONG = getArguments().getString("SONG");
+        } else if (ADD_TYPE.equals("GENRE")) {
+            GENRE = getArguments().getString("GENRE");
+        } else if (ADD_TYPE.equals("ALBUM_BY_ALBUM_ARTIST")) {
+            ALBUM = getArguments().getString("ALBUM");
+            ALBUM_ARTIST = getArguments().getString("ALBUM_ARTIST");
+        }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        /*String columns[] = { DBAccessHelper.PLAYLIST_NAME, DBAccessHelper._ID,
-        					 DBAccessHelper.PLAYLIST_FILE_PATH, DBAccessHelper.PLAYLIST_SOURCE,
-        					 DBAccessHelper.PLAYLIST_ID };
+        String columns[] = {DBAccessHelper.PLAYLIST_NAME, DBAccessHelper._ID,
+                DBAccessHelper.PLAYLIST_FILE_PATH, DBAccessHelper.PLAYLIST_SOURCE,
+                DBAccessHelper.PLAYLIST_ID};
         MatrixCursor matrixCursor = new MatrixCursor(columns);
-        matrixCursor.addRow(new String[] { getActivity().getResources().getString(R.string.new_playlist), "0", "0", "0", "0" });
-        
+        matrixCursor.addRow(new String[]{getActivity().getResources().getString(R.string.new_playlist), "0", "0", "0", "0"});
+
         DBAccessHelper playlistsDBHelper = new DBAccessHelper(getActivity()
-        																				    .getApplicationContext());
-        Cursor userPlaylistsCursor = playlistsDBHelper.getAllUniqueUserPlaylists();
-        final MergeCursor mergeCursor = new MergeCursor(new Cursor[] { matrixCursor, userPlaylistsCursor });
-        
+                .getApplicationContext());
+        /*Cursor userPlaylistsCursor = playlistsDBHelper.queryPlaylists(mContext);
+        List<String> playlists = iteratePlaylistCursor(userPlaylistsCursor);*/
+        final MergeCursor mergeCursor = new MergeCursor(new Cursor[]{matrixCursor, matrixCursor});
+
         //Set the dialog title.
         builder.setTitle(R.string.add_to_playlist);
         builder.setCursor(mergeCursor, new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				//Index 0 is the dummy playlist that will open the "New Playlist" dialog.
-				if (which==0) {
-					showNewPlaylistDialog();
-				} else {
-					mergeCursor.moveToPosition(which);
-					String playlistName = mergeCursor.getString(mergeCursor.getColumnIndex(DBAccessHelper.PLAYLIST_NAME));
-					String playlistId = mergeCursor.getString(mergeCursor.getColumnIndex(DBAccessHelper.PLAYLIST_ID));
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Index 0 is the dummy playlist that will open the "New Playlist" dialog.
+                if (which == 0) {
+                    showNewPlaylistDialog();
+                } else {
+                    mergeCursor.moveToPosition(which);
+                    String playlistName = mergeCursor.getString(mergeCursor.getColumnIndex(DBAccessHelper.PLAYLIST_NAME));
+                    String playlistId = mergeCursor.getString(mergeCursor.getColumnIndex(DBAccessHelper.PLAYLIST_ID));
 
-					AsyncAddSongsToPlaylistTask task = new AsyncAddSongsToPlaylistTask(mContext,
-																					   playlistName,
-																					   playlistId,
-																					   ARTIST,
-																					   ALBUM,
-																					   SONG,
-																					   GENRE,
-																					   ALBUM_ARTIST, 
-																					   ADD_TYPE);
-					task.execute();
-					
-				}
-				
-			}
-        	
-        }, DBAccessHelper.PLAYLIST_NAME);*/
+                    AsyncAddSongsToPlaylistTask task = new AsyncAddSongsToPlaylistTask(mContext,
+                            playlistName,
+                            playlistId,
+                            ARTIST,
+                            ALBUM,
+                            SONG,
+                            GENRE,
+                            ALBUM_ARTIST,
+                            ADD_TYPE);
+                    task.execute();
+
+                }
+
+            }
+
+        }, DBAccessHelper.PLAYLIST_NAME);
 
         return builder.create();
+    }
+
+    private List<String> iteratePlaylistCursor(Cursor c) {
+        List<String> list = new ArrayList<>();
+        c.moveToFirst();
+        do {
+            String plname = c.getString(c
+                    .getColumnIndex(MediaStore.Audio.Playlists.NAME));
+
+            long playlistId = c.getLong(c
+                    .getColumnIndex(MediaStore.Audio.Playlists._ID));
+
+            list.add(plname);
+        } while (c.moveToNext());
+
+        return list;
     }
 
     //Displays the "Add New Playlist" dialog.

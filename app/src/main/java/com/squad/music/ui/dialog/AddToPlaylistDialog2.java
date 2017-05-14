@@ -22,6 +22,7 @@ import com.squad.music.asynctask.AsyncAddSongsToPlaylistTask;
 import com.squad.music.asynctask.AsyncCreateNewPlaylistTask;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
 
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class AddToPlaylistDialog2 extends DialogFragment {
     private String ALBUM_ARTIST;
     private String SONG;
     private String GENRE;
+
+    private TextView mTextViewAddToPlaylist, mTextViewCreatePlaylist, mTextViewPlaylistLabel;
 
     public AddToPlaylistDialog2() {
         // Empty constructor is required for DialogFragment
@@ -64,22 +67,34 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.custom_playlist_dialog, container, false);
+        linkViewId(view);
+
         return view;
+    }
+
+    private void linkViewId(View view) {
+        mContext = getActivity().getApplicationContext();
+        // Get field from view
+        mLinearLayoutCreatePlaylist = (LinearLayout) view.findViewById(R.id.linear_layout_create_playlist);
+        mLinearLayoutPlaylist = (LinearLayout) view.findViewById(R.id.linear_layout_playlist);
+        mTextViewCreatePlaylist = (TextView) view.findViewById(R.id.text_view_create_playlist);
+        mTextViewAddToPlaylist = (TextView) view.findViewById(R.id.text_view_add_to_playlist);
+        mTextViewPlaylistLabel = (TextView) view.findViewById(R.id.text_view_playlist_label);
+
+        // set text color
+        mTextViewAddToPlaylist.setTextColor(UIElementsHelper.getThemeBasedTextColor(mContext));
+        mTextViewCreatePlaylist.setTextColor(UIElementsHelper.getSmallTextColor(mContext));
+        mTextViewPlaylistLabel.setTextColor(UIElementsHelper.getThemeBasedTextColor(mContext));
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mContext = getActivity().getApplicationContext();
         //Retrieve the arguments.
         ADD_TYPE = getArguments().getString("ADD_TYPE");
+
         setData();
-
-        // Get field from view
-        mLinearLayoutCreatePlaylist = (LinearLayout) view.findViewById(R.id.linear_layout_create_playlist);
-        mLinearLayoutPlaylist = (LinearLayout) view.findViewById(R.id.linear_layout_playlist);
-
         showPlaylistsInList(view);
 
         mLinearLayoutCreatePlaylist.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +156,8 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         public void onBindViewHolder(ViewHolder viewHolder, final int i) {
             String item = mItems.get(i).getPlaylistName();
             viewHolder.mTextView.setText(item);
+
+            viewHolder.mTextView.setTextColor(UIElementsHelper.getSmallTextColor(mContext));
 
             viewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

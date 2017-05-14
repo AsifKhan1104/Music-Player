@@ -25,7 +25,7 @@ import java.util.List;
 
 public class AddToPlaylistDialog2 extends DialogFragment {
 
-    private LinearLayout mLinearLayoutCreatePlaylist;
+    private LinearLayout mLinearLayoutCreatePlaylist, mLinearLayoutPlaylist;
     private Context mContext;
     private String ADD_TYPE;
     private String ARTIST;
@@ -66,6 +66,7 @@ public class AddToPlaylistDialog2 extends DialogFragment {
 
         // Get field from view
         mLinearLayoutCreatePlaylist = (LinearLayout) view.findViewById(R.id.linear_layout_create_playlist);
+        mLinearLayoutPlaylist = (LinearLayout) view.findViewById(R.id.linear_layout_playlist);
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         showPlaylistsInList(view);
@@ -105,10 +106,13 @@ public class AddToPlaylistDialog2 extends DialogFragment {
 
     private void showPlaylistsInList(View view) {
         ArrayList<Playlist> items = DBAccessHelper.getAllPlaylists(mContext);
-
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new RecyclerAdapter_PlaylistDialog(items));
+        if (items.size() > 0) {
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            recyclerView.setAdapter(new RecyclerAdapter_PlaylistDialog(items));
+        } else {
+            mLinearLayoutPlaylist.setVisibility(View.GONE);
+        }
     }
 
     public class RecyclerAdapter_PlaylistDialog extends RecyclerView.Adapter<RecyclerAdapter_PlaylistDialog.ViewHolder> {

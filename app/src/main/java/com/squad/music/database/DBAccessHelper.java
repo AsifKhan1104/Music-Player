@@ -1903,21 +1903,20 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         ContentResolver resolver = context.getContentResolver();
         Cursor c = resolver.query(uri, new String[]{"*"}, null, null,
                 null);
-        c.moveToFirst();
-        do {
-            Playlist playlist = new Playlist();
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            do {
+                Playlist playlist = new Playlist();
+                String plname = c.getString(c
+                        .getColumnIndex(MediaStore.Audio.Playlists.NAME));
+                long playlistId = c.getLong(c
+                        .getColumnIndex(MediaStore.Audio.Playlists._ID));
+                playlist.setPlaylistName(plname);
+                playlist.setPlaylistId(playlistId);
+                list.add(playlist);
 
-            String plname = c.getString(c
-                    .getColumnIndex(MediaStore.Audio.Playlists.NAME));
-
-            long playlistId = c.getLong(c
-                    .getColumnIndex(MediaStore.Audio.Playlists._ID));
-
-            playlist.setPlaylistName(plname);
-            playlist.setPlaylistId(playlistId);
-            list.add(playlist);
-
-        } while (c.moveToNext());
+            } while (c.moveToNext());
+        }
         c.close();
 
         return list;

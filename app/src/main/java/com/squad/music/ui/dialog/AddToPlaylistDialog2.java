@@ -85,6 +85,10 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         mTextViewAddToPlaylist.setTextColor(UIElementsHelper.getThemeBasedTextColor(mContext));
         mTextViewCreatePlaylist.setTextColor(UIElementsHelper.getSmallTextColor(mContext));
         mTextViewPlaylistLabel.setTextColor(UIElementsHelper.getThemeBasedTextColor(mContext));
+
+        mTextViewAddToPlaylist.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+        mTextViewCreatePlaylist.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+        mTextViewPlaylistLabel.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
     }
 
     @Override
@@ -138,7 +142,6 @@ public class AddToPlaylistDialog2 extends DialogFragment {
     }
 
     public class RecyclerAdapter_PlaylistDialog extends RecyclerView.Adapter<RecyclerAdapter_PlaylistDialog.ViewHolder> {
-
         private List<Playlist> mItems;
 
         public RecyclerAdapter_PlaylistDialog(List<Playlist> items) {
@@ -158,6 +161,7 @@ public class AddToPlaylistDialog2 extends DialogFragment {
             viewHolder.mTextView.setText(item);
 
             viewHolder.mTextView.setTextColor(UIElementsHelper.getSmallTextColor(mContext));
+            viewHolder.mTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
 
             viewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -280,7 +280,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     break;
                 case R.id.blacklist_artist:
                     //Blacklist Artist
-                    mApp.getDBAccessHelper().setBlacklistForArtist(mSongSource, true);
+                    mApp.getDBAccessHelper().setBlacklistForArtist(mArtist, true);
                     Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
 
                     //Update the ListView.

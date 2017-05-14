@@ -1,6 +1,9 @@
 package com.squad.music.ui.dialog;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -10,11 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squad.music.R;
+import com.squad.music.asynctask.AsyncAddSongsToPlaylistTask;
+import com.squad.music.asynctask.AsyncCreateNewPlaylistTask;
 import com.squad.music.database.DBAccessHelper;
+import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.model.Playlist;
 
 import java.util.ArrayList;
@@ -78,11 +85,7 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         mLinearLayoutCreatePlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //FragmentManager fm = getActivity().getFragmentManager();
-                /*CreatePlaylistDialogFragment fragment = CreatePlaylistDialogFragment.newInstance("dialog");
-                fragment.show(fm, "create_playlist");*/
-
-                // dismiss current dialog
+                showCreatePlaylistDialog();
                 getDialog().dismiss();
             }
         });
@@ -135,9 +138,28 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        public void onBindViewHolder(ViewHolder viewHolder, final int i) {
             String item = mItems.get(i).getPlaylistName();
             viewHolder.mTextView.setText(item);
+
+            viewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    AsyncAddSongsToPlaylistTask task = new AsyncAddSongsToPlaylistTask(mContext,
+                            mItems.get(i).getPlaylistName(),
+                            String.valueOf(mItems.get(i).getPlaylistId()),
+                            ARTIST,
+                            ALBUM,
+                            SONG,
+                            GENRE,
+                            ALBUM_ARTIST,
+                            ADD_TYPE);
+                    task.execute();
+
+                    getDialog().dismiss();
+                }
+            });
         }
 
         @Override
@@ -156,5 +178,49 @@ public class AddToPlaylistDialog2 extends DialogFragment {
                 mTextView = (TextView) v.findViewById(R.id.item);
             }
         }
+    }
+
+    //Displays the "Add New Playlist" dialog.
+    public void showCreatePlaylistDialog() {
+        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.add_new_playlist_dialog_layout, null);
+        final EditText newPlaylistEditText = (EditText) dialogView.findViewById(R.id.new_playlist_name_text_field);
+        newPlaylistEditText.setTypeface(TypefaceHelper.getTypeface(getActivity(), "RobotoCondensed-Light"));
+        newPlaylistEditText.setPaintFlags(newPlaylistEditText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.new_playlist);
+        builder.setView(dialogView);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Retrieve the name of the new playlist.
+                String playlistName = newPlaylistEditText.getText().toString();
+                AsyncCreateNewPlaylistTask task = new AsyncCreateNewPlaylistTask(mContext,
+                        playlistName,
+                        ARTIST,
+                        ALBUM,
+                        SONG,
+                        GENRE,
+                        ALBUM_ARTIST,
+                        ADD_TYPE);
+                task.execute();
+                dialog.dismiss();
+
+            }
+
+        });
+
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+
+        });
+
+        builder.create().show();
     }
 }

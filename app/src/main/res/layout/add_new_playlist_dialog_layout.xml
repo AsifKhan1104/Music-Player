@@ -1,17 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
-    
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="25dp">
+
     <TextView
         android:id="@+id/add_songs_to_playlist_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
         android:text="@string/enter_playlist_name"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <EditText
         android:id="@+id/new_playlist_name_text_field"
@@ -19,10 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/add_songs_to_playlist_info"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
         android:layout_below="@+id/add_songs_to_playlist_info"
+        android:layout_marginLeft="-5dp"
         android:ems="10"
-        android:hint="@string/playlist_name" />
+        android:hint="@string/playlist_name"/>
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.service.AudioPlaybackService;
 import com.squad.music.ui.activity.NowPlayingActivity;
+import com.squad.music.utility.AppConstants;
 
 public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
 
@@ -192,7 +193,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
 
         DBAccessHelper dbHelper = new DBAccessHelper(mContext);
 
-        if (mEnqueueType.equals("SONG")) {
+        if (mEnqueueType.equals(AppConstants.KEY_SONG)) {
             String selection = null;
             if (mApp.isGooglePlayMusicEnabled()) {
                 selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
@@ -415,7 +416,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                     } else if (mEnqueueType.equals("ALBUM_ARTIST")) {
                         intent.putExtra("CALLING_FRAGMENT", "ALBUM_ARTISTS_FLIPPED_FRAGMENT");
                         intent.putExtra("PLAY_ALL", "ALBUM_ARTIST");
-                    } else if (mEnqueueType.equals("SONG")) {
+                    } else if (mEnqueueType.equals(AppConstants.KEY_SONG)) {
                         intent.putExtra("CALLING_FRAGMENT", "SONGS_FRAGMENT");
                         intent.putExtra("SEARCHED", true);
                     } else if (mEnqueueType.equals("ALBUM_BY_ALBUM_ARTIST")) {

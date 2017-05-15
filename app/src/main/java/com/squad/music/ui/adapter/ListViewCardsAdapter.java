@@ -250,7 +250,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     //Add to Queue.
                     AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
                             mListViewFragment,
-                            "SONG",
+                            AppConstants.KEY_SONG,
                             null,
                             null,
                             mSongTitle,
@@ -263,7 +263,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                 case R.id.play_next:
                     AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
                             mListViewFragment,
-                            "SONG",
+                            AppConstants.KEY_SONG,
                             null,
                             null,
                             mSongTitle,

@@ -22,6 +22,7 @@ import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.ui.fragment.ListViewFragment;
+import com.squad.music.utility.AppConstants;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -361,7 +362,7 @@ public class ID3sSongEditorDialog extends DialogFragment {
         });
 
         //Get the song uri.
-        SONG_URI = getArguments().getString("SONG");
+        SONG_URI = getArguments().getString(AppConstants.KEY_SONG);
 
         //Get the calling Fragment and retrieve the child view from it.
         CALLING_FRAGMENT = getArguments().getString("CALLING_FRAGMENT");

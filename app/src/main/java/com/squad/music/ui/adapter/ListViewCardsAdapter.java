@@ -28,6 +28,7 @@ import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.ui.fragment.ListViewFragment;
+import com.squad.music.utility.AppConstants;
 import com.squad.music.utility.imagetransformers.PicassoCircularTransformer;
 
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     private Common mApp;
     private ListViewFragment mListViewFragment;
     public static ListViewHolder mHolder = null;
-    private String mSongSource = "", mSongTitle = "", mArtist = "";
+    private String mFilePath = "", mSongTitle = "", mArtist = "";
 
     //HashMap for DB column names.
     private HashMap<Integer, String> mDBColumnsMap;
@@ -205,7 +206,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
             PopupMenu menu = new PopupMenu(mContext, v);
             menu.inflate(R.menu.artist_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
-            mSongSource = (String) v.getTag(R.string.file_path);
+            mFilePath = (String) v.getTag(R.string.file_path);
             mSongTitle = (String) v.getTag(R.string.title_text);
             mArtist = (String) v.getTag(R.string.field_2);
             menu.show();
@@ -228,8 +229,8 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true) == true) {
                         FragmentTransaction transaction = mListViewFragment.getFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();
-                        bundle.putString("EDIT_TYPE", "SONG");
-                        bundle.putString("SONG", mSongSource);
+                        bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_SONG);
+                        bundle.putString(AppConstants.KEY_SONG, mFilePath);
                         CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
                         dialog.setTargetFragment(mListViewFragment, 1);
                         dialog.setArguments(bundle);
@@ -237,8 +238,8 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     } else {
                         FragmentTransaction ft = mListViewFragment.getFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();
-                        bundle.putString("EDIT_TYPE", "SONG");
-                        bundle.putString("SONG", mSongSource);
+                        bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_SONG);
+                        bundle.putString(AppConstants.KEY_SONG, mFilePath);
                         ID3sSongEditorDialog dialog = new ID3sSongEditorDialog();
                         dialog.setTargetFragment(mListViewFragment, 1);
                         dialog.setArguments(bundle);
@@ -274,7 +275,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     break;
                 case R.id.add_to_playlist:
                     //Add to Playlist
-                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance("ARTIST", mArtist);
+                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance("SONG", mSongTitle);
                     dialog.show(mListViewFragment.getFragmentManager(), "AddToPlaylistDialog");
 
                     break;

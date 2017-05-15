@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.utility.AppConstants;
 
 public class CautionEditArtistsDialog extends DialogFragment {
 
@@ -40,8 +41,8 @@ public class CautionEditArtistsDialog extends DialogFragment {
         parentActivity = getActivity();
         dialogFragment = this;
 
-        EDIT_TYPE = this.getArguments().getString("EDIT_TYPE");
-        SONG = this.getArguments().getString("SONG");
+        EDIT_TYPE = this.getArguments().getString(AppConstants.EDIT_TYPE);
+        SONG = this.getArguments().getString(AppConstants.KEY_SONG);
 
         rootView = (View) parentActivity.getLayoutInflater().inflate(R.layout.fragment_caution_edit_artists, null);
 
@@ -98,8 +99,8 @@ public class CautionEditArtistsDialog extends DialogFragment {
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Bundle bundle = new Bundle();
-                bundle.putString("EDIT_TYPE", EDIT_TYPE);
-                bundle.putString("SONG", SONG);
+                bundle.putString(AppConstants.EDIT_TYPE, EDIT_TYPE);
+                bundle.putString(AppConstants.KEY_SONG, SONG);
                 ID3sSongEditorDialog dialog = new ID3sSongEditorDialog();
                 dialog.setTargetFragment(dialogFragment.getTargetFragment(), 1);
                 dialog.setArguments(bundle);

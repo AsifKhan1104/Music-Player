@@ -51,11 +51,11 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         // Use `newInstance` instead as shown below
     }
 
-    public static AddToPlaylistDialog2 newInstance(String addType, String artist) {
+    public static AddToPlaylistDialog2 newInstance(String addType, String songTitle) {
         AddToPlaylistDialog2 frag = new AddToPlaylistDialog2();
         Bundle args = new Bundle();
         args.putString("ADD_TYPE", addType);
-        args.putString("ARTIST", artist);
+        args.putString("SONG", songTitle);
         frag.setArguments(args);
         return frag;
     }
@@ -89,6 +89,8 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         mTextViewAddToPlaylist.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
         mTextViewCreatePlaylist.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
         mTextViewPlaylistLabel.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+
+        mLinearLayoutCreatePlaylist.setBackgroundResource(R.drawable.selectable_background_appthemelight);
     }
 
     @Override
@@ -162,6 +164,7 @@ public class AddToPlaylistDialog2 extends DialogFragment {
 
             viewHolder.mTextView.setTextColor(UIElementsHelper.getSmallTextColor(mContext));
             viewHolder.mTextView.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+            viewHolder.mTextView.setBackgroundResource(R.drawable.selectable_background_appthemelight);
 
             viewHolder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

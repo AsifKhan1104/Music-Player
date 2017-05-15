@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.squad.music.R;
 import com.squad.music.asynctask.AsyncAddSongsToPlaylistTask;
-import com.squad.music.asynctask.AsyncCreateNewPlaylistTask;
+import com.squad.music.asynctask.AsyncCreateNewPlaylistTask2;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
@@ -217,7 +217,7 @@ public class AddToPlaylistDialog2 extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 //Retrieve the name of the new playlist.
                 String playlistName = newPlaylistEditText.getText().toString();
-                AsyncCreateNewPlaylistTask task = new AsyncCreateNewPlaylistTask(mContext,
+                AsyncCreateNewPlaylistTask2 task = new AsyncCreateNewPlaylistTask2(mContext,
                         playlistName,
                         ARTIST,
                         ALBUM,

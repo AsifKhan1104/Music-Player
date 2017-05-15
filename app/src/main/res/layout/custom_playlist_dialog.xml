@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/create_playlist"
+            android:text="@string/new_playlist"
             android:textSize="@dimen/text_size_medium"/>
     </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.squad.music.database;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.squad.music.Common;
 import com.squad.music.R;
@@ -16,6 +18,8 @@ import com.squad.music.model.Playlist;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
 
 /**
  * SQLite database implementation. Note that this class
@@ -1896,7 +1900,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             * @param context the context to use
 	 * @return The queried cursor.
 	 */
-
     public static ArrayList<Playlist> getAllPlaylists(Context context) {
         ArrayList<Playlist> list = new ArrayList<>();
         Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;

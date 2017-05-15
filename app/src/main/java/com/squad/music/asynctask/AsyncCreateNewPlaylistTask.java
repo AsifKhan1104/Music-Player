@@ -116,7 +116,7 @@ public class AsyncCreateNewPlaylistTask extends AsyncTask<String, Integer, Boole
     			mCursor.moveToPosition(i);
     			String songSource = mCursor.getString(mCursor.getColumnIndex(DBAccessHelper.SONG_SOURCE));
     			
-    			 This if/else block will handle the different operations that need to be 
+    			 This if/else block will handle the different operations that need to be
     			 * done/ommitted for each different song type (Google Play Music vs local
     			 * song file).
     			 

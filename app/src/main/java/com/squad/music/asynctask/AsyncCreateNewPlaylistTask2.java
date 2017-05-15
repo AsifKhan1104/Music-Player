@@ -62,11 +62,21 @@ public class AsyncCreateNewPlaylistTask2 extends AsyncTask<String, Integer, Bool
 
     @Override
     protected Boolean doInBackground(String... params) {
+
+        //Replace illegal characters in the playlistName.
+        if (mPlaylistName.contains("/")) {
+            mPlaylistName = mPlaylistName.replace("/", "_");
+        }
+
+        if (mPlaylistName.contains("\\")) {
+            mPlaylistName = mPlaylistName.replace("\\", "_");
+        }
+
         boolean flag = createPlaylist(mPlaylistName);
         if (flag)
-            publishProgress(0);
+            publishProgress(new Integer[]{0});
         else
-            publishProgress(1);
+            publishProgress(new Integer[]{1});
 
         return true;
     }
@@ -76,11 +86,9 @@ public class AsyncCreateNewPlaylistTask2 extends AsyncTask<String, Integer, Bool
         super.onProgressUpdate(values);
         switch (values[0]) {
             case 0:
-                //Common.displayToast(R.string.playlist_created, Toast.LENGTH_SHORT);
                 Toast.makeText(mContext, R.string.playlist_created, Toast.LENGTH_SHORT).show();
                 break;
             case 1:
-                //Common.displayToast(R.string.playlist_could_not_be_created, Toast.LENGTH_SHORT);
                 Toast.makeText(mContext, R.string.playlist_could_not_be_created, Toast.LENGTH_SHORT).show();
                 break;
         }

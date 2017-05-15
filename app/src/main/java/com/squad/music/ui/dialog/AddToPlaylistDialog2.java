@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squad.music.R;
-import com.squad.music.asynctask.AsyncAddSongsToPlaylistTask;
+import com.squad.music.asynctask.AsyncAddSongsToPlaylistTask2;
 import com.squad.music.asynctask.AsyncCreateNewPlaylistTask2;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
@@ -167,7 +167,7 @@ public class AddToPlaylistDialog2 extends DialogFragment {
                 @Override
                 public void onClick(View v) {
 
-                    AsyncAddSongsToPlaylistTask task = new AsyncAddSongsToPlaylistTask(mContext,
+                    AsyncAddSongsToPlaylistTask2 task = new AsyncAddSongsToPlaylistTask2(mContext,
                             mItems.get(i).getPlaylistName(),
                             String.valueOf(mItems.get(i).getPlaylistId()),
                             ARTIST,

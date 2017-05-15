@@ -137,45 +137,4 @@ public class AsyncCreateNewPlaylistTask2 extends AsyncTask<String, Integer, Bool
         flag = true;
         return flag;
     }
-
-    private void addSongToPlaylist(ContentResolver resolver, long audioId, long playlistId) {
-
-        String[] cols = new String[]{
-                "count(*)"
-        };
-
-        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId);
-        Cursor cur = resolver.query(uri, cols, null, null, null);
-        cur.moveToFirst();
-        final int base = cur.getInt(0);
-        cur.close();
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Audio.Playlists.Members.PLAY_ORDER, Long.valueOf(base + audioId));
-        values.put(MediaStore.Audio.Playlists.Members.AUDIO_ID, audioId);
-        resolver.insert(uri, values);
-    }
-
-    private long getSongAudioId(String artist, String album, String title) {
-        artist = artist.replace("'", "''");
-        album = album.replace("'", "''");
-        title = title.replace("'", "''");
-
-        String selection = MediaStore.Audio.AudioColumns.ALBUM + "=" + "'" + album + "'" + " AND "
-                + MediaStore.Audio.AudioColumns.ARTIST + "=" + "'" + artist + "'" + " AND "
-                + MediaStore.Audio.AudioColumns.TITLE + "=" + "'" + title + "'";
-
-        Cursor cursor = mContext.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                null,
-                selection,
-                null,
-                null);
-
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            return cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID));
-        } else {
-            return -1;
-        }
-
-    }
 }

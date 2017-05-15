@@ -275,7 +275,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     break;
                 case R.id.add_to_playlist:
                     //Add to Playlist
-                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance("SONG", mSongTitle);
+                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_SONG, mSongTitle);
                     dialog.show(mListViewFragment.getFragmentManager(), "AddToPlaylistDialog");
 
                     break;

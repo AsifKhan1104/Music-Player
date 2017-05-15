@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
+import com.squad.music.utility.AppConstants;
 
 public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boolean> {
     private Context mContext;
@@ -113,7 +114,7 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
     private void assignCursor() {
         DBAccessHelper dbHelper = new DBAccessHelper(mContext);
 
-        if (mAddType.equals("SONG")) {
+        if (mAddType.equals(AppConstants.KEY_SONG)) {
             String selection = /*DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
                         + DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbumName + "'" + " AND "
                         + */DBAccessHelper.SONG_TITLE + "=" + "'" + mSong + "'"/* + " AND "

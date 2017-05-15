@@ -24,6 +24,7 @@ import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
+import com.squad.music.utility.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +55,8 @@ public class AddToPlaylistDialog2 extends DialogFragment {
     public static AddToPlaylistDialog2 newInstance(String addType, String songTitle) {
         AddToPlaylistDialog2 frag = new AddToPlaylistDialog2();
         Bundle args = new Bundle();
-        args.putString("ADD_TYPE", addType);
-        args.putString("SONG", songTitle);
+        args.putString(AppConstants.ADD_TYPE, addType);
+        args.putString(AppConstants.KEY_SONG, songTitle);
         frag.setArguments(args);
         return frag;
     }
@@ -98,7 +99,7 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Retrieve the arguments.
-        ADD_TYPE = getArguments().getString("ADD_TYPE");
+        ADD_TYPE = getArguments().getString(AppConstants.ADD_TYPE);
 
         setData();
         showPlaylistsInList(view);
@@ -120,10 +121,10 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         } else if (ADD_TYPE.equals("ALBUM")) {
             ARTIST = getArguments().getString("ARTIST");
             ALBUM = getArguments().getString("ALBUM");
-        } else if (ADD_TYPE.equals("SONG")) {
+        } else if (ADD_TYPE.equals(AppConstants.KEY_SONG)) {
             ARTIST = getArguments().getString("ARTIST");
             ALBUM = getArguments().getString("ALBUM");
-            SONG = getArguments().getString("SONG");
+            SONG = getArguments().getString(AppConstants.KEY_SONG);
         } else if (ADD_TYPE.equals("GENRE")) {
             GENRE = getArguments().getString("GENRE");
         } else if (ADD_TYPE.equals("ALBUM_BY_ALBUM_ARTIST")) {

@@ -99,7 +99,7 @@ public class ID3sSongEditorDialog extends DialogFragment {
         parentActivity = getActivity();
         dialogFragment = this;
 
-        rootView = (View) parentActivity.getLayoutInflater().inflate(R.layout.fragment_edit_id3_artist_album_dialog, null);
+        rootView = (View) parentActivity.getLayoutInflater().inflate(R.layout.fragment_edit_id3_song_dialog, null);
 
         titleText = (TextView) rootView.findViewById(R.id.edit_title_text);
         artistText = (TextView) rootView.findViewById(R.id.edit_artist_text);

@@ -217,16 +217,16 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                     DBAccessHelper.SONG_TITLE + " ASC");
 
             mPlayingNext = mSongTitle;
-        } else if (mEnqueueType.equals("ARTIST")) {
+        } else if (mEnqueueType.equals(AppConstants.KEY_ARTIST)) {
             String selection = null;
-            if (mApp.isGooglePlayMusicEnabled()) {
+            /*if (mApp.isGooglePlayMusicEnabled()) {
                 selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'";
-            } else {
+            } else {*/
                 selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
-                        + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'" + " AND "
-                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
-            }
+                        + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'"/* + " AND "
+                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'"*/;
+            /*}*/
 
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,
@@ -398,7 +398,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                 if (mCursor.getCount() > 0) {
                     mCursor.moveToFirst();
 
-                    if (mEnqueueType.equals("ARTIST")) {
+                    if (mEnqueueType.equals(AppConstants.KEY_ARTIST)) {
                         intent.putExtra("PLAY_ALL", "ARTIST");
                         intent.putExtra("CALLING_FRAGMENT", "ARTISTS_FLIPPED_FRAGMENT");
                     } else if (mEnqueueType.equals("ALBUM_ARTIST")) {

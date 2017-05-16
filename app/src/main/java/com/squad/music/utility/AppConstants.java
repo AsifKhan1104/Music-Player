@@ -17,12 +17,12 @@ public interface AppConstants {
         String SETTINGS = "Settings";
     }
 
-    String KEY_SONG = "Song";
-    String KEY_ARTIST = "Artist";
-    String KEY_ALBUM_ARTIST = "AlbumArtist";
-    String KEY_ALBUM = "Album";
-    String KEY_GENRE = "Genre";
-    String KEY_ALBUM_BY_ALBUM_ARTIST = "AlbumByAlbumArtist";
+    String KEY_SONG = "SONG";
+    String KEY_ARTIST = "ARTIST";
+    String KEY_ALBUM_ARTIST = "ALBUM_ARTIST";
+    String KEY_ALBUM = "ALBUM";
+    String KEY_GENRE = "GENRE";
+    String KEY_ALBUM_BY_ALBUM_ARTIST = "ALBUM_BY_ALBUM_ARTIST";
 
     String EDIT_TYPE = "EditType";
     String ADD_TYPE = "AddType";

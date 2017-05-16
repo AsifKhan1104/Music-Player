@@ -299,7 +299,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     //Add to Queue.
                     AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
                             mGridViewFragment,
-                            "ARTIST",
+                            AppConstants.KEY_ARTIST,
                             mArtist,
                             null,
                             null,
@@ -312,7 +312,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                 case R.id.play_next:
                     AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
                             mGridViewFragment,
-                            "ARTIST",
+                            AppConstants.KEY_ARTIST,
                             mArtist,
                             null,
                             null,

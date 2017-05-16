@@ -204,7 +204,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
         @Override
         public void onClick(View v) {
             PopupMenu menu = new PopupMenu(mContext, v);
-            menu.inflate(R.menu.artist_overflow_menu);
+            menu.inflate(R.menu.song_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mFilePath = (String) v.getTag(R.string.file_path);
             mSongTitle = (String) v.getTag(R.string.title_text);

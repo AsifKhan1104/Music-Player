@@ -198,6 +198,7 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
 
         //Load the album art.
         mApp.getPicasso().load(artworkPath)
+                .fit()
                 .placeholder(UIElementsHelper.getEmptyColorPatch(mContext))
                 .into(mHolder.gridViewArt);
 

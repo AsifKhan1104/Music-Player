@@ -877,5 +877,6 @@
     <string name="add_to_queue_no_song_playing">No Song is playing. Kindly play a song.</string>
     <string name="playlist_header">Playlist</string>
     <string name="song_added_to_playlist">Song added to Playlist.</string>
+    <string name="songs_added_to_playlist">Songs added to Playlist.</string>
     <string name="song_added_to_playlist_failed">Some error occurred.</string>
 </resources>

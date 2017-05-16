@@ -30,6 +30,7 @@ import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.dialog.AddToPlaylistDialog;
+import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
 import com.squad.music.ui.dialog.ID3sArtistEditorDialog;
 import com.squad.music.ui.fragment.GridViewFragment;
@@ -324,13 +325,8 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     break;
                 case R.id.add_to_playlist:
                     //Add to Playlist
-                    FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
-                    AddToPlaylistDialog dialog = new AddToPlaylistDialog();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("ADD_TYPE", "ARTIST");
-                    bundle.putString("ARTIST", mArtist);
-                    dialog.setArguments(bundle);
-                    dialog.show(ft, "AddToPlaylistDialog");
+                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_ARTIST, mArtist);
+                    dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
                     break;
                 case R.id.blacklist_artist:
                     //Blacklist Artist

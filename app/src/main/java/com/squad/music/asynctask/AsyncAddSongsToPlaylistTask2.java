@@ -69,20 +69,21 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
                     long audioId = getSongAudioId(artist, album, title);
                     if (audioId != -1) {
                         addSongToPlaylist(mContext.getContentResolver(), audioId, Long.parseLong(mPlaylistId));
-
-                        //Show a confirmation toast message.
-                        publishProgress(new Integer[]{0});
                     }
 
                 } catch (Exception e) {
                     //Just fail silently if this song can't be inserted into the playlist.
                     e.printStackTrace();
+                    publishProgress(new Integer[]{1});
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
+                publishProgress(new Integer[]{1});
             }
         }
+        //Show a confirmation toast message.
+        publishProgress(new Integer[]{0});
 
         return true;
     }
@@ -92,7 +93,10 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
         super.onProgressUpdate(values);
         switch (values[0]) {
             case 0:
-                Toast.makeText(mContext, R.string.song_added_to_playlist, Toast.LENGTH_SHORT).show();
+                if (mCursor.getCount() == 1)
+                    Toast.makeText(mContext, R.string.song_added_to_playlist, Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(mContext, R.string.songs_added_to_playlist, Toast.LENGTH_SHORT).show();
                 break;
             case 1:
                 Toast.makeText(mContext, R.string.song_added_to_playlist_failed, Toast.LENGTH_SHORT).show();
@@ -115,11 +119,8 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
         DBAccessHelper dbHelper = new DBAccessHelper(mContext);
 
         if (mAddType.equals(AppConstants.KEY_SONG)) {
-            String selection = /*DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
-                        + DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbumName + "'" + " AND "
-                        + */DBAccessHelper.SONG_TITLE + "=" + "'" + mSong + "'"/* + " AND "
-                        + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'" + " AND "
-                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'"*/;
+            String selection = DBAccessHelper.SONG_TITLE + "=" + "'" + mSong + "'" + " AND "
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
 
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,
@@ -129,9 +130,9 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
                     null,
                     DBAccessHelper.SONG_TITLE + " ASC");
 
-        } else if (mAddType.equals("ARTIST")) {
+        } else if (mAddType.equals(AppConstants.KEY_ARTIST)) {
             String selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtist + "'" + " AND "
-                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'";
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
 
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,

@@ -23,6 +23,7 @@ public interface AppConstants {
     String KEY_ALBUM = "ALBUM";
     String KEY_GENRE = "GENRE";
     String KEY_ALBUM_BY_ALBUM_ARTIST = "ALBUM_BY_ALBUM_ARTIST";
+    String KEY_PLAYLIST = "PLAYLIST";
 
     String EDIT_TYPE = "EditType";
     String ADD_TYPE = "AddType";

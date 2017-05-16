@@ -52,11 +52,11 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         // Use `newInstance` instead as shown below
     }
 
-    public static AddToPlaylistDialog2 newInstance(String addType, String songTitle) {
+    public static AddToPlaylistDialog2 newInstance(String addType, String value) {
         AddToPlaylistDialog2 frag = new AddToPlaylistDialog2();
         Bundle args = new Bundle();
         args.putString(AppConstants.ADD_TYPE, addType);
-        args.putString(AppConstants.KEY_SONG, songTitle);
+        args.putString(constructKey(addType), value);
         frag.setArguments(args);
         return frag;
     }
@@ -114,22 +114,22 @@ public class AddToPlaylistDialog2 extends DialogFragment {
     }
 
     private void setData() {
-        if (ADD_TYPE.equals("ARTIST")) {
-            ARTIST = getArguments().getString("ARTIST");
-        } else if (ADD_TYPE.equals("ALBUM_ARTIST")) {
-            ALBUM_ARTIST = getArguments().getString("ALBUM_ARTIST");
-        } else if (ADD_TYPE.equals("ALBUM")) {
-            ARTIST = getArguments().getString("ARTIST");
-            ALBUM = getArguments().getString("ALBUM");
+        if (ADD_TYPE.equals(AppConstants.KEY_ARTIST)) {
+            ARTIST = getArguments().getString(AppConstants.KEY_ARTIST);
+        } else if (ADD_TYPE.equals(AppConstants.KEY_ALBUM_ARTIST)) {
+            ALBUM_ARTIST = getArguments().getString(AppConstants.KEY_ALBUM_ARTIST);
+        } else if (ADD_TYPE.equals(AppConstants.KEY_ALBUM)) {
+            ARTIST = getArguments().getString(AppConstants.KEY_ARTIST);
+            ALBUM = getArguments().getString(AppConstants.KEY_ALBUM);
         } else if (ADD_TYPE.equals(AppConstants.KEY_SONG)) {
-            ARTIST = getArguments().getString("ARTIST");
-            ALBUM = getArguments().getString("ALBUM");
+            ARTIST = getArguments().getString(AppConstants.KEY_ARTIST);
+            ALBUM = getArguments().getString(AppConstants.KEY_ALBUM);
             SONG = getArguments().getString(AppConstants.KEY_SONG);
-        } else if (ADD_TYPE.equals("GENRE")) {
-            GENRE = getArguments().getString("GENRE");
-        } else if (ADD_TYPE.equals("ALBUM_BY_ALBUM_ARTIST")) {
-            ALBUM = getArguments().getString("ALBUM");
-            ALBUM_ARTIST = getArguments().getString("ALBUM_ARTIST");
+        } else if (ADD_TYPE.equals(AppConstants.KEY_GENRE)) {
+            GENRE = getArguments().getString(AppConstants.KEY_GENRE);
+        } else if (ADD_TYPE.equals(AppConstants.KEY_ALBUM_BY_ALBUM_ARTIST)) {
+            ALBUM = getArguments().getString(AppConstants.KEY_ALBUM);
+            ALBUM_ARTIST = getArguments().getString(AppConstants.KEY_ALBUM_ARTIST);
         }
     }
 
@@ -247,5 +247,14 @@ public class AddToPlaylistDialog2 extends DialogFragment {
         });
 
         builder.create().show();
+    }
+
+    private static String constructKey(String addType) {
+        if (addType.equals(AppConstants.KEY_SONG)) {
+            return AppConstants.KEY_SONG;
+        } else if (addType.equals(AppConstants.KEY_ARTIST)) {
+            return AppConstants.KEY_ARTIST;
+        }
+        return AppConstants.KEY_SONG;
     }
 }

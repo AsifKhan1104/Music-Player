@@ -195,19 +195,21 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
 
         if (mEnqueueType.equals(AppConstants.KEY_SONG)) {
             String selection = null;
-            if (mApp.isGooglePlayMusicEnabled()) {
+            /*if (mApp.isGooglePlayMusicEnabled()) {
                 selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
                         + DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbumName + "'" + " AND "
                         + DBAccessHelper.SONG_TITLE + "=" + "'" + mSongTitle + "'" + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'";
             } else {
-                selection = /*DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
+                selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
                         + DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbumName + "'" + " AND "
-                        + */DBAccessHelper.SONG_TITLE + "=" + "'" + mSongTitle + "'"/* + " AND "
-                        + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'" + " AND "
-                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'"*/;
-            }
+                        + DBAccessHelper.SONG_TITLE + "=" + "'" + mSongTitle + "'" + " AND "
+                        + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'" + " AND "
+                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
+            }*/
 
+            selection = DBAccessHelper.SONG_TITLE + "=" + "'" + mSongTitle + "'" + " AND "
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,
                     selection,
@@ -222,12 +224,14 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
             /*if (mApp.isGooglePlayMusicEnabled()) {
                 selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'";
-            } else {*/
-                selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
-                        + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'"/* + " AND "
-                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'"*/;
-            /*}*/
+            } else {
+            selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'" + " AND "
+                        + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
+            }*/
 
+            selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,
                     selection,
@@ -348,15 +352,15 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
             mCursor = dbHelper.getRecentlyPlayedSongs(selection);
             mPlayingNext = mContext.getResources().getString(R.string.the_most_recently_played_songs);
         } else if (mEnqueueType.equals("PLAYLIST")) {
-           /* String selection = " AND " + DBAccessHelper.MUSIC_LIBRARY_PLAYLISTS_NAME + "." 
+           /* String selection = " AND " + DBAccessHelper.MUSIC_LIBRARY_PLAYLISTS_NAME + "."
                              + DBAccessHelper.PLAYLIST_ID + "=" + "'" + mPlaylistId + "'";
-            
+
             if (mApp.isGooglePlayMusicEnabled()) {
             	mCursor = dbHelper.getAllSongsInPlaylistSearchable(selection);
             } else {
             	mCursor = dbHelper.getLocalSongsInPlaylistSearchable(selection);
             }
-    		
+
             mPlayingNext = mPlaylistName;*/
         } else if (mEnqueueType.equals("GENRE")) {
 

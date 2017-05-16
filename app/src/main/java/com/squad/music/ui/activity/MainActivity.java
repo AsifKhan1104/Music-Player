@@ -3,8 +3,10 @@ package com.squad.music.ui.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
@@ -32,7 +35,7 @@ import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.ui.fragment.NavigationDrawerFragment;
 import com.squad.music.ui.fragment.QueueDrawerFragment;
 
-public class MainActivity extends AppCompatActivity implements TimePickerDialogFragment.onSelectListener {
+public class MainActivity extends AppCompatActivity implements TimePickerDialogFragment.onSelectListener, View.OnClickListener {
     //Context and Common object(s).
     private Context mContext;
     private Common mApp;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialogF
     private Toolbar mToolbar;
     private QueueDrawerFragment mQueueDrawerFragment;
     private Menu mMenu;
+    private FloatingActionButton mFloatingActionButton1, mFloatingActionButton2;
 
     //Current fragment params.
     private Fragment mCurrentFragment;
@@ -93,6 +97,13 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialogF
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_activity_drawer_root);
         mNavDrawerLayout = (RelativeLayout) findViewById(R.id.nav_drawer_container);
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);
+
+        mFloatingActionButton1 = (FloatingActionButton) findViewById(R.id.floating_action_menu_item1);
+        mFloatingActionButton2 = (FloatingActionButton) findViewById(R.id.floating_action_menu_item2);
+
+        // on click listeners
+        mFloatingActionButton1.setOnClickListener(this);
+        mFloatingActionButton2.setOnClickListener(this);
 
         setToolBar();
         setDrawer();
@@ -509,5 +520,36 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialogF
         NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.nav_drawer_container);
         navigationDrawerFragment.updateTimerText(millis, flag);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.floating_action_menu_item1:
+                openAppInGooglePlay(this.getPackageName());
+
+                break;
+            case R.id.floating_action_menu_item2:
+                String packageName = this.getPackageName();
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "Here is the link for this amazing app - " + "https://play.google.com/store/apps/details?id=" + packageName);
+
+                try {
+                    startActivity(Intent.createChooser(intent, "Share"));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    // (handle error)
+                }
+
+                break;
+        }
+    }
+
+    private void openAppInGooglePlay(String packageName) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
+        } catch (android.content.ActivityNotFoundException e) { // if there is no Google Play on device
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+        }
     }
 }

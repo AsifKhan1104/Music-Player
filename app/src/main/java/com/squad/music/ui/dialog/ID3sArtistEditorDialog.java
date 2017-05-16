@@ -24,6 +24,9 @@ import android.widget.Toast;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.ui.fragment.GridViewFragment;
+import com.squad.music.ui.fragment.ListViewFragment;
+import com.squad.music.utility.AppConstants;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -49,60 +52,14 @@ public class ID3sArtistEditorDialog extends DialogFragment {
     private DialogFragment dialogFragment;
     private View rootView;
 
-    private TextView titleText;
     private TextView artistText;
-    private TextView albumText;
-    private TextView albumArtistText;
-    private TextView genreText;
-    private TextView producerText;
-    private TextView yearText;
-    private TextView trackText;
-    private TextView ofText;
-    private TextView commentsText;
-
-    private EditText titleEditText;
     private EditText artistEditText;
-    private EditText albumEditText;
-    private EditText albumArtistEditText;
-    private EditText genreEditText;
-    private EditText producerEditText;
-    private EditText yearEditText;
-    private EditText trackEditText;
-    private EditText trackTotalEditText;
-    private EditText commentsEditText;
-
-    private CheckBox titleCheckbox;
     private CheckBox artistCheckbox;
-    private CheckBox albumCheckbox;
-    private CheckBox albumArtistCheckbox;
-    private CheckBox genreCheckbox;
-    private CheckBox producerCheckbox;
-    private CheckBox yearCheckbox;
-    private CheckBox trackCheckbox;
-    private CheckBox commentCheckbox;
-
-    private boolean titleEdited = false;
     private boolean artistEdited = false;
-    private boolean albumEdited = false;
-    private boolean albumArtistEdited = false;
-    private boolean genreEdited = false;
-    private boolean producerEdited = false;
-    private boolean yearEdited = false;
-    private boolean trackEdited = false;
-    private boolean commentEdited = false;
 
     private String ARTIST;
 
-    private ArrayList<String> titlesList = new ArrayList<String>();
     private ArrayList<String> artistsList = new ArrayList<String>();
-    private ArrayList<String> albumsList = new ArrayList<String>();
-    private ArrayList<String> albumArtistsList = new ArrayList<String>();
-    private ArrayList<String> genresList = new ArrayList<String>();
-    private ArrayList<String> producersList = new ArrayList<String>();
-    private ArrayList<String> yearsList = new ArrayList<String>();
-    private ArrayList<String> trackNumbersList = new ArrayList<String>();
-    private ArrayList<String> totalTracksList = new ArrayList<String>();
-    private ArrayList<String> commentsList = new ArrayList<String>();
     private ArrayList<String> songURIsList = new ArrayList<String>();
 
     @Override
@@ -113,126 +70,25 @@ public class ID3sArtistEditorDialog extends DialogFragment {
         dialogFragment = this;
 
         //Get the artist name.
-        ARTIST = getArguments().getString("ARTIST");
+        ARTIST = getArguments().getString(AppConstants.KEY_ARTIST);
 
-        rootView = (View) parentActivity.getLayoutInflater().inflate(R.layout.fragment_edit_id3_artist_album_dialog, null);
+        rootView = (View) parentActivity.getLayoutInflater().inflate(R.layout.fragment_edit_id3_artist_dialog, null);
 
-        titleText = (TextView) rootView.findViewById(R.id.edit_title_text);
         artistText = (TextView) rootView.findViewById(R.id.edit_artist_text);
-        albumText = (TextView) rootView.findViewById(R.id.edit_album_text);
-        albumArtistText = (TextView) rootView.findViewById(R.id.edit_album_artist_text);
-        genreText = (TextView) rootView.findViewById(R.id.edit_genre_text);
-        producerText = (TextView) rootView.findViewById(R.id.edit_producer_text);
-        yearText = (TextView) rootView.findViewById(R.id.edit_year_text);
-        trackText = (TextView) rootView.findViewById(R.id.edit_track_text);
-        ofText = (TextView) rootView.findViewById(R.id.text_of);
-        commentsText = (TextView) rootView.findViewById(R.id.edit_comment_text);
-
-        titleEditText = (EditText) rootView.findViewById(R.id.edit_title_field);
         artistEditText = (EditText) rootView.findViewById(R.id.edit_artist_field);
-        albumEditText = (EditText) rootView.findViewById(R.id.edit_album_field);
-        albumArtistEditText = (EditText) rootView.findViewById(R.id.edit_album_artist_field);
-        genreEditText = (EditText) rootView.findViewById(R.id.edit_genre_field);
-        producerEditText = (EditText) rootView.findViewById(R.id.edit_producer_field);
-        yearEditText = (EditText) rootView.findViewById(R.id.edit_year_field);
-        trackEditText = (EditText) rootView.findViewById(R.id.edit_track_field);
-        trackTotalEditText = (EditText) rootView.findViewById(R.id.edit_track_total_field);
-        commentsEditText = (EditText) rootView.findViewById(R.id.edit_comment_field);
-
-        titleCheckbox = (CheckBox) rootView.findViewById(R.id.title_checkbox);
         artistCheckbox = (CheckBox) rootView.findViewById(R.id.artist_checkbox);
-        albumCheckbox = (CheckBox) rootView.findViewById(R.id.album_checkbox);
-        albumArtistCheckbox = (CheckBox) rootView.findViewById(R.id.album_artist_checkbox);
-        genreCheckbox = (CheckBox) rootView.findViewById(R.id.genre_checkbox);
-        producerCheckbox = (CheckBox) rootView.findViewById(R.id.producer_checkbox);
-        yearCheckbox = (CheckBox) rootView.findViewById(R.id.year_checkbox);
-        trackCheckbox = (CheckBox) rootView.findViewById(R.id.track_checkbox);
-        commentCheckbox = (CheckBox) rootView.findViewById(R.id.comment_checkbox);
-
-        titleText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
         artistText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        albumText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        albumArtistText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        genreText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        producerText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        yearText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        trackText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        ofText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        commentsText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-
-        titleText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        artistText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        albumText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        albumArtistText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        genreText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        producerText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        yearText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        trackText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        ofText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-        commentsText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
-
-        titleEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
+        artistText.setPaintFlags(artistText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
         artistEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        albumEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        albumArtistEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        genreEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        producerEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        yearEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        trackEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        trackTotalEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-        commentsEditText.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
-
-        titleEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        artistEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        albumEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        albumArtistEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        genreEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        producerEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        yearEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        trackEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        trackTotalEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
-        commentsEditText.setPaintFlags(titleText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+        artistEditText.setPaintFlags(artistText.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
 
         //Keep all the fields locked by default.
-        titleCheckbox.setChecked(false);
         artistCheckbox.setChecked(false);
-        albumCheckbox.setChecked(false);
-        albumArtistCheckbox.setChecked(false);
-        genreCheckbox.setChecked(false);
-        producerCheckbox.setChecked(false);
-        yearCheckbox.setChecked(false);
-        trackCheckbox.setChecked(false);
-        commentCheckbox.setChecked(false);
 
         //Disable all EditTexts by default.
-        titleEditText.setEnabled(false);
         artistEditText.setEnabled(false);
-        albumEditText.setEnabled(false);
-        albumArtistEditText.setEnabled(false);
-        genreEditText.setEnabled(false);
-        producerEditText.setEnabled(false);
-        yearEditText.setEnabled(false);
-        trackEditText.setEnabled(false);
-        commentsEditText.setEnabled(false);
 
         //Register click registers on each checkbox.
-        titleCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton checkbox, boolean checked) {
-
-                if (checked == true) {
-                    titleEdited = true;
-                    titleEditText.setEnabled(true);
-                } else {
-                    titleEdited = false;
-                    titleEditText.setEnabled(false);
-                }
-
-            }
-
-        });
-
         artistCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
             @Override
@@ -245,132 +101,6 @@ public class ID3sArtistEditorDialog extends DialogFragment {
                 } else {
                     artistEdited = false;
                     artistEditText.setEnabled(false);
-                }
-
-            }
-
-        });
-
-        albumArtistCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton checkbox, boolean checked) {
-
-                if (checked == true) {
-                    albumEdited = true;
-                    albumEditText.setEnabled(true);
-                    ;
-                } else {
-                    albumEdited = false;
-                    albumEditText.setEnabled(false);
-                }
-
-            }
-
-        });
-
-        albumCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton checkbox, boolean checked) {
-
-                if (checked == true) {
-                    albumArtistEdited = true;
-                    albumArtistEditText.setEnabled(true);
-                    ;
-                } else {
-                    albumArtistEdited = false;
-                    albumArtistEditText.setEnabled(false);
-                }
-
-            }
-
-        });
-
-        genreCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton checkbox, boolean checked) {
-
-                if (checked == true) {
-                    genreEdited = true;
-                    genreEditText.setEnabled(true);
-                    ;
-                } else {
-                    genreEdited = false;
-                    genreEditText.setEnabled(false);
-                }
-
-            }
-
-        });
-
-        producerCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton checkbox, boolean checked) {
-
-                if (checked == true) {
-                    producerEdited = true;
-                    producerEditText.setEnabled(true);
-                    ;
-                } else {
-                    producerEdited = false;
-                    producerEditText.setEnabled(false);
-                }
-
-            }
-
-        });
-
-        yearCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton checkbox, boolean checked) {
-
-                if (checked == true) {
-                    yearEdited = true;
-                    yearEditText.setEnabled(true);
-                    ;
-                } else {
-                    yearEdited = false;
-                    yearEditText.setEnabled(false);
-                }
-
-            }
-
-        });
-
-        trackCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton checkbox, boolean checked) {
-
-                if (checked == true) {
-                    trackEdited = true;
-                    trackEditText.setEnabled(true);
-                    ;
-                } else {
-                    trackEdited = false;
-                    trackEditText.setEnabled(false);
-                }
-
-            }
-
-        });
-
-        commentCheckbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton checkbox, boolean checked) {
-
-                if (checked == true) {
-                    commentEdited = true;
-                    commentsEditText.setEnabled(true);
-                    ;
-                } else {
-                    commentEdited = false;
-                    commentsEditText.setEnabled(false);
                 }
 
             }
@@ -401,29 +131,10 @@ public class ID3sArtistEditorDialog extends DialogFragment {
             }
 
             //Now check if any of the ArrayLists contain the same exact elements.
-            boolean titlesSame = checkIfAllElementsEqual(titlesList);
             boolean artistsSame = checkIfAllElementsEqual(artistsList);
-            boolean albumsSame = checkIfAllElementsEqual(albumsList);
-            boolean albumArtistsSame = checkIfAllElementsEqual(albumArtistsList);
-            boolean genresSame = checkIfAllElementsEqual(genresList);
-            boolean producersSame = checkIfAllElementsEqual(producersList);
-            boolean yearsSame = checkIfAllElementsEqual(yearsList);
-            boolean tracksSame = checkIfAllElementsEqual(trackNumbersList);
-            boolean totalTracksSame = checkIfAllElementsEqual(totalTracksList);
-            boolean commentsSame = checkIfAllElementsEqual(commentsList);
 
             //Populate the EditTexts.
-            setEditorFields(titlesSame, titlesList, titleEditText);
             setEditorFields(artistsSame, artistsList, artistEditText);
-            setEditorFields(albumsSame, albumsList, albumEditText);
-            setEditorFields(albumArtistsSame, albumArtistsList, albumArtistEditText);
-            setEditorFields(genresSame, genresList, genreEditText);
-            setEditorFields(producersSame, producersList, producerEditText);
-            setEditorFields(yearsSame, yearsList, yearEditText);
-            setEditorFields(tracksSame, trackNumbersList, trackEditText);
-            setEditorFields(totalTracksSame, totalTracksList, trackTotalEditText);
-            setEditorFields(commentsSame, commentsList, commentsEditText);
-
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -515,7 +226,7 @@ public class ID3sArtistEditorDialog extends DialogFragment {
         }
 
         String selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + artistName + "'"
-                + " AND " + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
+                /*+ " AND " + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'"*/;
 
         String[] projection = {DBAccessHelper._ID, DBAccessHelper.SONG_FILE_PATH};
 
@@ -559,17 +270,7 @@ public class ID3sArtistEditorDialog extends DialogFragment {
                 File file = new File(dataURIsList.get(i));
                 AudioFile audioFile = AudioFileIO.read(file);
 
-                titlesList.add(audioFile.getTag().getFirst(FieldKey.TITLE));
                 artistsList.add(audioFile.getTag().getFirst(FieldKey.ARTIST));
-                albumsList.add(audioFile.getTag().getFirst(FieldKey.ALBUM));
-                albumArtistsList.add(audioFile.getTag().getFirst(FieldKey.ALBUM_ARTIST));
-                genresList.add(audioFile.getTag().getFirst(FieldKey.GENRE));
-                producersList.add(audioFile.getTag().getFirst(FieldKey.PRODUCER));
-                yearsList.add(audioFile.getTag().getFirst(FieldKey.YEAR));
-                trackNumbersList.add(audioFile.getTag().getFirst(FieldKey.TRACK));
-                totalTracksList.add(audioFile.getTag().getFirst(FieldKey.TRACK_TOTAL));
-                commentsList.add(audioFile.getTag().getFirst(FieldKey.COMMENT));
-
             } catch (Exception e) {
                 e.printStackTrace();
                 continue;
@@ -645,70 +346,11 @@ public class ID3sArtistEditorDialog extends DialogFragment {
             pd.show();
 
             //Retrieve the strings from the EditText fields.
-            if (titleEdited) {
-                songTitle = titleEditText.getText().toString();
-                songTitle = songTitle.replace("'", "''");
-            } else {
-                songTitle = null;
-            }
-
             if (artistEdited) {
                 songArtist = artistEditText.getText().toString();
                 songArtist = songArtist.replace("'", "''");
             } else {
                 songArtist = null;
-            }
-
-            if (albumEdited) {
-                songAlbum = albumEditText.getText().toString();
-                songAlbum = songAlbum.replace("'", "''");
-            } else {
-                songAlbum = null;
-            }
-
-            if (albumArtistEdited) {
-                songAlbumArtist = albumArtistEditText.getText().toString();
-                songAlbumArtist = songAlbumArtist.replace("'", "''");
-            } else {
-                songAlbumArtist = null;
-            }
-
-            if (genreEdited) {
-                songComposer = genreEditText.getText().toString();
-                songComposer = songComposer.replace("'", "''");
-            } else {
-                songComposer = null;
-            }
-
-            if (producerEdited) {
-                songProducer = producerEditText.getText().toString();
-                songProducer = songProducer.replace("'", "''");
-            } else {
-                songProducer = null;
-            }
-
-            if (trackEdited) {
-                songTrackNumber = trackEditText.getText().toString();
-                songTrackNumber = songTrackNumber.replace("'", "''");
-                songTrackTotals = trackTotalEditText.getText().toString();
-                songTrackTotals = songTrackTotals.replace("'", "''");
-            } else {
-                songTrackNumber = null;
-                songTrackTotals = null;
-            }
-
-            if (commentEdited) {
-                songComments = commentsEditText.getText().toString();
-                songComments = songComments.replace("'", "''");
-            } else {
-                songComments = null;
-            }
-
-            if (yearEdited) {
-                songYear = yearEditText.getText().toString();
-                songYear = songYear.replace("'", "''");
-            } else {
-                songYear = null;
             }
 
         }
@@ -767,46 +409,6 @@ public class ID3sArtistEditorDialog extends DialogFragment {
                     String whereClause = DBAccessHelper.SONG_FILE_PATH + "=" + "'" + uri + "'";
                     ContentValues values = new ContentValues();
 
-                    if (titleEdited == false) {
-                        //Don't do anything here. The user didn't change the title.
-                    } else {
-                        try {
-                            tag.setField(FieldKey.TITLE, songTitle);
-                        } catch (KeyNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (FieldDataInvalidException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NoSuchElementException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        values.put(DBAccessHelper.SONG_TITLE, songTitle);
-
-                    }
-
-                    if (albumEdited == false) {
-                        //Don't do anything here. The user didn't change the album.
-                    } else {
-                        try {
-                            tag.setField(FieldKey.ALBUM, songAlbum);
-                        } catch (KeyNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (FieldDataInvalidException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NoSuchElementException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        values.put(DBAccessHelper.SONG_ALBUM, songAlbum);
-
-                    }
-
                     if (artistEdited == false) {
                         //Don't do anything here. The user didn't change the artist.
                     } else {
@@ -827,142 +429,6 @@ public class ID3sArtistEditorDialog extends DialogFragment {
 
                     }
 
-                    if (albumArtistEdited == false) {
-                        //Don't do anything here. The user didn't change the album artist.
-                    } else {
-                        try {
-                            tag.setField(FieldKey.ALBUM_ARTIST, songAlbumArtist);
-                        } catch (KeyNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (FieldDataInvalidException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NoSuchElementException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        values.put(DBAccessHelper.SONG_ALBUM_ARTIST, songAlbumArtist);
-
-                    }
-
-                    if (genreEdited == false) {
-                        //Don't do anything here. The user didn't change the genre.
-                    } else {
-                        try {
-                            tag.setField(FieldKey.GENRE, songComposer);
-                        } catch (KeyNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (FieldDataInvalidException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NoSuchElementException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    if (producerEdited == false) {
-                        //Don't do anything here. The user didn't change the producer.
-                    } else {
-                        try {
-                            tag.setField(FieldKey.PRODUCER, songProducer);
-                        } catch (KeyNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (FieldDataInvalidException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NoSuchElementException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    if (yearEdited == false) {
-                        //Don't do anything here. The user didn't change the year.
-                    } else {
-                        try {
-                            tag.setField(FieldKey.YEAR, songYear);
-                        } catch (KeyNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (FieldDataInvalidException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NoSuchElementException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NumberFormatException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        values.put(DBAccessHelper.SONG_YEAR, songYear);
-
-                    }
-
-                    if (trackEdited == false) {
-                        //Don't do anything here. The user didn't change the track number.
-                    } else {
-                        try {
-                            tag.setField(FieldKey.TRACK, songTrackNumber);
-                        } catch (KeyNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (FieldDataInvalidException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NoSuchElementException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NumberFormatException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                        values.put(DBAccessHelper.SONG_TRACK_NUMBER, songTrackNumber);
-
-                    }
-
-                    try {
-                        tag.setField(FieldKey.TRACK_TOTAL, songTrackTotals);
-                    } catch (KeyNotFoundException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (FieldDataInvalidException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (NoSuchElementException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (NumberFormatException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                    if (commentEdited == false) {
-                        //Don't do anything here. The user didn't change the comments.
-                    } else {
-                        try {
-                            tag.setField(FieldKey.COMMENT, songComments);
-                        } catch (KeyNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (FieldDataInvalidException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (NoSuchElementException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-
-                    }
-
                     try {
                         audioFile.commit();
                     } catch (CannotWriteException e) {
@@ -980,6 +446,8 @@ public class ID3sArtistEditorDialog extends DialogFragment {
                         dbHelper.close();
                         dbHelper = null;
 
+                        // Now refresh the fragment list
+                        ((GridViewFragment) dialogFragment.getTargetFragment()).startRunnable();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -997,9 +465,8 @@ public class ID3sArtistEditorDialog extends DialogFragment {
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
             pd.setProgress(i);
-            String message = mContext.getResources().getString(R.string.saving_song_info_for) + " " + titlesList.get(i) + ".";
-            pd.setMessage(message);
-
+            //String message = mContext.getResources().getString(R.string.saving_song_info_for) + " " + artistsList.get(i) + ".";
+            //pd.setMessage(String.valueOf(i));
         }
 
         @Override
@@ -1024,71 +491,15 @@ public class ID3sArtistEditorDialog extends DialogFragment {
 
 
     public void clearArrayLists() {
-        if (titlesList != null) {
-            titlesList.clear();
-            titlesList = null;
-        }
-
         if (artistsList != null) {
             artistsList.clear();
             artistsList = null;
-        }
-
-        if (albumsList != null) {
-            albumsList.clear();
-            albumsList = null;
-        }
-
-        if (albumArtistsList != null) {
-            albumArtistsList.clear();
-            albumArtistsList = null;
-        }
-
-        if (genresList != null) {
-            genresList.clear();
-            genresList = null;
-        }
-
-        if (producersList != null) {
-            producersList.clear();
-            producersList = null;
-        }
-
-        if (yearsList != null) {
-            yearsList.clear();
-            yearsList = null;
-        }
-
-        if (trackNumbersList != null) {
-            trackNumbersList.clear();
-            trackNumbersList = null;
-        }
-
-        if (totalTracksList != null) {
-            totalTracksList.clear();
-            totalTracksList = null;
-        }
-
-        if (commentsList != null) {
-            commentsList.clear();
-            commentsList = null;
         }
 
         if (songURIsList != null) {
             songURIsList.clear();
             songURIsList = null;
         }
-
-		/*if (songSourcesList!=null) {
-            songSourcesList.clear();
-			songSourcesList = null;
-		}
-		
-		if (songIdsList!=null) {
-			songIdsList.clear();
-			songIdsList = null;
-		}*/
-
     }
 
 }

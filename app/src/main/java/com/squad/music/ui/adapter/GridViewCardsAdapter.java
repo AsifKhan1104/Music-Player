@@ -48,13 +48,13 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     private Common mApp;
     private GridViewFragment mGridViewFragment;
     public static GridViewHolder mHolder = null;
-    private String mArtist = "", mFilePath = "", mSongTitle = "";
+    private String mArtist = "", mFilePath = "";
     private int mWidth;
     private int mHeight;
 
     //HashMap for DB column names.
     private HashMap<Integer, String> mDBColumnsMap;
-    public static final int TITLE_TEXT = 0;
+    public static final int TITLE_TEXT = 0; // artist name
     public static final int SOURCE = 1;
     public static final int FILE_PATH = 2;
     public static final int ARTWORK_PATH = 3;
@@ -257,8 +257,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
             menu.inflate(R.menu.song_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mFilePath = (String) v.getTag(R.string.file_path);
-            mSongTitle = (String) v.getTag(R.string.title_text);
-            mArtist = (String) v.getTag(R.string.field_2);
+            mArtist = (String) v.getTag(R.string.title_text);
             menu.show();
 
         }
@@ -280,16 +279,18 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                         FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();
                         bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_ARTIST);
-                        bundle.putString(AppConstants.KEY_ARTIST, mFilePath);
+                        bundle.putString(AppConstants.KEY_ARTIST, mArtist);
                         CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
+                        dialog.setTargetFragment(mGridViewFragment, 1);
                         dialog.setArguments(bundle);
                         dialog.show(transaction, "cautionArtistsDialog");
                     } else {
                         FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();
                         bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_ARTIST);
-                        bundle.putString(AppConstants.KEY_ARTIST, mFilePath);
+                        bundle.putString(AppConstants.KEY_ARTIST, mArtist);
                         ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
+                        dialog.setTargetFragment(mGridViewFragment, 1);
                         dialog.setArguments(bundle);
                         dialog.show(ft, "id3ArtistEditorDialog");
                     }

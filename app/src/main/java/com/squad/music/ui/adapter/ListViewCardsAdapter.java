@@ -26,6 +26,7 @@ import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
+import com.squad.music.ui.dialog.CautionEditSongsDialog;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.utility.AppConstants;
@@ -231,10 +232,10 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                         Bundle bundle = new Bundle();
                         bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_SONG);
                         bundle.putString(AppConstants.KEY_SONG, mFilePath);
-                        CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
+                        CautionEditSongsDialog dialog = new CautionEditSongsDialog();
                         dialog.setTargetFragment(mListViewFragment, 1);
                         dialog.setArguments(bundle);
-                        dialog.show(transaction, "cautionArtistsDialog");
+                        dialog.show(transaction, "cautionSongsDialog");
                     } else {
                         FragmentTransaction ft = mListViewFragment.getFragmentManager().beginTransaction();
                         Bundle bundle = new Bundle();

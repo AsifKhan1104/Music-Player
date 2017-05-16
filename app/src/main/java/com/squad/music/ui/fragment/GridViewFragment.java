@@ -106,8 +106,12 @@ public class GridViewFragment extends Fragment {
         options.inJustDecodeBounds = false;
         options.inPurgeable = true;
 
-        mHandler.postDelayed(queryRunnable, 250);
+        startRunnable();
         return mRootView;
+    }
+
+    public void startRunnable(){
+        mHandler.postDelayed(queryRunnable, 250);
     }
 
     /**

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -342,9 +343,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             + mFilePath + "\"", null);
             Uri uri2 = mContext.getContentResolver().insert(uri1, values);
 
-            Settings.System.putString(mContext.getContentResolver(), Settings.System.RINGTONE,
-                    uri2 != null ? uri2.toString() : null);
-
+            RingtoneManager.setActualDefaultRingtoneUri(mContext, RingtoneManager.TYPE_RINGTONE, uri2);
             Toast.makeText(mContext, mContext.getString(R.string.ringtone_set), Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -366,6 +365,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
         return retVal;
     }
 
+    // Request modify settings permission
     private void openAndroidPermissionsMenu() {
         Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
         intent.setData(Uri.parse("package:" + mContext.getPackageName()));

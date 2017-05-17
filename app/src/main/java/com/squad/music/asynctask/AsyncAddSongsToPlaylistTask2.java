@@ -99,7 +99,7 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
                     Toast.makeText(mContext, R.string.songs_added_to_playlist, Toast.LENGTH_SHORT).show();
                 break;
             case 1:
-                Toast.makeText(mContext, R.string.song_added_to_playlist_failed, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.some_error_occurred, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

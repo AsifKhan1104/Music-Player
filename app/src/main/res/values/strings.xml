@@ -745,6 +745,7 @@
     <string name="playlist_could_not_be_modified">Playlist could not be modified.</string>
     <string name="show_embedded_lyrics">Show lyrics</string>
     <string name="play_next">Play Next</string>
+    <string name="set_as_ringtone">Set as Ringtone</string>
     <string name="will_be_played_next">will be played next.</string>
     <string name="the_top_25_played_tracks">The top 25 played tracks</string>
     <string name="the_most_recently_added_songs">The most recently added songs</string>
@@ -878,5 +879,6 @@
     <string name="playlist_header">Playlist</string>
     <string name="song_added_to_playlist">Song added to Playlist.</string>
     <string name="songs_added_to_playlist">Songs added to Playlist.</string>
-    <string name="song_added_to_playlist_failed">Some error occurred.</string>
+    <string name="some_error_occurred">Some error occurred.</string>
+    <string name="ringtone_set">Ringtone set successfully.</string>
 </resources>

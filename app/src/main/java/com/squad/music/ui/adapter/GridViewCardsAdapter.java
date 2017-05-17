@@ -29,7 +29,6 @@ import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
-import com.squad.music.ui.dialog.AddToPlaylistDialog;
 import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
 import com.squad.music.ui.dialog.ID3sArtistEditorDialog;
@@ -256,7 +255,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
         @Override
         public void onClick(View v) {
             PopupMenu menu = new PopupMenu(mContext, v);
-            menu.inflate(R.menu.song_overflow_menu);
+            menu.inflate(R.menu.grid_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mFilePath = (String) v.getTag(R.string.file_path);
             mArtist = (String) v.getTag(R.string.title_text);

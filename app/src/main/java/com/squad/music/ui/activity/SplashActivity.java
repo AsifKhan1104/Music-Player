@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
     private TextView mTextViewAppName;
     private ImageView mImageViewAppLogo;
     private LinearLayout mLinearLayout;
-    public static final int REQUEST_READ_PERMISSION = 101;
+    public static final int REQUEST_READ_PERMISSION = 786;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

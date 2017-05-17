@@ -1,8 +1,14 @@
 package com.squad.music.ui.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
@@ -25,7 +31,6 @@ import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.dialog.AddToPlaylistDialog2;
-import com.squad.music.ui.dialog.CautionEditArtistsDialog;
 import com.squad.music.ui.dialog.CautionEditSongsDialog;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.ui.fragment.ListViewFragment;
@@ -56,6 +61,8 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     public static final int FIELD_3 = 6;
     public static final int FIELD_4 = 7;
     public static final int FIELD_5 = 8;
+
+    public static final int REQUEST_WRITE_SETTINGS_PERMISSION = 101;
 
     public ListViewCardsAdapter(Context context, ListViewFragment listViewFragment,
                                 HashMap<Integer, String> dbColumnsMap) {
@@ -205,7 +212,7 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
         @Override
         public void onClick(View v) {
             PopupMenu menu = new PopupMenu(mContext, v);
-            menu.inflate(R.menu.song_overflow_menu);
+            menu.inflate(R.menu.list_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mFilePath = (String) v.getTag(R.string.file_path);
             mSongTitle = (String) v.getTag(R.string.title_text);
@@ -274,6 +281,9 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             null);
                     playNextTask.execute(new Boolean[]{true});
                     break;
+                case R.id.set_as_ringtone:
+                    checkSystemWritePermission();
+                    break;
                 case R.id.add_to_playlist:
                     //Add to Playlist
                     AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_SONG, mSongTitle);
@@ -311,4 +321,55 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
 
     }
 
+    /**
+     * Sets the {@link Uri} of the default sound for a given sound type.
+     */
+    public void setAsDefaultRingtone() {
+        try {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.MediaColumns.DATA, mFilePath);
+            values.put(MediaStore.MediaColumns.TITLE, mSongTitle);
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "audio*//*");
+            values.put(MediaStore.Audio.Media.ARTIST, mArtist);
+            values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+            values.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
+            values.put(MediaStore.Audio.Media.IS_ALARM, true);
+            values.put(MediaStore.Audio.Media.IS_MUSIC, true);
+
+            Uri uri1 = MediaStore.Audio.Media.getContentUriForPath(mFilePath);
+            mContext.getContentResolver().delete(uri1,
+                    MediaStore.MediaColumns.DATA + "=\""
+                            + mFilePath + "\"", null);
+            Uri uri2 = mContext.getContentResolver().insert(uri1, values);
+
+            Settings.System.putString(mContext.getContentResolver(), Settings.System.RINGTONE,
+                    uri2 != null ? uri2.toString() : null);
+
+            Toast.makeText(mContext, mContext.getString(R.string.ringtone_set), Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Toast.makeText(mContext, mContext.getString(R.string.some_error_occurred), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // To check write settings permission
+    private boolean checkSystemWritePermission() {
+        boolean retVal = true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            retVal = Settings.System.canWrite(mContext);
+            if (retVal) {
+                setAsDefaultRingtone();
+            } else {
+                openAndroidPermissionsMenu();
+            }
+        }
+        return retVal;
+    }
+
+    private void openAndroidPermissionsMenu() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+        intent.setData(Uri.parse("package:" + mContext.getPackageName()));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
 }

@@ -383,7 +383,7 @@ public class BrowserSubGridActivity extends FragmentActivity {
             mGridView.setOnItemClickListener(onItemClickListener);
 
             PauseOnScrollHelper scrollHelper = new PauseOnScrollHelper(mApp.getPicasso(), onScrollListener, false, true);
-            mGridView.setOnScrollListener(scrollHelper);
+            //mGridView.setOnScrollListener(scrollHelper);
 
             animation.setAnimationListener(new Animation.AnimationListener() {
 

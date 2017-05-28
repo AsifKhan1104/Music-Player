@@ -45,7 +45,7 @@ public class BrowserSubListActivity extends AppCompatActivity {
 
     //UI elements
     private ImageView mHeaderImage;
-    private ListView mListView;
+    public ListView mListView;
     private RelativeLayout mDrawerParentLayout;
     private RelativeLayout mHeaderLayout;
     private TextView mHeaderTextView;
@@ -158,9 +158,13 @@ public class BrowserSubListActivity extends AppCompatActivity {
         mHandler.postDelayed(animateContent, 300);
 
         //Start loading the GridView cursor.
+        startLoading();
+
+    }
+
+    public void startLoading() {
         AsyncRunQuery task = new AsyncRunQuery();
         task.execute();
-
     }
 
     /**

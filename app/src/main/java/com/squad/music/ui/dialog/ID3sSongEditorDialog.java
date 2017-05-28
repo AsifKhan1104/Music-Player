@@ -10,6 +10,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.ui.activity.BrowserSubListActivity;
 import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.utility.AppConstants;
 
@@ -408,7 +410,7 @@ public class ID3sSongEditorDialog extends DialogFragment {
                     Toast.makeText(getActivity().getApplicationContext(), R.string.song_tags_saved, Toast.LENGTH_SHORT).show();
 
 /*					//Reinitialize the calling fragment.
-					if (CALLING_FRAGMENT.equals("SONGS_FRAGMENT")) {
+                    if (CALLING_FRAGMENT.equals("SONGS_FRAGMENT")) {
 
 
 					} else if (CALLING_FRAGMENT.equals("ARTISTS_FLIPPED_SONGS_FRAGMENT")) {
@@ -763,8 +765,13 @@ public class ID3sSongEditorDialog extends DialogFragment {
 
             }
 
-            // Now refresh the fragment list
-            ((ListViewFragment) dialogFragment.getTargetFragment()).startRunnable();
+            // Now refresh the list
+            Fragment frag = (ListViewFragment) dialogFragment.getTargetFragment();
+            // It will check, that it came from ListViewFragment / Browser Sublist Activity
+            if (frag != null)
+                ((ListViewFragment) dialogFragment.getTargetFragment()).startRunnable();
+            else
+                ((BrowserSubListActivity) mContext).startLoading();
 
         } else {
             Toast.makeText(mContext, R.string.unable_to_edit_song_tags, Toast.LENGTH_SHORT).show();

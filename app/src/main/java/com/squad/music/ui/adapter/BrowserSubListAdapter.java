@@ -1,8 +1,15 @@
 package com.squad.music.ui.adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
@@ -23,8 +30,12 @@ import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.BrowserSubListActivity;
 import com.squad.music.ui.dialog.AddToPlaylistDialog;
+import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
+import com.squad.music.ui.dialog.CautionEditSongsDialog;
 import com.squad.music.ui.dialog.ID3sArtistEditorDialog;
+import com.squad.music.ui.dialog.ID3sSongEditorDialog;
+import com.squad.music.utility.AppConstants;
 
 import java.util.HashMap;
 
@@ -37,7 +48,7 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
     private Common mApp;
     private BrowserSubListActivity mActivity;
     public static ListViewHolder mHolder = null;
-    private String mName = "";
+    private String mFilePath = "", mSongTitle = "", mArtist = "";
 
     //HashMap for DB column names.
     private HashMap<Integer, String> mDBColumnsMap;
@@ -187,7 +198,9 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
             PopupMenu menu = new PopupMenu(mContext, v);
             menu.inflate(R.menu.list_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
-            mName = (String) v.getTag(R.string.artist);
+            mFilePath = (String) v.getTag(R.string.file_path);
+            mSongTitle = (String) v.getTag(R.string.title_text);
+            mArtist = (String) v.getTag(R.string.field_2);
             menu.show();
 
         }
@@ -199,83 +212,81 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
      */
     private PopupMenu.OnMenuItemClickListener popupMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
 
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			
-			switch(item.getItemId()) {
-        	case R.id.edit_artist_tags:
-        		//Edit Artist Tags.
-        		if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true)==true) {
-            		FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
-            		Bundle bundle = new Bundle();
-            		bundle.putString("EDIT_TYPE", "ARTIST");
-            		bundle.putString("ARTIST", mName);
-            		CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
-            		dialog.setArguments(bundle);
-            		dialog.show(transaction, "cautionArtistsDialog");
-        		} else {
-                    FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
-    				Bundle bundle = new Bundle();
-    				bundle.putString("EDIT_TYPE", "ARTIST");
-    				bundle.putString("ARTIST", mName);
-    				ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
-    				dialog.setArguments(bundle);
-    				dialog.show(transaction, "id3ArtistEditorDialog");
-        		}
-        		break;
-        	case R.id.add_to_queue: 
-        		//Add to Queue.
-        		AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
-        														   mActivity,
-        														   "ARTIST",
-        														   mName, 
-        														   null,
-        														   null, 
-        														   null, 
-        														   null,
-        														   null,
-        														   null);
-        		task.execute();
-        		break;
-        	case R.id.play_next:
-        		AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
-																		   mActivity,
-																		   "ARTIST",
-																		   mName, 
-																		   null,
-																		   null, 
-																		   null, 
-																		   null,
-																		   null,
-																		   null);
-        		playNextTask.execute(new Boolean[] { true });
-        		break;
-        	case R.id.add_to_playlist:
-        		//Add to Playlist
-        		FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
-				AddToPlaylistDialog dialog = new AddToPlaylistDialog();
-				Bundle bundle = new Bundle();
-				bundle.putString("ADD_TYPE", "ARTIST");
-				bundle.putString("ARTIST", mName);
-				dialog.setArguments(bundle);
-				dialog.show(ft, "AddToPlaylistDialog");
-				break;
-        	case R.id.blacklist_artist:
-        		//Blacklist Artist
-        		mApp.getDBAccessHelper().setBlacklistForArtist(mName, true);
-        		Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
-        		
-        		//Update the ListView.
-        		/*mListViewFragment.mHandler.post(mListViewFragment.queryRunnable);
-        		mListViewFragment.getListViewAdapter().notifyDataSetChanged();*/
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
 
-        		break;
-        	
-			}
-			
-			return false;
-		}
-    	
+            switch (item.getItemId()) {
+                case R.id.edit_artist_tags:
+                    //Edit Artist Tags.
+                    if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true) == true) {
+                        FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_SONG);
+                        bundle.putString(AppConstants.KEY_SONG, mFilePath);
+                        CautionEditSongsDialog dialog = new CautionEditSongsDialog();
+                        dialog.setArguments(bundle);
+                        dialog.show(transaction, "cautionSongsDialog");
+                    } else {
+                        FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_SONG);
+                        bundle.putString(AppConstants.KEY_SONG, mFilePath);
+                        ID3sSongEditorDialog dialog = new ID3sSongEditorDialog();
+                        dialog.setArguments(bundle);
+                        dialog.show(ft, "id3SongEditorDialog");
+                    }
+                    break;
+                case R.id.add_to_queue:
+                    //Add to Queue.
+                    AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
+                            mActivity,
+                            AppConstants.KEY_SONG,
+                            null,
+                            null,
+                            mSongTitle,
+                            null,
+                            null,
+                            null,
+                            null);
+                    task.execute();
+                    break;
+                case R.id.play_next:
+                    AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
+                            mActivity,
+                            AppConstants.KEY_SONG,
+                            null,
+                            null,
+                            mSongTitle,
+                            null,
+                            null,
+                            null,
+                            null);
+                    playNextTask.execute(new Boolean[]{true});
+                    break;
+                case R.id.set_as_ringtone:
+                    checkSystemWritePermission();
+                    break;
+                case R.id.add_to_playlist:
+                    //Add to Playlist
+                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_SONG, mSongTitle);
+                    dialog.show(mActivity.getSupportFragmentManager(), "AddToPlaylistDialog");
+
+                    break;
+                case R.id.blacklist_artist:
+                    //Blacklist Artist
+                    mApp.getDBAccessHelper().setBlacklistForArtist(mArtist, true);
+                    Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
+
+                    //Update the ListView.
+                    mActivity.startLoading();
+
+                    break;
+
+            }
+
+            return false;
+        }
+
     };
 
     /**
@@ -292,4 +303,54 @@ public class BrowserSubListAdapter extends SimpleCursorAdapter implements Scroll
 
     }
 
+    /**
+     * Sets the {@link Uri} of the default sound for a given sound type.
+     */
+    public void setAsDefaultRingtone() {
+        try {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.MediaColumns.DATA, mFilePath);
+            values.put(MediaStore.MediaColumns.TITLE, mSongTitle);
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "audio*//*");
+            values.put(MediaStore.Audio.Media.ARTIST, mArtist);
+            values.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+            values.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
+            values.put(MediaStore.Audio.Media.IS_ALARM, true);
+            values.put(MediaStore.Audio.Media.IS_MUSIC, true);
+
+            Uri uri1 = MediaStore.Audio.Media.getContentUriForPath(mFilePath);
+            mContext.getContentResolver().delete(uri1,
+                    MediaStore.MediaColumns.DATA + "=\""
+                            + mFilePath + "\"", null);
+            Uri uri2 = mContext.getContentResolver().insert(uri1, values);
+
+            RingtoneManager.setActualDefaultRingtoneUri(mContext, RingtoneManager.TYPE_RINGTONE, uri2);
+            Toast.makeText(mContext, mContext.getString(R.string.ringtone_set), Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Toast.makeText(mContext, mContext.getString(R.string.some_error_occurred), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // To check write settings permission
+    private boolean checkSystemWritePermission() {
+        boolean retVal = true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            retVal = Settings.System.canWrite(mContext);
+            if (retVal) {
+                setAsDefaultRingtone();
+            } else {
+                openAndroidPermissionsMenu();
+            }
+        }
+        return retVal;
+    }
+
+    // Request modify settings permission
+    private void openAndroidPermissionsMenu() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+        intent.setData(Uri.parse("package:" + mContext.getPackageName()));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
 }

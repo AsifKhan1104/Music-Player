@@ -335,8 +335,14 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     break;
                 case R.id.add_to_playlist:
                     //Add to Playlist
-                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_ARTIST, mArtist);
-                    dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
+                    if (mEnqueueType.equals(AppConstants.KEY_ARTIST)) {
+                        AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(mEnqueueType, mArtist);
+                        dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
+                    } else if (mEnqueueType.equals(AppConstants.KEY_ALBUM)) {
+                        AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(mEnqueueType, mAlbum);
+                        dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
+                    }
+
                     break;
                 case R.id.blacklist_artist:
                     //Blacklist Artist

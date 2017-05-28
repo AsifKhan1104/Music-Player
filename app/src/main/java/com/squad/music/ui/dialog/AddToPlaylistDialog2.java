@@ -254,6 +254,8 @@ public class AddToPlaylistDialog2 extends DialogFragment {
             return AppConstants.KEY_SONG;
         } else if (addType.equals(AppConstants.KEY_ARTIST)) {
             return AppConstants.KEY_ARTIST;
+        } else if(addType.equals(AppConstants.KEY_ALBUM)){
+            return AppConstants.KEY_ALBUM;
         }
         return AppConstants.KEY_SONG;
     }

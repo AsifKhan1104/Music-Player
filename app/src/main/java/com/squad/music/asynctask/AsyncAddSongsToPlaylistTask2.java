@@ -142,12 +142,9 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
                     null,
                     DBAccessHelper.SONG_ALBUM + " ASC" + ", " + DBAccessHelper.SONG_TRACK_NUMBER + "*1 ASC");
 
-        } else if (mAddType.equals("ALBUM")) {
-
-            String selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtist + "'" + " AND "
-                    + DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbum + "'" + " AND "
-                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'" + " AND "
-                    + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
+        } else if (mAddType.equals(AppConstants.KEY_ALBUM)) {
+            String selection = DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbum + "'" + " AND "
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
 
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,

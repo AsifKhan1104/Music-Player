@@ -28,6 +28,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
+import com.squad.music.ui.dialog.AppExitDialog;
 import com.squad.music.ui.dialog.TimePickerDialogFragment;
 import com.squad.music.ui.fragment.FilesFoldersFragment;
 import com.squad.music.ui.fragment.GridViewFragment;
@@ -484,7 +485,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialogF
                 ((FilesFoldersFragment) mCurrentFragment).getParentDir();
 
         } else {
-            super.onBackPressed();
+            AppExitDialog dialogFragment = new AppExitDialog();
+            dialogFragment.show(getSupportFragmentManager(), "AppExitDialog");
         }
 
     }

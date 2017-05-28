@@ -881,4 +881,6 @@
     <string name="songs_added_to_playlist">Songs added to Playlist.</string>
     <string name="some_error_occurred">Some error occurred.</string>
     <string name="ringtone_set">Ringtone set successfully.</string>
+
+    <string name="app_exit_msg">Do you want to close the app ?</string>
 </resources>

@@ -51,7 +51,7 @@ public class GridViewFragment extends Fragment {
     private Common mApp;
     private View mRootView;
     private RelativeLayout mGridViewContainer;
-    private int mFragmentId;
+    public int mFragmentId;
 
     private QuickScrollGridView mQuickScroll;
     private BaseAdapter mGridViewAdapter;

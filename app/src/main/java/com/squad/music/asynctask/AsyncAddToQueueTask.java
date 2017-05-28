@@ -241,10 +241,10 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                     DBAccessHelper.SONG_ALBUM + " ASC" + ", " + DBAccessHelper.SONG_TRACK_NUMBER + "*1 ASC");
 
             mPlayingNext = mArtistName;
-        } else if (mEnqueueType.equals("ALBUM")) {
+        } else if (mEnqueueType.equals(AppConstants.KEY_ALBUM)) {
 
             String selection = null;
-            if (mApp.isGooglePlayMusicEnabled()) {
+            /*if (mApp.isGooglePlayMusicEnabled()) {
                 selection = DBAccessHelper.SONG_ARTIST + "=" + "'" + mArtistName + "'" + " AND "
                         + DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbumName + "'" + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'";
@@ -253,8 +253,10 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                         + DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbumName + "'" + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'" + " AND "
                         + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
-            }
+            }*/
 
+            selection = DBAccessHelper.SONG_ALBUM + "=" + "'" + mAlbumName + "'" + " AND "
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,
                     selection,

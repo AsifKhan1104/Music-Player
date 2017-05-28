@@ -48,13 +48,14 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     private Common mApp;
     private GridViewFragment mGridViewFragment;
     public static GridViewHolder mHolder = null;
-    private String mArtist = "", mFilePath = "";
+    private String mArtist = "", mFilePath = "", mAlbum = "";
     private int mWidth;
     private int mHeight;
+    private String mEnqueueType;
 
     //HashMap for DB column names.
     private HashMap<Integer, String> mDBColumnsMap;
-    public static final int TITLE_TEXT = 0; // artist name
+    public static final int TITLE_TEXT = 0;
     public static final int SOURCE = 1;
     public static final int FILE_PATH = 2;
     public static final int ARTWORK_PATH = 3;
@@ -258,7 +259,16 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
             menu.inflate(R.menu.grid_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mFilePath = (String) v.getTag(R.string.file_path);
-            mArtist = (String) v.getTag(R.string.title_text);
+            switch (mGridViewFragment.mFragmentId) {
+                case Common.ARTISTS_FRAGMENT:
+                    mArtist = (String) v.getTag(R.string.title_text);
+                    mEnqueueType = AppConstants.KEY_ARTIST;
+                    break;
+                case Common.ALBUMS_FRAGMENT:
+                    mAlbum = (String) v.getTag(R.string.title_text);
+                    mEnqueueType = AppConstants.KEY_ALBUM;
+                    break;
+            }
             menu.show();
 
         }
@@ -300,9 +310,9 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     //Add to Queue.
                     AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
                             mGridViewFragment,
-                            AppConstants.KEY_ARTIST,
+                            mEnqueueType,
                             mArtist,
-                            null,
+                            mAlbum,
                             null,
                             null,
                             null,
@@ -313,9 +323,9 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                 case R.id.play_next:
                     AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
                             mGridViewFragment,
-                            AppConstants.KEY_ARTIST,
+                            mEnqueueType,
                             mArtist,
-                            null,
+                            mAlbum,
                             null,
                             null,
                             null,

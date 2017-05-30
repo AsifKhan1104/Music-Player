@@ -31,6 +31,7 @@ import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
+import com.squad.music.ui.dialog.ID3sAlbumEditorDialog;
 import com.squad.music.ui.dialog.ID3sArtistEditorDialog;
 import com.squad.music.ui.fragment.GridViewFragment;
 import com.squad.music.utility.AppConstants;
@@ -51,7 +52,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     private String mArtist = "", mFilePath = "", mAlbum = "";
     private int mWidth;
     private int mHeight;
-    private String mEnqueueType;
+    private String mCurrentFragType;
 
     //HashMap for DB column names.
     private HashMap<Integer, String> mDBColumnsMap;
@@ -262,11 +263,11 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
             switch (mGridViewFragment.mFragmentId) {
                 case Common.ARTISTS_FRAGMENT:
                     mArtist = (String) v.getTag(R.string.title_text);
-                    mEnqueueType = AppConstants.KEY_ARTIST;
+                    mCurrentFragType = AppConstants.KEY_ARTIST;
                     break;
                 case Common.ALBUMS_FRAGMENT:
                     mAlbum = (String) v.getTag(R.string.title_text);
-                    mEnqueueType = AppConstants.KEY_ALBUM;
+                    mCurrentFragType = AppConstants.KEY_ALBUM;
                     break;
             }
             menu.show();
@@ -285,32 +286,54 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
 
             switch (item.getItemId()) {
                 case R.id.edit_artist_tags:
-                    //Edit Artist Tags.
-                    if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true) == true) {
-                        FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
-                        Bundle bundle = new Bundle();
-                        bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_ARTIST);
-                        bundle.putString(AppConstants.KEY_ARTIST, mArtist);
-                        CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
-                        dialog.setTargetFragment(mGridViewFragment, 1);
-                        dialog.setArguments(bundle);
-                        dialog.show(transaction, "cautionArtistsDialog");
-                    } else {
-                        FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
-                        Bundle bundle = new Bundle();
-                        bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_ARTIST);
-                        bundle.putString(AppConstants.KEY_ARTIST, mArtist);
-                        ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
-                        dialog.setTargetFragment(mGridViewFragment, 1);
-                        dialog.setArguments(bundle);
-                        dialog.show(ft, "id3ArtistEditorDialog");
+                    //Edit Tags.
+                    if (mCurrentFragType.equals(AppConstants.KEY_ARTIST)) {
+                        if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true) == true) {
+                            FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_ARTIST);
+                            bundle.putString(AppConstants.KEY_ARTIST, mArtist);
+                            CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
+                            dialog.setTargetFragment(mGridViewFragment, 1);
+                            dialog.setArguments(bundle);
+                            dialog.show(transaction, "cautionArtistsDialog");
+                        } else {
+                            FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(AppConstants.EDIT_TYPE, AppConstants.KEY_ARTIST);
+                            bundle.putString(AppConstants.KEY_ARTIST, mArtist);
+                            ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
+                            dialog.setTargetFragment(mGridViewFragment, 1);
+                            dialog.setArguments(bundle);
+                            dialog.show(ft, "id3ArtistEditorDialog");
+                        }
+                    } else if (mCurrentFragType.equals(AppConstants.KEY_ALBUM)) {
+                        if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true) == true) {
+                            FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(AppConstants.EDIT_TYPE, mCurrentFragType);
+                            bundle.putString(mCurrentFragType, mAlbum);
+                            CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
+                            dialog.setTargetFragment(mGridViewFragment, 1);
+                            dialog.setArguments(bundle);
+                            dialog.show(transaction, "cautionAlbumsDialog");
+                        } else {
+                            FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(AppConstants.EDIT_TYPE, mCurrentFragType);
+                            bundle.putString(mCurrentFragType, mAlbum);
+                            ID3sAlbumEditorDialog dialog = new ID3sAlbumEditorDialog();
+                            dialog.setTargetFragment(mGridViewFragment, 1);
+                            dialog.setArguments(bundle);
+                            dialog.show(ft, "id3AlbumEditorDialog");
+                        }
                     }
                     break;
                 case R.id.add_to_queue:
                     //Add to Queue.
                     AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
                             mGridViewFragment,
-                            mEnqueueType,
+                            mCurrentFragType,
                             mArtist,
                             mAlbum,
                             null,
@@ -323,7 +346,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                 case R.id.play_next:
                     AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
                             mGridViewFragment,
-                            mEnqueueType,
+                            mCurrentFragType,
                             mArtist,
                             mAlbum,
                             null,
@@ -335,11 +358,11 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     break;
                 case R.id.add_to_playlist:
                     //Add to Playlist
-                    if (mEnqueueType.equals(AppConstants.KEY_ARTIST)) {
-                        AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(mEnqueueType, mArtist);
+                    if (mCurrentFragType.equals(AppConstants.KEY_ARTIST)) {
+                        AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(mCurrentFragType, mArtist);
                         dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
-                    } else if (mEnqueueType.equals(AppConstants.KEY_ALBUM)) {
-                        AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(mEnqueueType, mAlbum);
+                    } else if (mCurrentFragType.equals(AppConstants.KEY_ALBUM)) {
+                        AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(mCurrentFragType, mAlbum);
                         dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
                     }
 

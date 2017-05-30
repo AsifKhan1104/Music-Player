@@ -29,7 +29,7 @@ public class CautionEditArtistsDialog extends DialogFragment {
     private TextView cautionText;
 
     private String EDIT_TYPE;
-    private String ARTIST;
+    private String EDIT_VALUE;
 
     private TextView dontShowAgainText;
     private CheckBox dontShowAgainCheckbox;
@@ -42,7 +42,7 @@ public class CautionEditArtistsDialog extends DialogFragment {
         dialogFragment = this;
 
         EDIT_TYPE = this.getArguments().getString(AppConstants.EDIT_TYPE);
-        ARTIST = this.getArguments().getString(AppConstants.KEY_ARTIST);
+        EDIT_VALUE = this.getArguments().getString(EDIT_TYPE);
 
         rootView = (View) parentActivity.getLayoutInflater().inflate(R.layout.fragment_caution_edit_artists, null);
 
@@ -100,11 +100,18 @@ public class CautionEditArtistsDialog extends DialogFragment {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Bundle bundle = new Bundle();
                 bundle.putString(AppConstants.EDIT_TYPE, EDIT_TYPE);
-                bundle.putString(AppConstants.KEY_ARTIST, ARTIST);
-                ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
-                dialog.setTargetFragment(dialogFragment.getTargetFragment(), 1);
-                dialog.setArguments(bundle);
-                dialog.show(ft, "id3ArtistEditorDialog");
+                bundle.putString(EDIT_TYPE, EDIT_VALUE);
+                if (EDIT_TYPE.equals(AppConstants.KEY_ARTIST)) {
+                    ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
+                    dialog.setTargetFragment(dialogFragment.getTargetFragment(), 1);
+                    dialog.setArguments(bundle);
+                    dialog.show(ft, "id3ArtistEditorDialog");
+                } else if (EDIT_TYPE.equals(AppConstants.KEY_ALBUM)) {
+                    ID3sAlbumEditorDialog dialog = new ID3sAlbumEditorDialog();
+                    dialog.setTargetFragment(dialogFragment.getTargetFragment(), 1);
+                    dialog.setArguments(bundle);
+                    dialog.show(ft, "id3AlbumEditorDialog");
+                }
 
             }
 

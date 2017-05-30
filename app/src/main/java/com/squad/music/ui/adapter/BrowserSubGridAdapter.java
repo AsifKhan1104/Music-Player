@@ -168,7 +168,11 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
             field5 = c.getString(c.getColumnIndex(mDBColumnsMap.get(FIELD_5)));
 
         } catch (NullPointerException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
+            // temp fix for null songs
+            if (field1.startsWith("null")) {
+                field1 = "";
+            }
         }
 
         //Set the tags for this grid item.
@@ -183,7 +187,7 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
         convertView.setTag(R.string.field_5, field5);
 
 		/*//Set the tags for this grid item's overflow button.
-		mHolder.overflowButton.setTag(R.string.title_text, titleText);
+        mHolder.overflowButton.setTag(R.string.title_text, titleText);
 		mHolder.overflowButton.setTag(R.string.source, source);
 		mHolder.overflowButton.setTag(R.string.file_path, filePath);
 		mHolder.overflowButton.setTag(R.string.field_1, field1);

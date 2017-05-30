@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/mdasifkhan/Android_Projects_Old/MusePlayer/viewpagerindicatorlibrary/build/intermediates/res/merged/release/color/vpi__light_theme.xml",
+        "source": "/home/mdasifkhan/Android_Projects_Old/MusePlayer/viewpagerindicatorlibrary/src/main/res/color/vpi__light_theme.xml"
+    },
+    {
+        "merged": "/home/mdasifkhan/Android_Projects_Old/MusePlayer/viewpagerindicatorlibrary/build/intermediates/res/merged/release/color/vpi__dark_theme.xml",
+        "source": "/home/mdasifkhan/Android_Projects_Old/MusePlayer/viewpagerindicatorlibrary/src/main/res/color/vpi__dark_theme.xml"
+    }
+]

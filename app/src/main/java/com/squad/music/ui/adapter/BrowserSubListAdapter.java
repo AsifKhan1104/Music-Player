@@ -29,11 +29,8 @@ import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.BrowserSubListActivity;
-import com.squad.music.ui.dialog.AddToPlaylistDialog;
 import com.squad.music.ui.dialog.AddToPlaylistDialog2;
-import com.squad.music.ui.dialog.CautionEditArtistsDialog;
 import com.squad.music.ui.dialog.CautionEditSongsDialog;
-import com.squad.music.ui.dialog.ID3sArtistEditorDialog;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.utility.AppConstants;
 

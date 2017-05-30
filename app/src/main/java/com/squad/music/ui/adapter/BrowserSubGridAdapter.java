@@ -23,6 +23,7 @@ import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.BrowserSubGridActivity;
+import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.utility.AppConstants;
 
 import java.util.HashMap;
@@ -285,18 +286,13 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
                             null);
                     playNextTask.execute(new Boolean[]{true});
                     break;
-            /*case R.id.add_to_playlist:
-        		//Add to Playlist
-        		FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
-				AddToPlaylistDialog dialog = new AddToPlaylistDialog();
-				Bundle bundle = new Bundle();
-				bundle.putString("ADD_TYPE", "ARTIST");
-				bundle.putString("ARTIST", mAlbum);
-				dialog.setArguments(bundle);
-				dialog.show(ft, "AddToPlaylistDialog");
-				break;*/
-        	/*case R.id.blacklist_artist:
-        		//Blacklist Artist
+                case R.id.add_to_playlist:
+                    //Add to Playlist
+                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_ALBUM, mAlbum);
+                    dialog.show(mActivity.getSupportFragmentManager(), "AddToPlaylistDialog");
+                    break;
+            /*case R.id.blacklist_artist:
+                //Blacklist Artist
         		mApp.getDBAccessHelper().setBlacklistForArtist(mAlbum, true);
         		Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
 

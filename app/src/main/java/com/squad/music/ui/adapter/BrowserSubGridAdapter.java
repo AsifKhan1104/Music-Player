@@ -239,26 +239,6 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
         public boolean onMenuItemClick(MenuItem item) {
 
             switch (item.getItemId()) {
-            /*case R.id.edit_artist_tags:
-                //Edit Artist Tags.
-        		if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true)==true) {
-            		FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
-            		Bundle bundle = new Bundle();
-            		bundle.putString("EDIT_TYPE", "ARTIST");
-            		bundle.putString("ARTIST", mAlbum);
-            		CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
-            		dialog.setArguments(bundle);
-            		dialog.show(transaction, "cautionArtistsDialog");
-        		} else {
-    				FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
-    				Bundle bundle = new Bundle();
-    				bundle.putString("EDIT_TYPE", "ARTIST");
-    				bundle.putString("ARTIST", mAlbum);
-    				ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
-    				dialog.setArguments(bundle);
-    				dialog.show(ft, "id3ArtistEditorDialog");
-        		}
-        		break;*/
                 case R.id.add_to_queue:
                     //Add to Queue.
                     AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
@@ -291,17 +271,6 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
                     AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_ALBUM, mAlbum);
                     dialog.show(mActivity.getSupportFragmentManager(), "AddToPlaylistDialog");
                     break;
-            /*case R.id.blacklist_artist:
-                //Blacklist Artist
-        		mApp.getDBAccessHelper().setBlacklistForArtist(mAlbum, true);
-        		Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
-
-        		//Update the GridView.
-        		mGridViewFragment.mHandler.post(mGridViewFragment.queryRunnable);
-        		mGridViewFragment.getGridViewAdapter().notifyDataSetChanged();
-
-        		break;*/
-
             }
 
             return false;

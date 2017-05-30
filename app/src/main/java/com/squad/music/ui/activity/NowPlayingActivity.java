@@ -91,7 +91,7 @@ public class NowPlayingActivity extends AppCompatActivity {
     private Handler mHandler = new Handler();
 
     //Differentiates between a user's scroll input and a programmatic scroll.
-    private boolean USER_SCROLL = true;
+    private boolean USER_SCROLL = false;
 
     //HashMap that passes on song information to the "Download from Cloud" dialog.
     private HashMap<String, String> metadata;

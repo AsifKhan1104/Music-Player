@@ -308,7 +308,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             dialog.show(ft, "id3ArtistEditorDialog");
                         }
                     } else if (mCurrentFragType.equals(AppConstants.KEY_ALBUM)) {
-                        if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true) == true) {
+                        if (mApp.getSharedPreferences().getBoolean("SHOW_ALBUM_EDIT_CAUTION", true) == true) {
                             FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
                             Bundle bundle = new Bundle();
                             bundle.putString(AppConstants.EDIT_TYPE, mCurrentFragType);

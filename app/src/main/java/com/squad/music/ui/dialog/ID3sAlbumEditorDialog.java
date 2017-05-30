@@ -25,6 +25,7 @@ import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.ui.fragment.GridViewFragment;
 import com.squad.music.utility.AppConstants;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -461,7 +462,8 @@ public class ID3sAlbumEditorDialog extends DialogFragment {
                                     whereClause,
                                     null);
 
-
+                            // Now refresh the fragment list
+                            ((GridViewFragment) dialogFragment.getTargetFragment()).startRunnable();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

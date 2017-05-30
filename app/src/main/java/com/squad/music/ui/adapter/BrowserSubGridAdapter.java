@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ import android.widget.TextView;
 import com.andraskindler.quickscroll.Scrollable;
 import com.squad.music.Common;
 import com.squad.music.R;
+import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.BrowserSubGridActivity;
+import com.squad.music.utility.AppConstants;
 
 import java.util.HashMap;
 
@@ -33,7 +36,7 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
     private Common mApp;
     private BrowserSubGridActivity mActivity;
     public static GridViewHolder mHolder = null;
-    private String mName = "";
+    private String mAlbum = "";
     private int mWidth;
     private int mHeight;
 
@@ -186,15 +189,15 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
         convertView.setTag(R.string.field_4, field4);
         convertView.setTag(R.string.field_5, field5);
 
-		/*//Set the tags for this grid item's overflow button.
+        //Set the tags for this grid item's overflow button.
         mHolder.overflowButton.setTag(R.string.title_text, titleText);
-		mHolder.overflowButton.setTag(R.string.source, source);
-		mHolder.overflowButton.setTag(R.string.file_path, filePath);
-		mHolder.overflowButton.setTag(R.string.field_1, field1);
-		mHolder.overflowButton.setTag(R.string.field_2, field2);
-		mHolder.overflowButton.setTag(R.string.field_3, field3);
-		mHolder.overflowButton.setTag(R.string.field_4, field4);
-		mHolder.overflowButton.setTag(R.string.field_5, field5);*/
+        mHolder.overflowButton.setTag(R.string.source, source);
+        mHolder.overflowButton.setTag(R.string.file_path, filePath);
+        mHolder.overflowButton.setTag(R.string.field_1, field1);
+        mHolder.overflowButton.setTag(R.string.field_2, field2);
+        mHolder.overflowButton.setTag(R.string.field_3, field3);
+        mHolder.overflowButton.setTag(R.string.field_4, field4);
+        mHolder.overflowButton.setTag(R.string.field_5, field5);
 
         //Set the title text in the GridView.
         mHolder.titleText.setText(titleText);
@@ -217,31 +220,31 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
         @Override
         public void onClick(View v) {
             PopupMenu menu = new PopupMenu(mContext, v);
-            menu.inflate(R.menu.grid_overflow_menu);
-            //menu.setOnMenuItemClickListener(popupMenuItemClickListener);
-            mName = (String) v.getTag(R.string.artist);
+            menu.inflate(R.menu.sub_grid_overflow_menu);
+            menu.setOnMenuItemClickListener(popupMenuItemClickListener);
+            mAlbum = (String) v.getTag(R.string.title_text);
             menu.show();
 
         }
 
     };
-    
-   /* *//**
-     * Menu item click listener for the pop up menu.
-     *//*
-    private OnMenuItemClickListener popupMenuItemClickListener = new OnMenuItemClickListener() {
 
-		@Override
-		public boolean onMenuItemClick(MenuItem item) {
-			
-			switch(item.getItemId()) {
-        	case R.id.edit_artist_tags:
-        		//Edit Artist Tags.
+    /**
+     * Menu item click listener for the pop up menu.
+     */
+    private PopupMenu.OnMenuItemClickListener popupMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+
+            switch (item.getItemId()) {
+            /*case R.id.edit_artist_tags:
+                //Edit Artist Tags.
         		if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true)==true) {
             		FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
             		Bundle bundle = new Bundle();
             		bundle.putString("EDIT_TYPE", "ARTIST");
-            		bundle.putString("ARTIST", mName);
+            		bundle.putString("ARTIST", mAlbum);
             		CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
             		dialog.setArguments(bundle);
             		dialog.show(transaction, "cautionArtistsDialog");
@@ -249,66 +252,66 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
     				FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
     				Bundle bundle = new Bundle();
     				bundle.putString("EDIT_TYPE", "ARTIST");
-    				bundle.putString("ARTIST", mName);
+    				bundle.putString("ARTIST", mAlbum);
     				ID3sArtistEditorDialog dialog = new ID3sArtistEditorDialog();
     				dialog.setArguments(bundle);
     				dialog.show(ft, "id3ArtistEditorDialog");
         		}
-        		break;
-        	case R.id.add_to_queue: 
-        		//Add to Queue.
-        		AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
-        														   mGridViewFragment,
-        														   "ARTIST",
-        														   mName, 
-        														   null,
-        														   null, 
-        														   null, 
-        														   null,
-        														   null,
-        														   null);
-        		task.execute();
-        		break;
-        	case R.id.play_next:
-        		AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
-																		   mGridViewFragment,
-																		   "ARTIST",
-																		   mName, 
-																		   null,
-																		   null, 
-																		   null, 
-																		   null,
-																		   null,
-																		   null);
-        		playNextTask.execute(new Boolean[] { true });
-        		break;
-        	case R.id.add_to_playlist:
+        		break;*/
+                case R.id.add_to_queue:
+                    //Add to Queue.
+                    AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
+                            mActivity,
+                            AppConstants.KEY_ALBUM,
+                            null,
+                            mAlbum,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null);
+                    task.execute();
+                    break;
+                case R.id.play_next:
+                    AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
+                            mActivity,
+                            AppConstants.KEY_ALBUM,
+                            null,
+                            mAlbum,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null);
+                    playNextTask.execute(new Boolean[]{true});
+                    break;
+            /*case R.id.add_to_playlist:
         		//Add to Playlist
         		FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
 				AddToPlaylistDialog dialog = new AddToPlaylistDialog();
 				Bundle bundle = new Bundle();
 				bundle.putString("ADD_TYPE", "ARTIST");
-				bundle.putString("ARTIST", mName);
+				bundle.putString("ARTIST", mAlbum);
 				dialog.setArguments(bundle);
 				dialog.show(ft, "AddToPlaylistDialog");
-				break;
-        	case R.id.blacklist_artist:
+				break;*/
+        	/*case R.id.blacklist_artist:
         		//Blacklist Artist
-        		mApp.getDBAccessHelper().setBlacklistForArtist(mName, true);
+        		mApp.getDBAccessHelper().setBlacklistForArtist(mAlbum, true);
         		Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
-        		
+
         		//Update the GridView.
         		mGridViewFragment.mHandler.post(mGridViewFragment.queryRunnable);
         		mGridViewFragment.getGridViewAdapter().notifyDataSetChanged();
 
-        		break;
-        	
-			}
-			
-			return false;
-		}
-    	
-    };*/
+        		break;*/
+
+            }
+
+            return false;
+        }
+
+    };
 
     /**
      * Holder subclass for GridViewAdapter.

@@ -1,5 +1,6 @@
 package com.squad.music.asynctask;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -35,7 +36,8 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
     private boolean mPlayNext = false;
     private String mPlayingNext = "";
     private boolean mShowToast = false;
-    private AppCompatActivity mActivity;
+    private AppCompatActivity mAppcompatActivity;
+    private Activity mActivity;
 
     public AsyncAddToQueueTask(Context context,
                                Fragment fragment,
@@ -73,6 +75,40 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
 
     public AsyncAddToQueueTask(Context context,
                                AppCompatActivity activity,
+                               String enqueueType,
+                               String artistName,
+                               String albumName,
+                               String songTitle,
+                               String genreName,
+                               String playlistId,
+                               String playlistName,
+                               String albumArtistName) {
+
+        mContext = context;
+        mApp = (Common) mContext;
+
+        mArtistName = artistName;
+        mAlbumName = albumName;
+        mSongTitle = songTitle;
+        mGenreName = genreName;
+        mPlaylistId = playlistId;
+        mPlaylistName = playlistName;
+        mAlbumArtistName = albumArtistName;
+
+        mAppcompatActivity = activity;
+        mEnqueueType = enqueueType;
+
+        if (mApp.getService() != null) {
+            if (mApp.getService().getPlaybackIndecesList() != null) {
+                originalPlaybackIndecesSize = mApp.getService().getPlaybackIndecesList().size();
+            }
+        } else {
+            mShowToast = true;
+        }
+    }
+
+    public AsyncAddToQueueTask(Context context,
+                               Activity activity,
                                String enqueueType,
                                String artistName,
                                String albumName,
@@ -452,8 +488,8 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
                     mFragment.getActivity().startActivity(intent);
                     mFragment.getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 } else {
-                    mActivity.startActivity(intent);
-                    mActivity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                    mAppcompatActivity.startActivity(intent);
+                    mAppcompatActivity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 }
                 break;
             case 1:

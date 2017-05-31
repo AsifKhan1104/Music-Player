@@ -209,11 +209,10 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
             }
 
             mPlayingNext = mPlaylistName;*/
-        } else if (mAddType.equals("GENRE")) {
+        } else if (mAddType.equals(AppConstants.KEY_GENRE)) {
 
             String selection = DBAccessHelper.SONG_GENRE + "=" + "'" + mGenre + "'" + " AND "
-                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'" + " AND "
-                    + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
 
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,

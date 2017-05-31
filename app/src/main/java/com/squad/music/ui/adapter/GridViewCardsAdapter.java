@@ -362,7 +362,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             mArtist,
                             mAlbum,
                             null,
-                            null,
+                            mGenre,
                             null,
                             null,
                             null);
@@ -375,7 +375,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             mArtist,
                             mAlbum,
                             null,
-                            null,
+                            mGenre,
                             null,
                             null,
                             null);
@@ -388,6 +388,9 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                         dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
                     } else if (mCurrentFragType.equals(AppConstants.KEY_ALBUM)) {
                         AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(mCurrentFragType, mAlbum);
+                        dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
+                    } else if (mCurrentFragType.equals(AppConstants.KEY_GENRE)) {
+                        AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(mCurrentFragType, mGenre);
                         dialog.show(mGridViewFragment.getFragmentManager(), "AddToPlaylistDialog");
                     }
 

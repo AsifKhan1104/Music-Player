@@ -400,17 +400,20 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
             }
 
             mPlayingNext = mPlaylistName;*/
-        } else if (mEnqueueType.equals("GENRE")) {
+        } else if (mEnqueueType.equals(AppConstants.KEY_GENRE)) {
 
             String selection = null;
-            if (mApp.isGooglePlayMusicEnabled()) {
+            /*if (mApp.isGooglePlayMusicEnabled()) {
                 selection = DBAccessHelper.SONG_GENRE + "=" + "'" + mGenreName + "'" + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'";
             } else {
                 selection = DBAccessHelper.SONG_GENRE + "=" + "'" + mGenreName + "'" + " AND "
                         + DBAccessHelper.BLACKLIST_STATUS + "=" + "'FALSE'" + " AND "
                         + DBAccessHelper.SONG_SOURCE + "<>" + "'GOOGLE_PLAY_MUSIC'";
-            }
+            }*/
+
+            selection = DBAccessHelper.SONG_GENRE + "=" + "'" + mGenreName + "'" + " AND "
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
 
             mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
                     null,

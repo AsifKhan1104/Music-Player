@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,7 +51,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     private Common mApp;
     private GridViewFragment mGridViewFragment;
     public static GridViewHolder mHolder = null;
-    private String mArtist = "", mFilePath = "", mAlbum = "", mGenre="";
+    private String mArtist = "", mFilePath = "", mAlbum = "", mGenre = "";
     private int mWidth;
     private int mHeight;
     private String mCurrentFragType;
@@ -269,10 +270,12 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                 case Common.ALBUMS_FRAGMENT:
                     mAlbum = (String) v.getTag(R.string.title_text);
                     mCurrentFragType = AppConstants.KEY_ALBUM;
+                    menu.getMenu().removeItem(R.id.blacklist_artist);
                     break;
                 case Common.GENRES_FRAGMENT:
                     mGenre = (String) v.getTag(R.string.title_text);
                     mCurrentFragType = AppConstants.KEY_GENRE;
+                    menu.getMenu().removeItem(R.id.blacklist_artist);
                     break;
             }
             menu.show();

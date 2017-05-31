@@ -33,6 +33,7 @@ import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditArtistsDialog;
 import com.squad.music.ui.dialog.ID3sAlbumEditorDialog;
 import com.squad.music.ui.dialog.ID3sArtistEditorDialog;
+import com.squad.music.ui.dialog.ID3sGenreEditorDialog;
 import com.squad.music.ui.fragment.GridViewFragment;
 import com.squad.music.utility.AppConstants;
 import com.squareup.picasso.Picasso;
@@ -312,7 +313,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             dialog.show(ft, "id3ArtistEditorDialog");
                         }
                     } else if (mCurrentFragType.equals(AppConstants.KEY_ALBUM)) {
-                        if (mApp.getSharedPreferences().getBoolean("SHOW_ALBUM_EDIT_CAUTION", true) == true) {
+                        if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true) == true) {
                             FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
                             Bundle bundle = new Bundle();
                             bundle.putString(AppConstants.EDIT_TYPE, mCurrentFragType);
@@ -332,7 +333,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             dialog.show(ft, "id3AlbumEditorDialog");
                         }
                     } else if (mCurrentFragType.equals(AppConstants.KEY_GENRE)) {
-                        if (mApp.getSharedPreferences().getBoolean("SHOW_GENRE_EDIT_CAUTION", true) == true) {
+                        if (mApp.getSharedPreferences().getBoolean("SHOW_ARTIST_EDIT_CAUTION", true) == true) {
                             FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
                             Bundle bundle = new Bundle();
                             bundle.putString(AppConstants.EDIT_TYPE, mCurrentFragType);
@@ -346,7 +347,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             Bundle bundle = new Bundle();
                             bundle.putString(AppConstants.EDIT_TYPE, mCurrentFragType);
                             bundle.putString(mCurrentFragType, mGenre);
-                            ID3sAlbumEditorDialog dialog = new ID3sAlbumEditorDialog();
+                            ID3sGenreEditorDialog dialog = new ID3sGenreEditorDialog();
                             dialog.setTargetFragment(mGridViewFragment, 1);
                             dialog.setArguments(bundle);
                             dialog.show(ft, "id3GenreEditorDialog");

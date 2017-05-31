@@ -111,6 +111,11 @@ public class CautionEditArtistsDialog extends DialogFragment {
                     dialog.setTargetFragment(dialogFragment.getTargetFragment(), 1);
                     dialog.setArguments(bundle);
                     dialog.show(ft, "id3AlbumEditorDialog");
+                } else if (EDIT_TYPE.equals(AppConstants.KEY_GENRE)) {
+                    ID3sGenreEditorDialog dialog = new ID3sGenreEditorDialog();
+                    dialog.setTargetFragment(dialogFragment.getTargetFragment(), 1);
+                    dialog.setArguments(bundle);
+                    dialog.show(ft, "id3GenreEditorDialog");
                 }
 
             }

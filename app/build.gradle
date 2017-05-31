@@ -21,6 +21,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    repositories{
+        maven {
+            url 'http://dl.bintray.com/amulyakhare/maven'
+        }
+    }
 }
 
 dependencies {
@@ -61,4 +67,5 @@ dependencies {
     compile 'me.zhanghai.android.materialprogressbar:library:1.3.0'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.android.support:multidex:1.0.0'
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 }

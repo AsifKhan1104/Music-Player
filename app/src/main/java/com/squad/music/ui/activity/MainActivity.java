@@ -34,6 +34,7 @@ import com.squad.music.ui.fragment.FilesFoldersFragment;
 import com.squad.music.ui.fragment.GridViewFragment;
 import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.ui.fragment.NavigationDrawerFragment;
+import com.squad.music.ui.fragment.PlaylistFragment;
 import com.squad.music.ui.fragment.QueueDrawerFragment;
 
 public class MainActivity extends AppCompatActivity implements TimePickerDialogFragment.onSelectListener, View.OnClickListener {
@@ -197,7 +198,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialogF
                     mCurrentFragment = getLayoutFragment(Common.SONGS_FRAGMENT);
                     break;
                 case Common.PLAYLISTS_FRAGMENT:
-                    mCurrentFragment = getLayoutFragment(Common.PLAYLISTS_FRAGMENT);
+                    //mCurrentFragment = getLayoutFragment(Common.PLAYLISTS_FRAGMENT);
+                    mCurrentFragment = new PlaylistFragment();
                     break;
                 case Common.GENRES_FRAGMENT:
                     mCurrentFragment = getLayoutFragment(Common.GENRES_FRAGMENT);

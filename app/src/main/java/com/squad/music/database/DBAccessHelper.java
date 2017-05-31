@@ -1774,6 +1774,18 @@ public class DBAccessHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Returns a list of all the songs by a genre.
+     */
+    public Cursor getAllSongsByGenre(String selection) {
+        String selectQuery = "SELECT  * FROM " + MUSIC_LIBRARY_TABLE + " WHERE " +
+                BLACKLIST_STATUS + "=" + "'0'" + selection +
+                " ORDER BY " + SONG_TRACK_NUMBER + "*1 ASC";
+
+        return getDatabase().rawQuery(selectQuery, null);
+
+    }
+
     //Updates the blacklist statuses of the songs specified in the HashMap.
     public void batchUpdateSongBlacklist(HashMap<String, Boolean> songIdBlacklistStatusPair) {
 

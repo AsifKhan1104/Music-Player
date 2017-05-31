@@ -49,7 +49,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     private Common mApp;
     private GridViewFragment mGridViewFragment;
     public static GridViewHolder mHolder = null;
-    private String mArtist = "", mFilePath = "", mAlbum = "";
+    private String mArtist = "", mFilePath = "", mAlbum = "", mGenre="";
     private int mWidth;
     private int mHeight;
     private String mCurrentFragType;
@@ -269,6 +269,10 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     mAlbum = (String) v.getTag(R.string.title_text);
                     mCurrentFragType = AppConstants.KEY_ALBUM;
                     break;
+                case Common.GENRES_FRAGMENT:
+                    mGenre = (String) v.getTag(R.string.title_text);
+                    mCurrentFragType = AppConstants.KEY_GENRE;
+                    break;
             }
             menu.show();
 
@@ -326,6 +330,26 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                             dialog.setTargetFragment(mGridViewFragment, 1);
                             dialog.setArguments(bundle);
                             dialog.show(ft, "id3AlbumEditorDialog");
+                        }
+                    } else if (mCurrentFragType.equals(AppConstants.KEY_GENRE)) {
+                        if (mApp.getSharedPreferences().getBoolean("SHOW_GENRE_EDIT_CAUTION", true) == true) {
+                            FragmentTransaction transaction = mGridViewFragment.getFragmentManager().beginTransaction();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(AppConstants.EDIT_TYPE, mCurrentFragType);
+                            bundle.putString(mCurrentFragType, mGenre);
+                            CautionEditArtistsDialog dialog = new CautionEditArtistsDialog();
+                            dialog.setTargetFragment(mGridViewFragment, 1);
+                            dialog.setArguments(bundle);
+                            dialog.show(transaction, "cautionGenreDialog");
+                        } else {
+                            FragmentTransaction ft = mGridViewFragment.getFragmentManager().beginTransaction();
+                            Bundle bundle = new Bundle();
+                            bundle.putString(AppConstants.EDIT_TYPE, mCurrentFragType);
+                            bundle.putString(mCurrentFragType, mGenre);
+                            ID3sAlbumEditorDialog dialog = new ID3sAlbumEditorDialog();
+                            dialog.setTargetFragment(mGridViewFragment, 1);
+                            dialog.setArguments(bundle);
+                            dialog.show(ft, "id3GenreEditorDialog");
                         }
                     }
                     break;

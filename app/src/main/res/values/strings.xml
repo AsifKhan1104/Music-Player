@@ -790,6 +790,7 @@
     <string name="unable_to_edit_song_tags">Unable to edit song tags.</string>
     <string name="unable_to_edit_artist_tags">Unable to edit artist tags.</string>
     <string name="unable_to_edit_album_tags">Unable to edit album tags.</string>
+    <string name="unable_to_edit_genre_tags">Unable to edit genre tags.</string>
     <string name="resume_last_queue">Resume Last Queue</string>
     <string name="resuming_last_queue">Resuming last queue.</string>
     <string name="shuffle_all_caps">SHUFFLE ALL</string>

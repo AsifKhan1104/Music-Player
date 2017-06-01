@@ -1,7 +1,6 @@
 package com.squad.music.database;
 
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,17 +8,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.model.Playlist;
+import com.squad.music.model.Song;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-
-import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
 
 /**
  * SQLite database implementation. Note that this class
@@ -1929,6 +1926,46 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 playlist.setPlaylistName(plname);
                 playlist.setPlaylistId(playlistId);
                 list.add(playlist);
+
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return list;
+    }
+
+    /*Retrieve songs from playlist*/
+    public static ArrayList<Song> getSongsFromPlaylist(Context context, long playlistId) {
+        ArrayList<Song> list = new ArrayList<>();
+        String[] proj =
+                {
+                        MediaStore.Audio.Playlists.Members.AUDIO_ID,
+                        MediaStore.Audio.Playlists.Members.ARTIST,
+                        MediaStore.Audio.Playlists.Members.TITLE,
+                        MediaStore.Audio.Playlists.Members._ID
+                };
+
+        Cursor c = context.getContentResolver().query(
+                MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                proj, null, null, null);
+
+        if (c.getCount() > 0) {
+            c.moveToFirst();
+            do {
+                Song song = new Song();
+                long id = c.getLong(c.getColumnIndex(MediaStore.Audio.Playlists.Members.AUDIO_ID));
+                String title = c.getString(c
+                        .getColumnIndex(MediaStore.Audio.Playlists.Members.TITLE));
+                String artist = c.getString(c
+                        .getColumnIndex(MediaStore.Audio.Playlists.Members.ARTIST));
+                /*String uri = c.getString(c
+                        .getColumnIndex(String.valueOf(MediaStore.Audio.Playlists.Members.getContentUri(title, playlistId))));*/
+
+                song.setId(id);
+                song.setTitle(title);
+                song.setArtist(artist);
+                //song.setUri(uri);
+                list.add(song);
 
             } while (c.moveToNext());
         }

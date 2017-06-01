@@ -884,4 +884,7 @@
     <string name="ringtone_set">Ringtone set successfully.</string>
 
     <string name="app_exit_msg">Do you want to close the app ?</string>
+
+    <string name="songss">songs</string>
+    <string name="song">song</string>
 </resources>

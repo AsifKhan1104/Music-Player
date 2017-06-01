@@ -12,10 +12,13 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.squad.music.R;
+import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
+import com.squad.music.model.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolder> {
@@ -38,7 +41,13 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.mTextViewText.setText(mItems.get(i).getPlaylistName());
-        viewHolder.mTextViewSubText.setText(mItems.get(i).getNoOfSongs());
+
+        ArrayList<Song> songs = DBAccessHelper.getSongsFromPlaylist(mContext, mItems.get(i).getPlaylistId());
+        if (songs.size() == 1) {
+            viewHolder.mTextViewSubText.setText(songs.size() + " " + mContext.getString(R.string.song));
+        } else {
+            viewHolder.mTextViewSubText.setText(songs.size() + " " + mContext.getString(R.string.songss));
+        }
 
         viewHolder.mTextViewText.setTextColor(UIElementsHelper.getThemeBasedTextColor(mContext));
         viewHolder.mTextViewSubText.setTextColor(UIElementsHelper.getSmallTextColor(mContext));

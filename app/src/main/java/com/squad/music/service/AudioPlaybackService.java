@@ -1880,9 +1880,9 @@ public class AudioPlaybackService extends Service {
      */
     @Override
     public void onTaskRemoved(Intent rootIntent) {
-        Intent intent = new Intent(this, KitKatFixActivity.class);
+        /*Intent intent = new Intent(this, KitKatFixActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        startActivity(intent);*/
 
     }
 

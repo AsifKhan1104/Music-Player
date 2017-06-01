@@ -12,9 +12,12 @@ import android.widget.Toast;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
+import com.squad.music.model.Song;
 import com.squad.music.service.AudioPlaybackService;
 import com.squad.music.ui.activity.NowPlayingActivity;
 import com.squad.music.utility.AppConstants;
+
+import java.util.ArrayList;
 
 public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
 
@@ -389,7 +392,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
 
             mCursor = dbHelper.getRecentlyPlayedSongs(selection);
             mPlayingNext = mContext.getResources().getString(R.string.the_most_recently_played_songs);
-        } else if (mEnqueueType.equals("PLAYLIST")) {
+        } else if (mEnqueueType.equals(AppConstants.KEY_PLAYLIST)) {
            /* String selection = " AND " + DBAccessHelper.MUSIC_LIBRARY_PLAYLISTS_NAME + "."
                              + DBAccessHelper.PLAYLIST_ID + "=" + "'" + mPlaylistId + "'";
 
@@ -397,9 +400,21 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
             	mCursor = dbHelper.getAllSongsInPlaylistSearchable(selection);
             } else {
             	mCursor = dbHelper.getLocalSongsInPlaylistSearchable(selection);
-            }
+            }*/
 
-            mPlayingNext = mPlaylistName;*/
+            ArrayList<Song> songs = DBAccessHelper.getSongsFromPlaylist(mContext, Long.parseLong(mPlaylistId));
+
+            String selection = DBAccessHelper.SONG_TITLE + "=" + "'" + songs.get(0) + "'" + " AND "
+                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
+            mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
+                    null,
+                    selection,
+                    null,
+                    null,
+                    null,
+                    DBAccessHelper.SONG_TITLE + " ASC");
+
+            mPlayingNext = mPlaylistName;
         } else if (mEnqueueType.equals(AppConstants.KEY_GENRE)) {
 
             String selection = null;

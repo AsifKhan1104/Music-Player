@@ -5,8 +5,11 @@
 	    android:title="@string/add_to_queue"/> 
 	<item  
 	    android:id="@+id/play_next"  
-	    android:title="@string/play_next"/> 
-	<item  
+	    android:title="@string/play_next"/>
+    <item
+        android:id="@+id/rename"
+        android:title="@string/rename"/>
+    <item
 	    android:id="@+id/delete_playlist"  
-	    android:title="@string/delete_playlist"/> 
+	    android:title="@string/delete"/>
 </menu>

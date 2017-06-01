@@ -3,20 +3,28 @@ package com.squad.music.ui.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.squad.music.R;
+import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
 import com.squad.music.model.Song;
+import com.squad.music.ui.dialog.AddToPlaylistDialog2;
+import com.squad.music.ui.fragment.PlaylistFragment;
+import com.squad.music.utility.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +33,13 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     private List<Playlist> mItems;
     private Context mContext;
+    private String mPlaylistId;
+    private PlaylistFragment mPlaylistFragment;
 
-    public PlaylistAdapter(Context context, List<Playlist> items) {
+    public PlaylistAdapter(Context context, List<Playlist> items, PlaylistFragment fragment) {
         mItems = items;
         mContext = context;
+        mPlaylistFragment = fragment;
     }
 
     @Override
@@ -62,6 +73,13 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(String.valueOf(mItems.get(i).getPlaylistName().charAt(0)), randomColor);
         viewHolder.mImageView.setImageDrawable(drawable);
+
+        viewHolder.mOverflowIcon.setOnClickListener(overflowClickListener);
+        viewHolder.mOverflowIcon.setFocusable(false);
+        viewHolder.mOverflowIcon.setFocusableInTouchMode(false);
+
+        //Set the tags for this list item's overflow button.
+        viewHolder.mOverflowIcon.setTag(R.string.title_text, String.valueOf(mItems.get(i).getPlaylistId()));
     }
 
     @Override
@@ -74,6 +92,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         private final LinearLayout mLinearLayout;
         private final ImageView mImageView;
         private final TextView mTextViewText, mTextViewSubText;
+        public ImageButton mOverflowIcon;
 
         ViewHolder(View v) {
             super(v);
@@ -81,7 +100,71 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
             mTextViewText = (TextView) v.findViewById(R.id.listViewTitleText);
             mTextViewSubText = (TextView) v.findViewById(R.id.listViewSubText);
             mImageView = (ImageView) v.findViewById(R.id.listViewLeftIcon);
+            mOverflowIcon = (ImageButton) v.findViewById(R.id.listViewOverflow);
         }
     }
 
+    /**
+     * Click listener for overflow button.
+     */
+    private View.OnClickListener overflowClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            PopupMenu menu = new PopupMenu(mContext, v);
+            menu.inflate(R.menu.playlist_overflow_menu);
+            menu.setOnMenuItemClickListener(popupMenuItemClickListener);
+            mPlaylistId = (String) v.getTag(R.string.title_text);
+            menu.show();
+
+        }
+    };
+
+    /**
+     * Menu item click listener for the pop up menu.
+     */
+    private PopupMenu.OnMenuItemClickListener popupMenuItemClickListener = new PopupMenu.OnMenuItemClickListener() {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.add_to_queue:
+                    //Add to Queue.
+                    AsyncAddToQueueTask task = new AsyncAddToQueueTask(mContext,
+                            mPlaylistFragment,
+                            AppConstants.KEY_PLAYLIST,
+                            null,
+                            null,
+                            null,
+                            null,
+                            mPlaylistId,
+                            null,
+                            null);
+                    task.execute();
+                    break;
+                case R.id.play_next:
+                    AsyncAddToQueueTask playNextTask = new AsyncAddToQueueTask(mContext,
+                            mPlaylistFragment,
+                            AppConstants.KEY_PLAYLIST,
+                            null,
+                            null,
+                            null,
+                            null,
+                            mPlaylistId,
+                            null,
+                            null);
+                    playNextTask.execute(new Boolean[]{true});
+                    break;
+                case R.id.add_to_playlist:
+                    //Add to Playlist
+                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_PLAYLIST, mPlaylistId);
+                    dialog.show(mPlaylistFragment.getFragmentManager(), "AddToPlaylistDialog");
+
+                    break;
+            }
+            return false;
+        }
+
+    };
 }

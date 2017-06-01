@@ -36,8 +36,8 @@ public class PlaylistFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mContext = getActivity();
-        mApp = (Common) mContext.getApplicationContext();
+        mContext = getActivity().getApplicationContext();
+        mApp = (Common) mContext;
 
         mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_playlist_view, container, false);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerview);
@@ -88,7 +88,7 @@ public class PlaylistFragment extends Fragment {
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
 
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mRecyclerView.setAdapter(new PlaylistAdapter(getActivity(), mItems));
+            mRecyclerView.setAdapter(new PlaylistAdapter(mContext, mItems, PlaylistFragment.this));
 
             animation.setAnimationListener(new Animation.AnimationListener() {
 

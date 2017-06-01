@@ -184,25 +184,31 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialogF
                 }
             }
 
+            String[] array = getResources().getStringArray(R.array.startup_screen_items);
             switch (mCurrentFragmentId) {
                 case Common.ARTISTS_FRAGMENT:
                     mCurrentFragment = getLayoutFragment(Common.ARTISTS_FRAGMENT);
+                    getSupportActionBar().setTitle(array[0]);
                     break;
                 case Common.ALBUM_ARTISTS_FRAGMENT:
                     mCurrentFragment = getLayoutFragment(Common.ALBUM_ARTISTS_FRAGMENT);
                     break;
                 case Common.ALBUMS_FRAGMENT:
                     mCurrentFragment = getLayoutFragment(Common.ALBUMS_FRAGMENT);
+                    getSupportActionBar().setTitle(array[2]);
                     break;
                 case Common.SONGS_FRAGMENT:
                     mCurrentFragment = getLayoutFragment(Common.SONGS_FRAGMENT);
+                    getSupportActionBar().setTitle(array[3]);
                     break;
                 case Common.PLAYLISTS_FRAGMENT:
                     //mCurrentFragment = getLayoutFragment(Common.PLAYLISTS_FRAGMENT);
                     mCurrentFragment = new PlaylistFragment();
+                    getSupportActionBar().setTitle(array[4]);
                     break;
                 case Common.GENRES_FRAGMENT:
                     mCurrentFragment = getLayoutFragment(Common.GENRES_FRAGMENT);
+                    getSupportActionBar().setTitle(array[5]);
                     break;
                 case Common.FOLDERS_FRAGMENT:
                     mCurrentFragment = new FilesFoldersFragment();

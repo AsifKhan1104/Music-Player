@@ -1,7 +1,6 @@
 package com.squad.music.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
@@ -46,8 +46,12 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         viewHolder.mTextViewText.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
         viewHolder.mTextViewSubText.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
 
+        ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
+        // generate random color
+        int randomColor = generator.getRandomColor();
+
         TextDrawable drawable = TextDrawable.builder()
-                .buildRound("A", Color.RED);
+                .buildRound(String.valueOf(mItems.get(i).getPlaylistName().charAt(0)), randomColor);
         viewHolder.mImageView.setImageDrawable(drawable);
     }
 

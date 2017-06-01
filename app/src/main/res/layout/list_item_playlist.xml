@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/listViewLeftIcon"
-        android:layout_width="@dimen/list_view_left_icon_size"
-        android:layout_height="@dimen/list_view_left_icon_size"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:paddingLeft="8dp"
@@ -67,7 +67,6 @@
                 android:textSize="14sp"/>
 
         </RelativeLayout>
-
     </LinearLayout>
 
     <ImageButton

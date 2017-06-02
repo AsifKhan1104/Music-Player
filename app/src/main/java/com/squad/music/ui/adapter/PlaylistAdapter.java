@@ -1,6 +1,13 @@
 package com.squad.music.ui.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,12 +24,12 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.squad.music.R;
 import com.squad.music.asynctask.AsyncAddToQueueTask;
-import com.squad.music.database.DBAccessHelper;
+import com.squad.music.helper.PlaylistHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
 import com.squad.music.model.Song;
-import com.squad.music.ui.dialog.AddToPlaylistDialog2;
+import com.squad.music.ui.dialog.DeletePlaylistDialog;
 import com.squad.music.ui.fragment.PlaylistFragment;
 import com.squad.music.utility.AppConstants;
 
@@ -33,12 +40,14 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     private List<Playlist> mItems;
     private Context mContext;
+    private FragmentActivity mActivity;
     private String mPlaylistId;
     private PlaylistFragment mPlaylistFragment;
 
-    public PlaylistAdapter(Context context, List<Playlist> items, PlaylistFragment fragment) {
+    public PlaylistAdapter(Context context, FragmentActivity activity, List<Playlist> items, PlaylistFragment fragment) {
         mItems = items;
         mContext = context;
+        mActivity = activity;
         mPlaylistFragment = fragment;
     }
 
@@ -53,7 +62,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         viewHolder.mTextViewText.setText(mItems.get(i).getPlaylistName());
 
-        ArrayList<Song> songs = DBAccessHelper.getSongsFromPlaylist(mContext, mItems.get(i).getPlaylistId());
+        ArrayList<Song> songs = PlaylistHelper.getSongsFromPlaylist(mContext, mItems.get(i).getPlaylistId());
         if (songs.size() == 1) {
             viewHolder.mTextViewSubText.setText(songs.size() + " " + mContext.getString(R.string.song));
         } else {
@@ -156,10 +165,13 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
                             null);
                     playNextTask.execute(new Boolean[]{true});
                     break;
-                case R.id.add_to_playlist:
-                    //Add to Playlist
-                    AddToPlaylistDialog2 dialog = new AddToPlaylistDialog2().newInstance(AppConstants.KEY_PLAYLIST, mPlaylistId);
-                    dialog.show(mPlaylistFragment.getFragmentManager(), "AddToPlaylistDialog");
+                case R.id.rename:
+
+                    break;
+                case R.id.delete:
+                    DeletePlaylistDialog dialogFragment = DeletePlaylistDialog.newInstance(mPlaylistId);
+                    dialogFragment.show(mActivity.getSupportFragmentManager(), "DeletePlaylistDialog");
+                    notifyDataSetChanged();
 
                     break;
             }

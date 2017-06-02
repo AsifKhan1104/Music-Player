@@ -292,11 +292,11 @@
     <string name="delete">Delete</string>
     <string name="playlist_blacklisted">Playlist blacklisted.</string>
     <string name="playlist_could_not_be_blacklisted">Playlist could not be blacklisted.</string>
-    <string name="playlist_deleted">Playlist deleted.</string>
+    <string name="playlist_deleted">Playlist deleted successfully.</string>
     <string name="playlist_could_not_be_deleted">Playlist could not be deleted.</string>
     <string name="playlist_cannot_be_deleted">This playlist cannot be deleted.</string>
     <string name="rename_playlist_info">Type in a new name for the playlist.</string>
-    <string name="playlist_renamed">Playlist renamed.</string>
+    <string name="playlist_renamed">Playlist renamed successfully.</string>
     <string name="playlist_name_caps">PLAYLIST NAME:</string>
     <string name="playlist_format_caps">PLAYLIST FORMAT:</string>
     <string name="playlist_location_caps">PLAYLIST LOCATION:</string>

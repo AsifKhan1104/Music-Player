@@ -21,6 +21,7 @@ import com.squad.music.R;
 import com.squad.music.asynctask.AsyncAddSongsToPlaylistTask2;
 import com.squad.music.asynctask.AsyncCreateNewPlaylistTask2;
 import com.squad.music.database.DBAccessHelper;
+import com.squad.music.helper.PlaylistHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
@@ -134,7 +135,7 @@ public class AddToPlaylistDialog2 extends DialogFragment {
     }
 
     private void showPlaylistsInList(View view) {
-        ArrayList<Playlist> items = DBAccessHelper.getAllPlaylists(mContext);
+        ArrayList<Playlist> items = PlaylistHelper.getAllPlaylists(mContext);
         if (items.size() > 0) {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

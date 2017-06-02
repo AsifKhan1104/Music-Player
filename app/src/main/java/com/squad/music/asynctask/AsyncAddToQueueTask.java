@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
+import com.squad.music.helper.PlaylistHelper;
 import com.squad.music.model.Song;
 import com.squad.music.service.AudioPlaybackService;
 import com.squad.music.ui.activity.NowPlayingActivity;
@@ -403,7 +404,7 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
             	mCursor = dbHelper.getLocalSongsInPlaylistSearchable(selection);
             }*/
 
-            ArrayList<Song> songs = DBAccessHelper.getSongsFromPlaylist(mContext, Long.parseLong(mPlaylistId));
+            ArrayList<Song> songs = PlaylistHelper.getSongsFromPlaylist(mContext, Long.parseLong(mPlaylistId));
 
             for (int i = 0; i < songs.size(); i++) {
                 String title = songs.get(i).getTitle();

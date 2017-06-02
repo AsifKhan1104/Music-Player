@@ -1,11 +1,11 @@
 package com.squad.music.ui.fragment;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +17,7 @@ import android.view.animation.TranslateAnimation;
 
 import com.squad.music.Common;
 import com.squad.music.R;
-import com.squad.music.database.DBAccessHelper;
+import com.squad.music.helper.PlaylistHelper;
 import com.squad.music.model.Playlist;
 import com.squad.music.ui.adapter.PlaylistAdapter;
 
@@ -27,6 +27,7 @@ public class PlaylistFragment extends Fragment {
 
     private Context mContext;
     private Common mApp;
+    private FragmentActivity mActivity;
     private RecyclerView mRecyclerView;
     private View mRootView;
     public Handler mHandler = new Handler();
@@ -38,6 +39,7 @@ public class PlaylistFragment extends Fragment {
 
         mContext = getActivity().getApplicationContext();
         mApp = (Common) mContext;
+        mActivity = getActivity();
 
         mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_playlist_view, container, false);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerview);
@@ -70,7 +72,7 @@ public class PlaylistFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            mItems = DBAccessHelper.getAllPlaylists(mContext);
+            mItems = PlaylistHelper.getAllPlaylists(mContext);
 
             return null;
         }
@@ -88,7 +90,7 @@ public class PlaylistFragment extends Fragment {
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
 
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            mRecyclerView.setAdapter(new PlaylistAdapter(mContext, mItems, PlaylistFragment.this));
+            mRecyclerView.setAdapter(new PlaylistAdapter(mContext, mActivity, mItems, PlaylistFragment.this));
 
             animation.setAnimationListener(new Animation.AnimationListener() {
 

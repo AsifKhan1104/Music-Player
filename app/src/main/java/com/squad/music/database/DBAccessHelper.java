@@ -1,17 +1,16 @@
 package com.squad.music.database;
 
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.MergeCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
-import android.provider.MediaStore;
 
 import com.squad.music.Common;
 import com.squad.music.R;
-import com.squad.music.model.Playlist;
+import com.squad.music.helper.PlaylistHelper;
 import com.squad.music.model.Song;
 
 import java.util.ArrayList;
@@ -700,7 +699,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     public Cursor getFragmentCursor(Context context, String querySelection, int fragmentId) {
         String currentLibrary = mApp.getCurrentLibraryNormalized();
 
-        if (currentLibrary.equals(context.getResources().getString(R.string.all_libraries))) {
+        if (fragmentId == Common.PLAYLISTS_FRAGMENT) {
+            return getFragmentCursorHelper(querySelection, fragmentId);
+
+        } else if (currentLibrary.equals(context.getResources().getString(R.string.all_libraries))) {
             if (mApp.getSharedPreferences().getBoolean("GOOGLE_PLAY_MUSIC_ENABLED", false) == true) {
                 querySelection += "";
             } else {
@@ -758,7 +760,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 querySelection += " ORDER BY " + SONG_TITLE + " ASC";
                 return getAllSongsSearchable(querySelection);
             case Common.PLAYLISTS_FRAGMENT:
-                //TODO case stub.
+                return getAllSongsPlaylist(querySelection);
             case Common.GENRES_FRAGMENT:
                 return getAllUniqueGenres(querySelection);
             case Common.FOLDERS_FRAGMENT:
@@ -800,7 +802,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 querySelection += " ORDER BY " + SONG_TITLE + " ASC";
                 return getAllSongsInLibrarySearchable(querySelection);
             case Common.PLAYLISTS_FRAGMENT:
-                //TODO case stub.
+                return getAllSongsPlaylist(querySelection);
             case Common.GENRES_FRAGMENT:
                 return getAllUniqueGenresInLibrary(querySelection);
             case Common.FOLDERS_FRAGMENT:
@@ -831,7 +833,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     public Cursor getPlaybackCursor(Context context, String querySelection, int fragmentId) {
         String currentLibrary = mApp.getCurrentLibraryNormalized();
 
-        if (currentLibrary.equals(context.getResources().getString(R.string.all_libraries))) {
+        if (fragmentId == Common.PLAYLISTS_FRAGMENT) {
+            return getFragmentCursorHelper(querySelection, fragmentId);
+
+        } else if (currentLibrary.equals(context.getResources().getString(R.string.all_libraries))) {
             if (mApp.getSharedPreferences().getBoolean("GOOGLE_PLAY_MUSIC_ENABLED", false) == true) {
                 querySelection += "";
             } else {
@@ -1902,5 +1907,26 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 + "*1 ASC";
 
         return getDatabase().rawQuery(selectDistinctQuery, null);
+    }
+
+    // get songs for playlist
+    public Cursor getAllSongsPlaylist(String playlistId) {
+        Cursor mainCursor = null;
+        ArrayList<Song> songs = PlaylistHelper.getSongsFromPlaylist(mApp.getApplicationContext(), Long.parseLong(playlistId));
+
+        for (int i = 0; i < songs.size(); i++) {
+            String selectQuery = "SELECT  * FROM " + MUSIC_LIBRARY_TABLE + " WHERE " +
+                    BLACKLIST_STATUS + "=" + "'0'" + " AND " + SONG_TITLE + "=" + DatabaseUtils.sqlEscapeString(songs.get(i).getTitle());
+
+            Cursor cursor = getDatabase().rawQuery(selectQuery, null);
+            if (i == 0) {
+                mainCursor = cursor;
+            } else {
+                Cursor[] cursorArray = {mainCursor, cursor};
+                MergeCursor mergeCursor = new MergeCursor(cursorArray);
+                mainCursor = mergeCursor;
+            }
+        }
+        return mainCursor;
     }
 }

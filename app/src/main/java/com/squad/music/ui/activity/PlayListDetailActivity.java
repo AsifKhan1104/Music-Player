@@ -9,9 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -21,11 +19,9 @@ import android.widget.RelativeLayout;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 import com.squad.music.Common;
 import com.squad.music.R;
-import com.squad.music.animations.TranslateAnimation;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.PauseOnScrollHelper;
 import com.squad.music.helper.UIElementsHelper;
-import com.squad.music.ui.adapter.ListViewCardsAdapter;
 import com.squad.music.ui.adapter.PlayListDetailAdapter;
 import com.squad.music.ui.fragment.NavigationDrawerFragment;
 import com.squad.music.ui.fragment.QueueDrawerFragment;
@@ -149,32 +145,10 @@ public class PlayListDetailActivity extends AppCompatActivity {
             return null;
         }
 
-        /**
-         * Populates the DB column names based on the specifed fragment id.
-         */
-        private void loadDBColumnNames() {
-
-            /*switch (mFragmentId) {
-                case Common.ARTISTS_FLIPPED_SONGS_FRAGMENT:
-                case Common.ALBUM_ARTISTS_FLIPPED_SONGS_FRAGMENT:
-                case Common.ALBUMS_FLIPPED_FRAGMENT:
-                case Common.GENRES_FLIPPED_SONGS_FRAGMENT:
-                    mDBColumnsMap.put(ListViewCardsAdapter.TITLE_TEXT, DBAccessHelper.SONG_TITLE);
-                    mDBColumnsMap.put(ListViewCardsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
-                    mDBColumnsMap.put(ListViewCardsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
-                    mDBColumnsMap.put(ListViewCardsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
-                    mDBColumnsMap.put(ListViewCardsAdapter.FIELD_1, DBAccessHelper.SONG_DURATION);
-                    mDBColumnsMap.put(ListViewCardsAdapter.FIELD_2, DBAccessHelper.SONG_ARTIST);
-                    mDBColumnsMap.put(ListViewCardsAdapter.FIELD_3, DBAccessHelper.SONG_TRACK_NUMBER);
-                    break;
-            }*/
-
-        }
-
         @Override
         public void onPostExecute(Void result) {
             super.onPostExecute(result);
-            mHandler.postDelayed(initGridView, 200);
+            mHandler.postDelayed(initListView, 200);
 
         }
 
@@ -183,23 +157,15 @@ public class PlayListDetailActivity extends AppCompatActivity {
     /**
      * Item click listener for the ListView.
      */
-    /*private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 
         @Override
         public void onItemClick(AdapterView<?> arg0, View view, int index, long id) {
-            int playbackRouteId = Common.PLAY_ALL_SONGS;
-            switch (mFragmentId) {
-                case Common.ARTISTS_FLIPPED_SONGS_FRAGMENT:
-                case Common.ALBUM_ARTISTS_FLIPPED_SONGS_FRAGMENT:
-                case Common.GENRES_FLIPPED_FRAGMENT:
-                case Common.ALBUMS_FLIPPED_FRAGMENT:
-                    playbackRouteId = Common.PLAY_ALL_BY_ALBUM;
-                    break;
-            }
+            int playbackRouteId = Common.PLAYLISTS_FRAGMENT;
 
             mApp.getPlaybackKickstarter()
                     .initPlayback(mContext,
-                            mQuerySelection,
+                            mPlaylistId,
                             playbackRouteId,
                             index,
                             true,
@@ -207,12 +173,12 @@ public class PlayListDetailActivity extends AppCompatActivity {
 
         }
 
-    };*/
+    };
 
     /**
-     * Runnable that loads the GridView after a set interval.
+     * Runnable that loads the ListView after a set interval.
      */
-    private Runnable initGridView = new Runnable() {
+    private Runnable initListView = new Runnable() {
 
         @Override
         public void run() {
@@ -225,8 +191,8 @@ public class PlayListDetailActivity extends AppCompatActivity {
             animation.setDuration(150);
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
 
-            //mListViewAdapter = new PlayListDetailAdapter(mContext, PlayListDetailActivity.this, mDBColumnsMap);
-            //mListView.setAdapter(mListViewAdapter);
+            mListViewAdapter = new PlayListDetailAdapter(mContext, PlayListDetailActivity.this, mDBColumnsMap);
+            mListView.setAdapter(mListViewAdapter);
 
             //GridView animation adapter.
             final SwingBottomInAnimationAdapter animationAdapter = new SwingBottomInAnimationAdapter(mListViewAdapter, 100, 150);
@@ -234,7 +200,7 @@ public class PlayListDetailActivity extends AppCompatActivity {
             animationAdapter.setShouldAnimateFromPosition(0);
             animationAdapter.setAbsListView(mListView);
             mListView.setAdapter(animationAdapter);
-            //mListView.setOnItemClickListener(onItemClickListener);
+            mListView.setOnItemClickListener(onItemClickListener);
 
             PauseOnScrollHelper scrollHelper = new PauseOnScrollHelper(mApp.getPicasso(), onScrollListener, false, true);
             mListView.setOnScrollListener(scrollHelper);
@@ -264,77 +230,6 @@ public class PlayListDetailActivity extends AppCompatActivity {
         }
 
     };
-
-    /**
-     * Slides away the header layout.
-     */
-    private void slideAwayHeader() {
-        TranslateAnimation slideDown = new TranslateAnimation(mListView, 400, new AccelerateInterpolator(2.0f),
-                View.INVISIBLE, Animation.RELATIVE_TO_SELF,
-                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, -2.0f);
-
-        slideDown.setAnimationListener(new Animation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-                mListView.setVisibility(View.VISIBLE);
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                mListView.setVisibility(View.INVISIBLE);
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-
-        });
-
-        slideDown.animate();
-    }
-
-    /**
-     * Slides away the GridView.
-     */
-    private void slideAwayGridView() {
-        android.view.animation.TranslateAnimation animation = new
-                android.view.animation.TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 2.0f);
-
-        animation.setDuration(400);
-        animation.setInterpolator(new AccelerateInterpolator(2.0f));
-        animation.setAnimationListener(new Animation.AnimationListener() {
-
-            @Override
-            public void onAnimationEnd(Animation arg0) {
-                mListView.setVisibility(View.INVISIBLE);
-                PlayListDetailActivity.super.onBackPressed();
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation arg0) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onAnimationStart(Animation arg0) {
-
-            }
-
-        });
-
-        mListView.startAnimation(animation);
-    }
 
     /**
      * Scroll listener to calculate the ListView's scroll offset and adjust
@@ -373,9 +268,7 @@ public class PlayListDetailActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        slideAwayHeader();
-        slideAwayGridView();
-
+        super.onBackPressed();
     }
 
     @Override
@@ -385,4 +278,14 @@ public class PlayListDetailActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Populates the DB column names based on the specifed fragment id.
+     */
+    private void loadDBColumnNames() {
+        mDBColumnsMap.put(PlayListDetailAdapter.TITLE_TEXT, DBAccessHelper.SONG_TITLE);
+        mDBColumnsMap.put(PlayListDetailAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
+        mDBColumnsMap.put(PlayListDetailAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
+        mDBColumnsMap.put(PlayListDetailAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
+        mDBColumnsMap.put(PlayListDetailAdapter.FIELD_1, DBAccessHelper.SONGS_COUNT);
+    }
 }

@@ -28,7 +28,7 @@ import com.squad.music.R;
 import com.squad.music.asynctask.AsyncAddToQueueTask;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
-import com.squad.music.ui.activity.BrowserSubListActivity;
+import com.squad.music.ui.activity.PlayListDetailActivity;
 import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditSongsDialog;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
@@ -43,7 +43,7 @@ public class PlayListDetailAdapter extends SimpleCursorAdapter implements Scroll
 
     private Context mContext;
     private Common mApp;
-    private BrowserSubListActivity mActivity;
+    private PlayListDetailActivity mActivity;
     public static ListViewHolder mHolder = null;
     private String mFilePath = "", mSongTitle = "", mArtist = "";
 
@@ -59,7 +59,7 @@ public class PlayListDetailAdapter extends SimpleCursorAdapter implements Scroll
     public static final int FIELD_4 = 7;
     public static final int FIELD_5 = 8;
 
-    public PlayListDetailAdapter(Context context, BrowserSubListActivity activity,
+    public PlayListDetailAdapter(Context context, PlayListDetailActivity activity,
                                  HashMap<Integer, String> dbColumnsMap) {
 
         super(context, -1, activity.getCursor(), new String[]{}, new int[]{}, 0);

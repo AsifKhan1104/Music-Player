@@ -100,7 +100,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
                 bundle.putString(AppConstants.PLAYLIST_ID, String.valueOf(mItems.get(i).getPlaylistId()));
                 bundle.putString(AppConstants.PLAYLIST_NAME, mItems.get(i).getPlaylistName());
                 intent.putExtras(bundle);
-                mContext.startActivity(intent);
+                mActivity.startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });

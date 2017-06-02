@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.MergeCursor;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -404,17 +405,30 @@ public class AsyncAddToQueueTask extends AsyncTask<Boolean, Integer, Boolean> {
 
             ArrayList<Song> songs = DBAccessHelper.getSongsFromPlaylist(mContext, Long.parseLong(mPlaylistId));
 
-            String selection = DBAccessHelper.SONG_TITLE + "=" + "'" + songs.get(0) + "'" + " AND "
-                    + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
-            mCursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
-                    null,
-                    selection,
-                    null,
-                    null,
-                    null,
-                    DBAccessHelper.SONG_TITLE + " ASC");
+            for (int i = 0; i < songs.size(); i++) {
+                String title = songs.get(i).getTitle();
 
-            mPlayingNext = mPlaylistName;
+                // to remove bad chars that disrupt query
+                if (title.contains("'")) {
+                    title = title.replace("'", "");
+                }
+
+                String selection = DBAccessHelper.SONG_TITLE + "=" + "'" + title + "'" + " AND "
+                        + DBAccessHelper.BLACKLIST_STATUS + "=" + "'0'";
+                Cursor cursor = dbHelper.getReadableDatabase().query(DBAccessHelper.MUSIC_LIBRARY_TABLE,
+                        null,
+                        selection,
+                        null,
+                        null,
+                        null,
+                        DBAccessHelper.SONG_TITLE + " ASC");
+
+                Cursor[] cursorArray = {mCursor, cursor};
+                MergeCursor mergeCursor = new MergeCursor(cursorArray);
+                mCursor = mergeCursor;
+            }
+
+            mPlayingNext = songs.get(0).getTitle();
         } else if (mEnqueueType.equals(AppConstants.KEY_GENRE)) {
 
             String selection = null;

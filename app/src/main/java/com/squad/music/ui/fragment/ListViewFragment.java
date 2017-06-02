@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -119,7 +118,7 @@ public class ListViewFragment extends Fragment {
         return mRootView;
     }
 
-    public void startRunnable(){
+    public void startRunnable() {
         mHandler.postDelayed(queryRunnable, 400);
     }
 
@@ -216,20 +215,20 @@ public class ListViewFragment extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> arg0, View view, int index, long id) {
-            switch (mFragmentId) {
-                case Common.SONGS_FRAGMENT:
-                    mApp.getPlaybackKickstarter()
-                            .initPlayback(mContext,
-                                    mQuerySelection,
-                                    Common.PLAY_ALL_SONGS,
-                                    index,
-                                    true,
-                                    false);
-                    break;
+            /*switch (mFragmentId) {
+                case Common.SONGS_FRAGMENT:*/
+            mApp.getPlaybackKickstarter()
+                    .initPlayback(mContext,
+                            mQuerySelection,
+                            Common.PLAY_ALL_SONGS,
+                            index,
+                            true,
+                            false);
+                    /*break;
                 case Common.PLAYLISTS_FRAGMENT:
 
                     break;
-            }
+            }*/
 
         }
 
@@ -412,7 +411,7 @@ public class ListViewFragment extends Fragment {
     }
 
 	/*
-	 * Setter methods.
+     * Setter methods.
 	 */
 
     public void setCursor(Cursor cursor) {

@@ -58,13 +58,7 @@ public class AsyncBuildLibraryTask extends AsyncTask<String, String, Void> {
         mService = service;
         mBuildLibraryProgressUpdate = new ArrayList<OnBuildLibraryProgressUpdate>();
 	}
-	
-	/**
-	 * Provides callback methods that expose this 
-	 * AsyncTask's progress.
-	 * 
-	 * @author Saravan Pantham
-	 */
+
 	public interface OnBuildLibraryProgressUpdate {
 		
 		/**

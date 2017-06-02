@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.squad.music.R;
 import com.squad.music.helper.PlaylistHelper;
+import com.squad.music.ui.adapter.PlaylistAdapter;
 
 /**
  * Created by mdasifkhan on 2/6/17.
@@ -38,6 +39,10 @@ public class DeletePlaylistDialog extends DialogFragment {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         PlaylistHelper.deletePlaylist(getContext(), getArguments().getString("id"));
+                        /*for (int i = 0; i < PlaylistAdapter.mItems.size(); i++) {
+                            if (PlaylistAdapter.mItems.get(i).getPlaylistId() == Long.parseLong(getArguments().getString("id")))
+                                PlaylistAdapter.mItems.remove(i);
+                        }*/
                         Toast.makeText(getContext(), getActivity().getString(R.string.playlist_deleted), Toast.LENGTH_SHORT).show();
                     }
                 })

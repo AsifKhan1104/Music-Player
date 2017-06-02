@@ -1,13 +1,9 @@
 package com.squad.music.ui.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -29,7 +25,7 @@ import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
 import com.squad.music.model.Song;
-import com.squad.music.ui.dialog.DeletePlaylistDialog;
+import com.squad.music.ui.dialog.CustomDialogFragment;
 import com.squad.music.ui.fragment.PlaylistFragment;
 import com.squad.music.utility.AppConstants;
 
@@ -169,14 +165,43 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
                     break;
                 case R.id.delete:
-                    DeletePlaylistDialog dialogFragment = DeletePlaylistDialog.newInstance(mPlaylistId);
-                    dialogFragment.show(mActivity.getSupportFragmentManager(), "DeletePlaylistDialog");
-                    notifyDataSetChanged();
+                    /*DeletePlaylistDialog dialogFragment = DeletePlaylistDialog.newInstance(mPlaylistId);
+                    dialogFragment.show(mActivity.getSupportFragmentManager(), "DeletePlaylistDialog");*/
+                    showDeleteDialog();
 
                     break;
             }
             return false;
         }
 
+    };
+
+    private void showDeleteDialog() {
+        String title = mContext.getString(R.string.alert);
+        String message = mContext.getString(R.string.delete_playlist_warning);
+        Bundle labelBundle = new Bundle();
+        labelBundle.putString(CustomDialogFragment.LABEL_POSITIVE, mContext.getString(R.string.yes));
+        labelBundle.putString(CustomDialogFragment.LABEL_NEGATIVE, mContext.getString(R.string.no));
+        CustomDialogFragment customDialogFragment = CustomDialogFragment.getInstance(mActivity, title, message, CustomDialogFragment.ACTION_TYPE.POSITIVE_NEGATIVE, mEventClickListener, labelBundle, false);
+        customDialogFragment.show(mActivity.getSupportFragmentManager(), "DeletePlaylistDialog");
+    }
+
+    private CustomDialogFragment.ButtonClickListener mEventClickListener = new CustomDialogFragment.ButtonClickListener() {
+        @Override
+        public void positiveClicked(DialogInterface dialog) {
+            PlaylistHelper.deletePlaylist(mContext, mPlaylistId);
+            Toast.makeText(mContext, mContext.getString(R.string.playlist_deleted), Toast.LENGTH_SHORT).show();
+            // remove playlist from list
+            for (int i = 0; i < mItems.size(); i++) {
+                if (mItems.get(i).getPlaylistId() == Long.parseLong(mPlaylistId))
+                    mItems.remove(i);
+            }
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public void negativeClicked(DialogInterface dialog) {
+            dialog.dismiss();
+        }
     };
 }

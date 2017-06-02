@@ -28,6 +28,15 @@ public class RenamePlaylistDialog extends DialogFragment {
     private EditText playlistNameField;
     private String mPlaylistId, mPlaylistName;
 
+    private OnRenamePlaylist onRenamePlaylist;
+    public interface OnRenamePlaylist {
+        void stateChanged();
+    }
+
+    public void setOnRenamePlaylist(OnRenamePlaylist onRenamePlaylist) {
+        this.onRenamePlaylist = onRenamePlaylist;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -99,6 +108,7 @@ public class RenamePlaylistDialog extends DialogFragment {
 
                 PlaylistHelper.renamePlaylist(parentActivity, playlistName, mPlaylistId);
                 Toast.makeText(parentActivity, R.string.playlist_renamed, Toast.LENGTH_SHORT).show();
+                onRenamePlaylist.stateChanged();
 
                 //Refresh the playlists list view.
                 //PlaylistsFragment playlistsFragment = new PlaylistsFragment();

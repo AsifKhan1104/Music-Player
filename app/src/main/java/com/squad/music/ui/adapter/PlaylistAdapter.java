@@ -34,7 +34,7 @@ import com.squad.music.utility.AppConstants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolder> {
+public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolder> implements RenamePlaylistDialog.OnRenamePlaylist {
 
     private List<Playlist> mItems;
     private Context mContext;
@@ -214,7 +214,14 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         bundle.putString(AppConstants.PLAYLIST_ID, mPlaylistId);
         bundle.putString(AppConstants.PLAYLIST_NAME, mPlaylistName);
         RenamePlaylistDialog renamePlaylistDialog = new RenamePlaylistDialog();
+        renamePlaylistDialog.setOnRenamePlaylist(this);
         renamePlaylistDialog.setArguments(bundle);
         renamePlaylistDialog.show(ft, "renamePlaylistDialog");
+    }
+
+    @Override
+    public void stateChanged() {
+        mItems = PlaylistHelper.getAllPlaylists(mContext);
+        notifyDataSetChanged();
     }
 }

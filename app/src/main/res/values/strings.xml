@@ -887,7 +887,7 @@
 
     <string name="app_exit_msg">Do you want to close the app ?</string>
 
-    <string name="songss">songs</string>
-    <string name="song">song</string>
+    <string name="songss">Songs</string>
+    <string name="song">Song</string>
     <string name="alert">Alert</string>
 </resources>

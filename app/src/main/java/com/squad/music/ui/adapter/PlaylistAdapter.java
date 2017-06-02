@@ -2,6 +2,7 @@ package com.squad.music.ui.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -12,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
 import com.squad.music.model.Song;
+import com.squad.music.ui.activity.PlayListDetailActivity;
 import com.squad.music.ui.dialog.CustomDialogFragment;
 import com.squad.music.ui.dialog.RenamePlaylistDialog;
 import com.squad.music.ui.fragment.PlaylistFragment;
@@ -57,7 +59,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         viewHolder.mTextViewText.setText(mItems.get(i).getPlaylistName());
 
         ArrayList<Song> songs = PlaylistHelper.getSongsFromPlaylist(mContext, mItems.get(i).getPlaylistId());
@@ -87,7 +89,21 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
         //Set the tags for this list item's overflow button.
         viewHolder.mOverflowIcon.setTag(R.string.title_text, String.valueOf(mItems.get(i).getPlaylistId()));
-        viewHolder.mOverflowIcon.setTag(R.string.field_1, String.valueOf(mItems.get(i).getPlaylistName()));
+        viewHolder.mOverflowIcon.setTag(R.string.field_1, mItems.get(i).getPlaylistName());
+
+        viewHolder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PlayListDetailActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putString(AppConstants.PLAYLIST_ID, String.valueOf(mItems.get(i).getPlaylistId()));
+                bundle.putString(AppConstants.PLAYLIST_NAME, mItems.get(i).getPlaylistName());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
     }
 
     @Override
@@ -97,14 +113,14 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final LinearLayout mLinearLayout;
+        private final RelativeLayout mRelativeLayout;
         private final ImageView mImageView;
         private final TextView mTextViewText, mTextViewSubText;
         public ImageButton mOverflowIcon;
 
         ViewHolder(View v) {
             super(v);
-            mLinearLayout = (LinearLayout) v.findViewById(R.id.linear_layout_dialog);
+            mRelativeLayout = (RelativeLayout) v.findViewById(R.id.relativeLayout);
             mTextViewText = (TextView) v.findViewById(R.id.listViewTitleText);
             mTextViewSubText = (TextView) v.findViewById(R.id.listViewSubText);
             mImageView = (ImageView) v.findViewById(R.id.listViewLeftIcon);

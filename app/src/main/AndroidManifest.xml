@@ -273,6 +273,8 @@
         <activity
             android:name=".ui.activity.BrowserSubGridActivity"
             android:label="@string/title_activity_browsser_sub_grid"></activity>
+        <activity
+            android:name=".ui.activity.PlayListDetailActivity"/>
     </application>
 
 </manifest>

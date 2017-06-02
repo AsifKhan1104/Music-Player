@@ -218,6 +218,7 @@ public class ListViewFragment extends Fragment {
             /*switch (mFragmentId) {
                 case Common.SONGS_FRAGMENT:*/
             mApp.getPlaybackKickstarter()
+
                     .initPlayback(mContext,
                             mQuerySelection,
                             Common.PLAY_ALL_SONGS,

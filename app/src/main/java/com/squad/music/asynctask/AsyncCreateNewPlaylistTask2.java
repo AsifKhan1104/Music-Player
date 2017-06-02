@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
+import com.squad.music.helper.PlaylistHelper;
 
 import static com.nostra13.universalimageloader.core.ImageLoader.TAG;
 
@@ -72,7 +73,7 @@ public class AsyncCreateNewPlaylistTask2 extends AsyncTask<String, Integer, Bool
             mPlaylistName = mPlaylistName.replace("\\", "_");
         }
 
-        boolean flag = createPlaylist(mPlaylistName);
+        boolean flag = PlaylistHelper.createPlaylist(mContext, mPlaylistName);
         if (flag)
             publishProgress(new Integer[]{0});
         else
@@ -103,46 +104,5 @@ public class AsyncCreateNewPlaylistTask2 extends AsyncTask<String, Integer, Bool
             mCursor.close();
             mCursor = null;
         }
-    }
-
-    // create new playlist
-    private boolean createPlaylist(String pname) {
-
-        boolean flag = false;
-        Uri playlists = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
-        ContentResolver resolver = mContext.getContentResolver();
-        Cursor c = resolver.query(playlists, new String[]{"*"}, null, null,
-                null);
-        long playlistId = 0;
-        c.moveToFirst();
-        do {
-            String plname = c.getString(c
-                    .getColumnIndex(MediaStore.Audio.Playlists.NAME));
-            if (plname.equalsIgnoreCase(pname)) {
-                playlistId = c.getLong(c
-                        .getColumnIndex(MediaStore.Audio.Playlists._ID));
-                break;
-            }
-        } while (c.moveToNext());
-        c.close();
-
-        if (playlistId != 0) {
-            Uri deleteUri = ContentUris.withAppendedId(playlists, playlistId);
-            Log.d(TAG, "REMOVING Existing PlaylistQueries: " + playlistId);
-
-            // delete the playlist
-            resolver.delete(deleteUri, null, null);
-        }
-
-        Log.d(TAG, "CREATING PLAYLIST: " + pname);
-        ContentValues v1 = new ContentValues();
-        v1.put(MediaStore.Audio.Playlists.NAME, pname);
-        v1.put(MediaStore.Audio.Playlists.DATE_MODIFIED,
-                System.currentTimeMillis());
-        Uri newpl = resolver.insert(playlists, v1);
-        Log.d(TAG, "Added PlayLIst: " + newpl);
-
-        flag = true;
-        return flag;
     }
 }

@@ -27,4 +27,7 @@ public interface AppConstants {
 
     String EDIT_TYPE = "EditType";
     String ADD_TYPE = "AddType";
+
+    String PLAYLIST_ID = "PlaylistId";
+    String PLAYLIST_NAME = "PlaylistName";
 }

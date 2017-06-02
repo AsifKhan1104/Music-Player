@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
 import com.squad.music.model.Song;
 import com.squad.music.ui.dialog.CustomDialogFragment;
+import com.squad.music.ui.dialog.RenamePlaylistDialog;
 import com.squad.music.ui.fragment.PlaylistFragment;
 import com.squad.music.utility.AppConstants;
 
@@ -37,7 +39,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     private List<Playlist> mItems;
     private Context mContext;
     private FragmentActivity mActivity;
-    private String mPlaylistId;
+    private String mPlaylistId, mPlaylistName;
     private PlaylistFragment mPlaylistFragment;
 
     public PlaylistAdapter(Context context, FragmentActivity activity, List<Playlist> items, PlaylistFragment fragment) {
@@ -85,6 +87,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
         //Set the tags for this list item's overflow button.
         viewHolder.mOverflowIcon.setTag(R.string.title_text, String.valueOf(mItems.get(i).getPlaylistId()));
+        viewHolder.mOverflowIcon.setTag(R.string.field_1, String.valueOf(mItems.get(i).getPlaylistName()));
     }
 
     @Override
@@ -120,6 +123,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
             menu.inflate(R.menu.playlist_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mPlaylistId = (String) v.getTag(R.string.title_text);
+            mPlaylistName = (String) v.getTag(R.string.field_1);
             menu.show();
 
         }
@@ -162,11 +166,10 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
                     playNextTask.execute(new Boolean[]{true});
                     break;
                 case R.id.rename:
+                    showRenameDialog();
 
                     break;
                 case R.id.delete:
-                    /*DeletePlaylistDialog dialogFragment = DeletePlaylistDialog.newInstance(mPlaylistId);
-                    dialogFragment.show(mActivity.getSupportFragmentManager(), "DeletePlaylistDialog");*/
                     showDeleteDialog();
 
                     break;
@@ -204,4 +207,14 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
             dialog.dismiss();
         }
     };
+
+    private void showRenameDialog() {
+        FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstants.PLAYLIST_ID, mPlaylistId);
+        bundle.putString(AppConstants.PLAYLIST_NAME, mPlaylistName);
+        RenamePlaylistDialog renamePlaylistDialog = new RenamePlaylistDialog();
+        renamePlaylistDialog.setArguments(bundle);
+        renamePlaylistDialog.show(ft, "renamePlaylistDialog");
+    }
 }

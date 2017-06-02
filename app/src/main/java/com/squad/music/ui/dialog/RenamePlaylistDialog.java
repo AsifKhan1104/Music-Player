@@ -14,9 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squad.music.R;
+import com.squad.music.helper.PlaylistHelper;
 import com.squad.music.helper.TypefaceHelper;
-
-import java.io.File;
+import com.squad.music.ui.adapter.PlaylistAdapter;
+import com.squad.music.utility.AppConstants;
 
 public class RenamePlaylistDialog extends DialogFragment {
 
@@ -25,6 +26,7 @@ public class RenamePlaylistDialog extends DialogFragment {
     private View dialogView;
     private TextView playlistInfo;
     private EditText playlistNameField;
+    private String mPlaylistId, mPlaylistName;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -33,9 +35,11 @@ public class RenamePlaylistDialog extends DialogFragment {
         dialog = this;
 
         //Retrieve the arguments.
-        final String PLAYLIST_NAME = getArguments().getString("PLAYLIST_NAME");
+        /*final String PLAYLIST_NAME = getArguments().getString("PLAYLIST_NAME");
         final String PLAYLIST_FILE_PATH = getArguments().getString("PLAYLIST_FILE_PATH");
-        final String PLAYLIST_FOLDER_PATH = getArguments().getString("PLAYLIST_FOLDER_PATH");
+        final String PLAYLIST_FOLDER_PATH = getArguments().getString("PLAYLIST_FOLDER_PATH");*/
+        mPlaylistId = getArguments().getString(AppConstants.PLAYLIST_ID);
+        mPlaylistName = getArguments().getString(AppConstants.PLAYLIST_NAME);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         dialogView = parentActivity.getLayoutInflater().inflate(R.layout.rename_playlist_dialog_layout, null);
@@ -48,7 +52,7 @@ public class RenamePlaylistDialog extends DialogFragment {
         playlistNameField.setTypeface(TypefaceHelper.getTypeface(parentActivity, "RobotoCondensed-Light"));
         playlistNameField.setPaintFlags(playlistNameField.getPaintFlags() | Paint.ANTI_ALIAS_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
 
-        playlistNameField.setText(PLAYLIST_NAME);
+        playlistNameField.setHint(mPlaylistName);
 
         //Set the dialog title.
         builder.setTitle(R.string.rename_playlist);
@@ -58,7 +62,6 @@ public class RenamePlaylistDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 dialog.dismiss();
-
             }
 
         });
@@ -69,7 +72,7 @@ public class RenamePlaylistDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
 
                 //Create a File that points to the playlist on the filesystem.
-                File file = new File(PLAYLIST_FILE_PATH);
+                // File file = new File(PLAYLIST_FILE_PATH);
 
                 //Retrieve the name and file path for the playlist.
                 String playlistName = playlistNameField.getText().toString();
@@ -84,8 +87,8 @@ public class RenamePlaylistDialog extends DialogFragment {
                 }
 
                 //Create another File that points to the renamed playlist file.
-                File newFile = new File(PLAYLIST_FOLDER_PATH + "/" + playlistName + ".m3u");
-                file.renameTo(newFile);
+                /*File newFile = new File(PLAYLIST_FOLDER_PATH + "/" + playlistName + ".m3u");
+                file.renameTo(newFile);*/
 
 				/*//Update the database with the new file path and playlist name.
                 DBAccessHelper playlistsDBHelper = new DBAccessHelper(parentActivity);
@@ -94,6 +97,7 @@ public class RenamePlaylistDialog extends DialogFragment {
 				//Delete any instances of the old DB entries.
 				playlistsDBHelper.deleteSpecificPlaylist(PLAYLIST_NAME, PLAYLIST_FILE_PATH);*/
 
+                PlaylistHelper.renamePlaylist(parentActivity, playlistName, mPlaylistId);
                 Toast.makeText(parentActivity, R.string.playlist_renamed, Toast.LENGTH_SHORT).show();
 
                 //Refresh the playlists list view.

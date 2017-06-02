@@ -43,7 +43,6 @@ public class CustomDialogFragment extends DialogFragment {
         return customDialogFragment;
     }
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

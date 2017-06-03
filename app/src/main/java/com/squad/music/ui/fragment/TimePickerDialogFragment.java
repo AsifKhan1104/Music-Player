@@ -54,7 +54,6 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-        Toast.makeText(getActivity(), getString(R.string.timer_set_success), Toast.LENGTH_SHORT).show();
         boolean hourChanged = true;
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();

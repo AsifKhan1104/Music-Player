@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -82,7 +83,6 @@ public class PlayListDetailActivity extends AppCompatActivity {
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);
 
         setToolBar();
-        mToolbar.setTitle(mPlaylistName);
 
         //Apply the ListViews' dividers.
         if (mApp.getCurrentTheme() == Common.DARK_THEME) {
@@ -273,6 +273,16 @@ public class PlayListDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
@@ -299,7 +309,9 @@ public class PlayListDetailActivity extends AppCompatActivity {
     private void setToolBar() {
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setTitle(mPlaylistName);
         }
     }

@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squad.music.Common;
 import com.squad.music.R;
@@ -242,6 +243,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     public void updateTimerText(long millis, final boolean flag) {
         mImageViewTimerEditor.setVisibility(View.GONE);
         mImageViewTimerCancel.setVisibility(View.VISIBLE);
+        Toast.makeText(getActivity(), getString(R.string.timer_set_success), Toast.LENGTH_SHORT).show();
 
         mCountDownTimer = new CountDownTimer(millis, 1000) {
             public void onTick(long millisUntilFinished) {

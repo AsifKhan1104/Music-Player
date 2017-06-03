@@ -35,6 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 public class NavigationDrawerFragment extends Fragment implements View.OnClickListener {
 
+    private static final int REQUEST_CODE_TIMER_DIALOG = 421;
     private Context mContext;
     private Common mApp;
 
@@ -224,6 +225,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.imageview_timer_edit:
                 DialogFragment fragment = new TimePickerDialogFragment();
+                fragment.setTargetFragment(this, REQUEST_CODE_TIMER_DIALOG);
                 fragment.show(getFragmentManager(), "timePicker");
 
                 break;

@@ -29,7 +29,6 @@ import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.dialog.AppExitDialog;
-import com.squad.music.ui.dialog.TimePickerDialogFragment;
 import com.squad.music.ui.fragment.FilesFoldersFragment;
 import com.squad.music.ui.fragment.GridViewFragment;
 import com.squad.music.ui.fragment.ListViewFragment;
@@ -37,7 +36,7 @@ import com.squad.music.ui.fragment.NavigationDrawerFragment;
 import com.squad.music.ui.fragment.PlaylistFragment;
 import com.squad.music.ui.fragment.QueueDrawerFragment;
 
-public class MainActivity extends AppCompatActivity implements TimePickerDialogFragment.onSelectListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //Context and Common object(s).
     private Context mContext;
     private Common mApp;
@@ -523,13 +522,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialogF
 
     public Menu getMenu() {
         return mMenu;
-    }
-
-    @Override
-    public void setOnSelectListener(long millis, boolean flag) {
-        NavigationDrawerFragment navigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.nav_drawer_container);
-        navigationDrawerFragment.updateTimerText(millis, flag);
     }
 
     @Override

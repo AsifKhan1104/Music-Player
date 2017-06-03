@@ -19,7 +19,7 @@ import java.util.Date;
  */
 
 public class TimePickerDialogFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-    onSelectListener mListener;
+    /*onSelectListener mListener;
 
     public interface onSelectListener {
         void setOnSelectListener(long millis, boolean flag);
@@ -37,7 +37,7 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");
         }
-    }
+    }*/
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class TimePickerDialogFragment extends DialogFragment implements TimePick
                 hourChanged = false;
             }
             long diff = setMillis - currentMillis;
-            mListener.setOnSelectListener(diff, hourChanged);
+            ((NavigationDrawerFragment) getTargetFragment()).updateTimerText(diff, hourChanged);
         } else {
             Toast.makeText(getActivity(), getString(R.string.timer_error_message), Toast.LENGTH_SHORT).show();
         }

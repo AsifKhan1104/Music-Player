@@ -208,7 +208,7 @@ public class PlayListDetailActivity extends AppCompatActivity {
             mListView.setAdapter(animationAdapter);
             mListView.setOnItemClickListener(onItemClickListener);
 
-            PauseOnScrollHelper scrollHelper = new PauseOnScrollHelper(mApp.getPicasso(), onScrollListener, false, true);
+            /*PauseOnScrollHelper scrollHelper = new PauseOnScrollHelper(mApp.getPicasso(), onScrollListener, false, true);
             mListView.setOnScrollListener(scrollHelper);
 
             animation.setAnimationListener(new Animation.AnimationListener() {
@@ -230,7 +230,7 @@ public class PlayListDetailActivity extends AppCompatActivity {
 
                 }
 
-            });
+            });*/
 
             mListView.startAnimation(animation);
         }

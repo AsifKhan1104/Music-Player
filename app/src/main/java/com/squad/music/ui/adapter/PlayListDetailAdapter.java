@@ -2,6 +2,7 @@ package com.squad.music.ui.adapter;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.RingtoneManager;
@@ -31,6 +32,7 @@ import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.PlayListDetailActivity;
 import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditSongsDialog;
+import com.squad.music.ui.dialog.CustomDialogFragment;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.utility.AppConstants;
 import com.squad.music.utility.Utils;
@@ -284,6 +286,7 @@ public class PlayListDetailAdapter extends SimpleCursorAdapter implements Scroll
 
                     break;
                 case R.id.delete:
+                    showDeleteDialog();
 
                     break;
 
@@ -358,4 +361,33 @@ public class PlayListDetailAdapter extends SimpleCursorAdapter implements Scroll
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
     }
+
+    private void showDeleteDialog() {
+        String title = "";
+        String message = mContext.getString(R.string.delete_song_warning);
+        Bundle labelBundle = new Bundle();
+        labelBundle.putString(CustomDialogFragment.LABEL_POSITIVE, mContext.getString(R.string.yes));
+        labelBundle.putString(CustomDialogFragment.LABEL_NEGATIVE, mContext.getString(R.string.no));
+        CustomDialogFragment customDialogFragment = CustomDialogFragment.getInstance(mActivity, title, message, CustomDialogFragment.ACTION_TYPE.POSITIVE_NEGATIVE, mEventClickListener, labelBundle, false);
+        customDialogFragment.show(mActivity.getSupportFragmentManager(), "DeleteSongDialog");
+    }
+
+    private CustomDialogFragment.ButtonClickListener mEventClickListener = new CustomDialogFragment.ButtonClickListener() {
+        @Override
+        public void positiveClicked(DialogInterface dialog) {
+            boolean flag = Utils.deleteSong(mActivity, mFilePath);
+            // if deleted successfully then delete from our database and refresh the list
+            if (flag) {
+                mApp.getDBAccessHelper().deleteSongByFilePath(mFilePath);
+
+                //Update the ListView.
+                mActivity.startLoading();
+            }
+        }
+
+        @Override
+        public void negativeClicked(DialogInterface dialog) {
+            dialog.dismiss();
+        }
+    };
 }

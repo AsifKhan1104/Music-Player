@@ -196,7 +196,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     };
 
     private void showDeleteDialog() {
-        String title = mContext.getString(R.string.alert);
+        String title = "";
         String message = mContext.getString(R.string.delete_playlist_warning);
         Bundle labelBundle = new Bundle();
         labelBundle.putString(CustomDialogFragment.LABEL_POSITIVE, mContext.getString(R.string.yes));

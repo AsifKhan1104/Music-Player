@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,6 +24,7 @@ import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.ui.activity.BrowserSubListActivity;
+import com.squad.music.ui.activity.PlayListDetailActivity;
 import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.utility.AppConstants;
 
@@ -768,11 +770,16 @@ public class ID3sSongEditorDialog extends DialogFragment {
             // Now refresh the list
             Fragment frag = (ListViewFragment) dialogFragment.getTargetFragment();
             // It will check, that it came from ListViewFragment / Browser Sublist Activity
-            if (frag != null)
+            if (frag != null) {
                 ((ListViewFragment) dialogFragment.getTargetFragment()).startRunnable();
-            else
-                ((BrowserSubListActivity) mContext).startLoading();
-
+            } else {
+                AppCompatActivity activity = (AppCompatActivity) mContext;
+                if (activity instanceof BrowserSubListActivity) {
+                    ((BrowserSubListActivity) activity).startLoading();
+                } else if (activity instanceof PlayListDetailActivity) {
+                    ((PlayListDetailActivity) activity).startLoading();
+                }
+            }
         } else {
             Toast.makeText(mContext, R.string.unable_to_edit_song_tags, Toast.LENGTH_SHORT).show();
         }

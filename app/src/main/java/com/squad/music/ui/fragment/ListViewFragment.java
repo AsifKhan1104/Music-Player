@@ -1,5 +1,6 @@
 package com.squad.music.ui.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,7 @@ import java.util.HashMap;
 public class ListViewFragment extends Fragment {
 
     private Context mContext;
+    private Activity mActivity;
     private ListViewFragment mFragment;
     private Common mApp;
     private View mRootView;
@@ -70,6 +73,7 @@ public class ListViewFragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         mApp = (Common) mContext;
         mFragment = this;
+        mActivity = getActivity();
 
         //Set the background. We're using getGridViewBackground() since the list doesn't have card items.
         mRootView.setBackgroundColor(UIElementsHelper.getGridViewBackground(mContext));
@@ -329,7 +333,7 @@ public class ListViewFragment extends Fragment {
             animation.setDuration(600);
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
 
-            mListViewAdapter = new ListViewCardsAdapter(mContext, mFragment, mDBColumnsMap);
+            mListViewAdapter = new ListViewCardsAdapter(mContext, mActivity, mFragment, mDBColumnsMap);
             mListView.setAdapter(mListViewAdapter);
             mListView.setOnItemClickListener(onItemClickListener);
 

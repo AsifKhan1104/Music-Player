@@ -1,5 +1,6 @@
 package com.squad.music.ui.adapter;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +38,7 @@ import com.squad.music.ui.dialog.CautionEditSongsDialog;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.utility.AppConstants;
+import com.squad.music.utility.Utils;
 import com.squad.music.utility.imagetransformers.PicassoCircularTransformer;
 
 import java.util.HashMap;
@@ -46,6 +49,7 @@ import java.util.HashMap;
 public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrollable {
 
     private Context mContext;
+    private Activity mActivity;
     private Common mApp;
     private ListViewFragment mListViewFragment;
     public static ListViewHolder mHolder = null;
@@ -65,11 +69,12 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
 
     public static final int REQUEST_WRITE_SETTINGS_PERMISSION = 101;
 
-    public ListViewCardsAdapter(Context context, ListViewFragment listViewFragment,
+    public ListViewCardsAdapter(Context context, Activity activity, ListViewFragment listViewFragment,
                                 HashMap<Integer, String> dbColumnsMap) {
 
         super(context, -1, listViewFragment.getCursor(), new String[]{}, new int[]{}, 0);
         mContext = context;
+        mActivity = activity;
         mListViewFragment = listViewFragment;
         mApp = (Common) mContext.getApplicationContext();
         mDBColumnsMap = dbColumnsMap;
@@ -299,6 +304,13 @@ public class ListViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
                     //Update the ListView.
                     mListViewFragment.mHandler.post(mListViewFragment.queryRunnable);
                     mListViewFragment.getListViewAdapter().notifyDataSetChanged();
+
+                    break;
+                case R.id.share:
+                    Utils.shareSong(mActivity, mFilePath);
+
+                    break;
+                case R.id.delete:
 
                     break;
 

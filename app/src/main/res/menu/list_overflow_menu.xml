@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/edit_artist_tags"
-        android:title="@string/edit_details"/>
+        android:id="@+id/add_to_playlist"
+        android:title="@string/add_to_playlist"/>
     <item
         android:id="@+id/add_to_queue"
         android:title="@string/add_to_queue"/>
@@ -13,9 +13,15 @@
         android:id="@+id/set_as_ringtone"
         android:title="@string/set_as_ringtone"/>
     <item
-        android:id="@+id/add_to_playlist"
-        android:title="@string/add_to_playlist"/>
-    <item
         android:id="@+id/blacklist_artist"
         android:title="@string/blacklist_artist"/>
+    <item
+        android:id="@+id/edit_artist_tags"
+        android:title="@string/edit_details"/>
+    <item
+        android:id="@+id/share"
+        android:title="@string/share"/>
+    <item
+        android:id="@+id/delete"
+        android:title="@string/delete"/>
 </menu>

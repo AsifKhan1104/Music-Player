@@ -33,6 +33,7 @@ import com.squad.music.ui.dialog.AddToPlaylistDialog2;
 import com.squad.music.ui.dialog.CautionEditSongsDialog;
 import com.squad.music.ui.dialog.ID3sSongEditorDialog;
 import com.squad.music.utility.AppConstants;
+import com.squad.music.utility.Utils;
 
 import java.util.HashMap;
 
@@ -276,6 +277,13 @@ public class PlayListDetailAdapter extends SimpleCursorAdapter implements Scroll
 
                     //Update the ListView.
                     mActivity.startLoading();
+
+                    break;
+                case R.id.share:
+                    Utils.shareSong(mActivity, mFilePath);
+
+                    break;
+                case R.id.delete:
 
                     break;
 

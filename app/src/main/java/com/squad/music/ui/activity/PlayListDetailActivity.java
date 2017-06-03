@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
@@ -54,6 +55,7 @@ public class PlayListDetailActivity extends AppCompatActivity {
     //Arguments passed in from the calling activity.
     private String mPlaylistId;
     private String mPlaylistName;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +69,20 @@ public class PlayListDetailActivity extends AppCompatActivity {
         //setTheme();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_playlist_detail);
+        setContentView(R.layout.activity_playlist_detail_main);
 
         mPlaylistId = getIntent().getExtras().getString(AppConstants.PLAYLIST_ID);
         mPlaylistName = getIntent().getExtras().getString(AppConstants.PLAYLIST_NAME);
 
         mListView = (ListView) findViewById(R.id.browser_sub_list_view);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerParentLayout = (RelativeLayout) findViewById(R.id.browser_sub_drawer_parent);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.browser_sub_drawer_root);
         mNavDrawerLayout = (RelativeLayout) findViewById(R.id.nav_drawer_container);
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);
+
+        setToolBar();
+        mToolbar.setTitle(mPlaylistName);
 
         //Apply the ListViews' dividers.
         if (mApp.getCurrentTheme() == Common.DARK_THEME) {
@@ -86,7 +92,7 @@ public class PlayListDetailActivity extends AppCompatActivity {
         }
         mListView.setDividerHeight(1);
 
-        mDrawerParentLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        mDrawerLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
 
         //Load the drawer fragments.
         loadDrawerFragments();
@@ -286,6 +292,15 @@ public class PlayListDetailActivity extends AppCompatActivity {
         mDBColumnsMap.put(PlayListDetailAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
         mDBColumnsMap.put(PlayListDetailAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
         mDBColumnsMap.put(PlayListDetailAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
-        mDBColumnsMap.put(PlayListDetailAdapter.FIELD_1, DBAccessHelper.SONGS_COUNT);
+        mDBColumnsMap.put(PlayListDetailAdapter.FIELD_1, DBAccessHelper.SONG_DURATION);
+        mDBColumnsMap.put(PlayListDetailAdapter.FIELD_2, DBAccessHelper.SONG_ARTIST);
+    }
+
+    private void setToolBar() {
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setTitle(mPlaylistName);
+        }
     }
 }

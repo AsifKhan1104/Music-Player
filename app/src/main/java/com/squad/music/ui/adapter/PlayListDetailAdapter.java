@@ -179,7 +179,7 @@ public class PlayListDetailAdapter extends SimpleCursorAdapter implements Scroll
         mHolder.titleText.setText(titleText);
         mHolder.subText.setText(field2);
         mHolder.rightSubText.setText(field1);
-        mHolder.trackNumber.setText(field3);
+        mHolder.trackNumber.setText("");
 
         return convertView;
     }

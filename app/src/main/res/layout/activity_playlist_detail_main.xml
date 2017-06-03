@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/browser_sub_drawer_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/activity_playlist_detail"/>
+
+    <RelativeLayout
+        android:id="@+id/nav_drawer_container"
+        android:layout_width="@dimen/nav_drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"/>
+
+    <RelativeLayout
+        android:id="@+id/current_queue_drawer_container"
+        android:layout_width="@dimen/queue_drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"/>
+</android.support.v4.widget.DrawerLayout>

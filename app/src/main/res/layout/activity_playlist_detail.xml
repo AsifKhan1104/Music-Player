@@ -1,40 +1,39 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/browser_sub_drawer_parent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.squad.music.ui.activity.PlayListDetailActivity">
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.squad.music.ui.activity.MainActivity">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/browser_sub_drawer_root"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
-            <ListView
-                android:id="@+id/browser_sub_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentTop="true"
-                android:drawSelectorOnTop="true"/>
+    </android.support.design.widget.AppBarLayout>
 
-        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.squad.music.ui.activity.PlayListDetailActivity"
+        tools:showIn="@layout/activity_playlist_detail">
 
-        <RelativeLayout
-            android:id="@+id/current_queue_drawer_container"
-            android:layout_width="@dimen/queue_drawer_width"
+        <ListView
+            android:id="@+id/browser_sub_list_view"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="end"/>
-
-        <RelativeLayout
-            android:id="@+id/nav_drawer_container"
-            android:layout_width="@dimen/nav_drawer_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"/>
-
-    </android.support.v4.widget.DrawerLayout>
-</RelativeLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:drawSelectorOnTop="true"/>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

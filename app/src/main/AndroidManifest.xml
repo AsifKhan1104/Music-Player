@@ -278,7 +278,7 @@
         <activity android:name=".ui.activity.PlayListDetailActivity"/>
         <activity
             android:name=".ui.activity.SearchActivity"
-            android:label="@string/title_activity_search">
+            android:label="@string/search_hint">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>

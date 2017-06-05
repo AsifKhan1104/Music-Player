@@ -18,7 +18,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squad.music.Common;
 import com.squad.music.R;
+import com.squad.music.ui.fragment.GridViewFragment;
+import com.squad.music.ui.fragment.ListViewFragment;
+
+import static com.squad.music.ui.activity.MainActivity.FRAGMENT_HEADER;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -140,7 +145,37 @@ public class SearchActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            Bundle bundle = new Bundle();
+            switch (position){
+                case 0:
+                    bundle.putInt(Common.FRAGMENT_ID, Common.SONGS_FRAGMENT);
+                    bundle.putString(FRAGMENT_HEADER, SearchActivity.this.getResources().getString(R.string.songs));
+
+                    ListViewFragment fragment1 = new ListViewFragment();
+                    fragment1.setArguments(bundle);
+
+                    return fragment1;
+                case 1:
+                    bundle.putInt(Common.FRAGMENT_ID, Common.ALBUMS_FRAGMENT);
+                    bundle.putString(FRAGMENT_HEADER, SearchActivity.this.getResources().getString(R.string.albums));
+
+                    GridViewFragment fragment2 = new GridViewFragment();
+                    fragment2.setArguments(bundle);
+
+                    return fragment2;
+                case 2:
+                    bundle.putInt(Common.FRAGMENT_ID, Common.ARTISTS_FRAGMENT);
+                    bundle.putString(FRAGMENT_HEADER, SearchActivity.this.getResources().getString(R.string.artists));
+
+                    GridViewFragment fragment3 = new GridViewFragment();
+                    fragment3.setArguments(bundle);
+
+                    return fragment3;
+                default:
+                    break;
+            }
+
+            return null;
         }
 
         @Override

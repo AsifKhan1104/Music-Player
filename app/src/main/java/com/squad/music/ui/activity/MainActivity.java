@@ -347,9 +347,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        ComponentName cn = new ComponentName(this, SearchActivity.class);
         searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(cn));
+                searchManager.getSearchableInfo(getComponentName()));
 
         //Set the ActionBar background
         getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));

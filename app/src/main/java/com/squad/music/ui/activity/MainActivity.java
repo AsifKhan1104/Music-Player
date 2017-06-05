@@ -1,6 +1,8 @@
 package com.squad.music.ui.activity;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,9 +12,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -337,6 +341,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity, menu);
 
+        // Associate searchable configuration with the SearchView
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        ComponentName cn = new ComponentName(this, SearchActivity.class);
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(cn));
+
         //Set the ActionBar background
         getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -440,9 +454,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         switch (item.getItemId()) {
-            case R.id.action_search:
-                //ArtistsFragment.showSearch();
-                return true;
             case R.id.action_queue_drawer:
                 if (mDrawerLayout != null && mCurrentQueueDrawerLayout != null) {
                     if (mDrawerLayout.isDrawerOpen(mCurrentQueueDrawerLayout)) {

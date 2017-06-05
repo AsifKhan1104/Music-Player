@@ -57,12 +57,12 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="HoloTransparentLight" parent="android:Theme.Holo.Light" >
+    <style name="HoloTransparentLight" parent="android:Theme.Holo.Light">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="HoloTransparent" parent="android:Theme.Holo" >
+    <style name="HoloTransparent" parent="android:Theme.Holo">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>

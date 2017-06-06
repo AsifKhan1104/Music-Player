@@ -10,19 +10,13 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.ui.fragment.GridViewFragment;
-import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.ui.fragment.SearchSongsFragment;
+import com.squad.music.utility.AppConstants;
 
 import static com.squad.music.ui.activity.MainActivity.FRAGMENT_HEADER;
 
@@ -42,6 +36,7 @@ public class SearchActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private String mSearchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +86,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            //use the query to search your data somehow
-            Toast.makeText(this, query, Toast.LENGTH_SHORT).show();
+            mSearchQuery = intent.getStringExtra(SearchManager.QUERY);
         }
     }
 
@@ -112,10 +105,9 @@ public class SearchActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             Bundle bundle = new Bundle();
-            switch (position){
+            switch (position) {
                 case 0:
-                    bundle.putInt(Common.FRAGMENT_ID, Common.SONGS_FRAGMENT);
-                    bundle.putString(FRAGMENT_HEADER, SearchActivity.this.getResources().getString(R.string.songs));
+                    bundle.putString(AppConstants.SEARCH_QUERY, mSearchQuery);
 
                     SearchSongsFragment fragment1 = new SearchSongsFragment();
                     fragment1.setArguments(bundle);

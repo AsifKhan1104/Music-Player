@@ -30,4 +30,6 @@ public interface AppConstants {
 
     String PLAYLIST_ID = "PlaylistId";
     String PLAYLIST_NAME = "PlaylistName";
+
+    String SEARCH_QUERY = "searchQuery";
 }

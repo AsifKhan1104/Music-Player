@@ -8,17 +8,14 @@ import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -31,12 +28,12 @@ import com.andraskindler.quickscroll.QuickScroll;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
-import com.squad.music.database.MediaStoreAccessHelper;
 import com.squad.music.helper.PauseOnScrollHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.MainActivity;
 import com.squad.music.ui.adapter.SearchSongsAdapter;
+import com.squad.music.utility.AppConstants;
 
 import java.util.HashMap;
 
@@ -47,8 +44,7 @@ public class SearchSongsFragment extends Fragment {
     private SearchSongsFragment mFragment;
     private Common mApp;
     private View mRootView;
-    private int mFragmentId;
-    private String mFragmentTitle;
+    private String mSearchQuery;
 
     private QuickScroll mQuickScroll;
     private SearchSongsAdapter mSearchSongsAdapter;
@@ -75,8 +71,7 @@ public class SearchSongsFragment extends Fragment {
         mRootView.setBackgroundColor(UIElementsHelper.getGridViewBackground(mContext));
 
         //Grab the fragment. This will determine which data to load into the cursor.
-        mFragmentId = getArguments().getInt(Common.FRAGMENT_ID);
-        mFragmentTitle = getArguments().getString(MainActivity.FRAGMENT_HEADER);
+        mSearchQuery = getArguments().getString(AppConstants.SEARCH_QUERY);
         mDBColumnsMap = new HashMap<Integer, String>();
 
         //Init the search fields.
@@ -114,98 +109,8 @@ public class SearchSongsFragment extends Fragment {
         options.inJustDecodeBounds = false;
         options.inPurgeable = true;
 
-        startRunnable();
+        new AsyncRunQuery().execute();
         return mRootView;
-    }
-
-    public void startRunnable() {
-        mHandler.postDelayed(queryRunnable, 400);
-    }
-
-    /**
-     * Query runnable.
-     */
-    public Runnable queryRunnable = new Runnable() {
-
-        @Override
-        public void run() {
-            new AsyncRunQuery().execute();
-
-        }
-
-    };
-
-    /**
-     * Displays the search field.
-     */
-    private void showSearch() {
-        mSearchLayout.setVisibility(View.VISIBLE);
-        final TranslateAnimation searchAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
-                Animation.RELATIVE_TO_SELF, 0f,
-                Animation.RELATIVE_TO_SELF, -2f,
-                Animation.RELATIVE_TO_SELF, 0f);
-        searchAnim.setDuration(500l);
-        searchAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-
-        final TranslateAnimation gridListAnim = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f,
-                Animation.RELATIVE_TO_SELF, 0f,
-                Animation.RELATIVE_TO_SELF, 0f,
-                Animation.RELATIVE_TO_SELF, 2f);
-
-        gridListAnim.setDuration(500l);
-        gridListAnim.setInterpolator(new LinearInterpolator());
-
-        gridListAnim.setAnimationListener(new AnimationListener() {
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                mListView.setAdapter(null);
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-                mSearchLayout.startAnimation(searchAnim);
-                mSearchLayout.setVisibility(View.VISIBLE);
-
-            }
-
-        });
-
-        searchAnim.setAnimationListener(new AnimationListener() {
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                if (mSearchEditText.requestFocus()) {
-                    mFragment.getActivity()
-                            .getWindow()
-                            .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                }
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-                // TODO Auto-generated method stub
-
-            }
-
-        });
-
-        mListView.startAnimation(gridListAnim);
-
     }
 
     /**
@@ -215,8 +120,6 @@ public class SearchSongsFragment extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> arg0, View view, int index, long id) {
-            /*switch (mFragmentId) {
-                case Common.SONGS_FRAGMENT:*/
             mApp.getPlaybackKickstarter()
 
                     .initPlayback(mContext,
@@ -225,11 +128,6 @@ public class SearchSongsFragment extends Fragment {
                             index,
                             true,
                             false);
-                    /*break;
-                case Common.PLAYLISTS_FRAGMENT:
-
-                    break;
-            }*/
 
         }
 
@@ -254,20 +152,13 @@ public class SearchSongsFragment extends Fragment {
 
     }
 
-    /**
-     * Runs the correct DB query based on the passed in fragment id and
-     * displays the ListView.
-     *
-     * @author Saravan Pantham
-     */
     public class AsyncRunQuery extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
-            if (mFragmentId == Common.PLAYLISTS_FRAGMENT)
-                mCursor = MediaStoreAccessHelper.getAllUniquePlaylists(mContext);
-            else
-                mCursor = mApp.getDBAccessHelper().getFragmentCursor(mContext, mQuerySelection, mFragmentId);
+            //String selection = "AND " + DBAccessHelper.SONG_TITLE + "LIKE '%" + mSearchQuery + "%'";
+            mCursor = mApp.getDBAccessHelper().getSongsSearch(mSearchQuery);
+            mCursor.getCount();
 
             loadDBColumnNames();
             return null;
@@ -277,44 +168,12 @@ public class SearchSongsFragment extends Fragment {
          * Populates the DB column names based on the specifed fragment id.
          */
         private void loadDBColumnNames() {
-
-            switch (mFragmentId) {
-                case Common.ARTISTS_FRAGMENT:
-                    mDBColumnsMap.put(SearchSongsAdapter.TITLE_TEXT, DBAccessHelper.SONG_ARTIST);
-                    mDBColumnsMap.put(SearchSongsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
-                    mDBColumnsMap.put(SearchSongsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
-                    mDBColumnsMap.put(SearchSongsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
-                    break;
-                case Common.ALBUM_ARTISTS_FRAGMENT:
-                    mDBColumnsMap.put(SearchSongsAdapter.TITLE_TEXT, DBAccessHelper.SONG_ALBUM_ARTIST);
-                    mDBColumnsMap.put(SearchSongsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
-                    mDBColumnsMap.put(SearchSongsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
-                    mDBColumnsMap.put(SearchSongsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
-                    break;
-                case Common.ALBUMS_FRAGMENT:
-                    mDBColumnsMap.put(SearchSongsAdapter.TITLE_TEXT, DBAccessHelper.SONG_ALBUM);
-                    mDBColumnsMap.put(SearchSongsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
-                    mDBColumnsMap.put(SearchSongsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
-                    mDBColumnsMap.put(SearchSongsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
-                    break;
-                case Common.SONGS_FRAGMENT:
-                    mDBColumnsMap.put(SearchSongsAdapter.TITLE_TEXT, DBAccessHelper.SONG_TITLE);
-                    mDBColumnsMap.put(SearchSongsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
-                    mDBColumnsMap.put(SearchSongsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
-                    mDBColumnsMap.put(SearchSongsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
-                    mDBColumnsMap.put(SearchSongsAdapter.FIELD_1, DBAccessHelper.SONG_DURATION);
-                    mDBColumnsMap.put(SearchSongsAdapter.FIELD_2, DBAccessHelper.SONG_ARTIST);
-                    break;
-                case Common.PLAYLISTS_FRAGMENT:
-                    mDBColumnsMap.put(SearchSongsAdapter.TITLE_TEXT, MediaStore.Audio.Playlists.NAME);
-                    mDBColumnsMap.put(SearchSongsAdapter.FIELD_1, MediaStore.Audio.Playlists._COUNT);
-                    break;
-                case Common.GENRES_FRAGMENT:
-                    break;
-                case Common.FOLDERS_FRAGMENT:
-                    break;
-            }
-
+            mDBColumnsMap.put(SearchSongsAdapter.TITLE_TEXT, DBAccessHelper.SONG_TITLE);
+            mDBColumnsMap.put(SearchSongsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
+            mDBColumnsMap.put(SearchSongsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
+            mDBColumnsMap.put(SearchSongsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
+            mDBColumnsMap.put(SearchSongsAdapter.FIELD_1, DBAccessHelper.SONG_DURATION);
+            mDBColumnsMap.put(SearchSongsAdapter.FIELD_2, DBAccessHelper.SONG_ARTIST);
         }
 
         @Override
@@ -385,10 +244,6 @@ public class SearchSongsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        //Set the ActionBar title.
-        getActivity().setTitle(mFragmentTitle);
-
     }
 
     /*
@@ -405,10 +260,6 @@ public class SearchSongsFragment extends Fragment {
 
     public Cursor getCursor() {
         return mCursor;
-    }
-
-    public int getFragmentId() {
-        return mFragmentId;
     }
 
 	/*

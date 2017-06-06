@@ -291,8 +291,8 @@ public class SearchSongsAdapter extends SimpleCursorAdapter implements Scrollabl
                     Toast.makeText(mContext, R.string.artist_blacklisted, Toast.LENGTH_SHORT).show();
 
                     //Update the ListView.
-                    mSearchSongsFragment.mHandler.post(mSearchSongsFragment.queryRunnable);
-                    mSearchSongsFragment.getListViewAdapter().notifyDataSetChanged();
+                    /*mSearchSongsFragment.mHandler.post(mSearchSongsFragment.queryRunnable);
+                    mSearchSongsFragment.getListViewAdapter().notifyDataSetChanged();*/
 
                     break;
                 case R.id.share:
@@ -394,8 +394,8 @@ public class SearchSongsAdapter extends SimpleCursorAdapter implements Scrollabl
                 mApp.getDBAccessHelper().deleteSongByFilePath(mFilePath);
 
                 //Update the ListView.
-                mSearchSongsFragment.mHandler.post(mSearchSongsFragment.queryRunnable);
-                mSearchSongsFragment.getListViewAdapter().notifyDataSetChanged();
+               /* mSearchSongsFragment.mHandler.post(mSearchSongsFragment.queryRunnable);
+                mSearchSongsFragment.getListViewAdapter().notifyDataSetChanged();*/
             }
         }
 

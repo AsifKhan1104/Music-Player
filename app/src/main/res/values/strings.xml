@@ -897,4 +897,6 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="search_invoke">Hello Music</string>
+
+    <string name="no_data_found_via_search">No Data found matching this search criteria.</string>
 </resources>

@@ -169,7 +169,6 @@ public class SearchSongsFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             mCursor = mApp.getDBAccessHelper().getSongsViaSearch(mSearchQuery);
-            mCursor.getCount();
 
             loadDBColumnNames();
             return null;
@@ -190,6 +189,12 @@ public class SearchSongsFragment extends Fragment {
         @Override
         public void onPostExecute(Void result) {
             super.onPostExecute(result);
+
+            // no data found text
+            if (mCursor.getCount() == 0) {
+                mEmptyTextView.setText(getString(R.string.no_data_found_via_search));
+                mEmptyTextView.setVisibility(View.VISIBLE);
+            }
 
             TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
                     Animation.RELATIVE_TO_SELF, 0.0f,

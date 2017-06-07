@@ -240,6 +240,12 @@ public class SearchAlbumsArtistsFragment extends Fragment {
     }
 
     public void showGrid() {
+        // no data found text
+        if (mCursor.getCount() == 0) {
+            mEmptyTextView.setText(getString(R.string.no_data_found_via_search));
+            mEmptyTextView.setVisibility(View.VISIBLE);
+        }
+
         TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 0.0f,
                 Animation.RELATIVE_TO_SELF, 2.0f,

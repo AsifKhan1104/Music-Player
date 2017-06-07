@@ -143,17 +143,18 @@ public class SearchAlbumsArtistsFragment extends Fragment {
             int newFragmentId = getNewFragmentId();
 
             Intent intent;
-            if (newFragmentId == Common.ALBUMS_FLIPPED_FRAGMENT) {
+            Bundle bundle = new Bundle();
+            if (newFragmentId == Common.SEARCH_ALBUMS_FRAGMENT) {
+                bundle.putInt("fragmentId", Common.ALBUMS_FLIPPED_FRAGMENT);
                 intent = new Intent(mContext, BrowserSubListActivity.class);
             } else {
+                bundle.putInt("fragmentId", Common.ARTISTS_FLIPPED_FRAGMENT);
                 intent = new Intent(mContext, BrowserSubGridActivity.class);
             }
 
-            Bundle bundle = new Bundle();
             bundle.putString("headerImagePath", (String) view.getTag(R.string.album_art));
             bundle.putString("headerText", (String) view.getTag(R.string.title_text));
             bundle.putString("subText", (String) view.getTag(R.string.field_1));
-            bundle.putInt("fragmentId", newFragmentId);
 
             intent.putExtras(bundle);
             startActivity(intent);

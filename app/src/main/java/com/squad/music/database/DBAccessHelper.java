@@ -834,7 +834,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         String currentLibrary = mApp.getCurrentLibraryNormalized();
 
         if (fragmentId == Common.SEARCH_SONGS_FRAGMENT) {
-            return getSongsSearch(querySelection);
+            return getSongsViaSearch(querySelection);
 
         } else if (fragmentId == Common.PLAYLISTS_FRAGMENT) {
             return getFragmentCursorHelper(querySelection, fragmentId);
@@ -1120,9 +1120,23 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         return getDatabase().rawQuery(selectQuery, null);
     }
 
-    public Cursor getSongsSearch(String selection) {
+    public Cursor getSongsViaSearch(String selection) {
         String selectQuery = "SELECT  * FROM " + MUSIC_LIBRARY_TABLE + " WHERE " +
                 BLACKLIST_STATUS + "=" + "?" + " AND " + SONG_TITLE + " LIKE ?";
+
+        return getDatabase().rawQuery(selectQuery, new String[]{"0", "%" + selection + "%"});
+    }
+
+    public Cursor getAlbumsViaSearch(String selection) {
+        String selectQuery = "SELECT  * FROM " + MUSIC_LIBRARY_TABLE + " WHERE " +
+                BLACKLIST_STATUS + "=" + "?" + " AND " + SONG_ALBUM + " LIKE ?";
+
+        return getDatabase().rawQuery(selectQuery, new String[]{"0", "%" + selection + "%"});
+    }
+
+    public Cursor getArtistsViaSearch(String selection) {
+        String selectQuery = "SELECT  * FROM " + MUSIC_LIBRARY_TABLE + " WHERE " +
+                BLACKLIST_STATUS + "=" + "?" + " AND " + SONG_ARTIST + " LIKE ?";
 
         return getDatabase().rawQuery(selectQuery, new String[]{"0", "%" + selection + "%"});
     }

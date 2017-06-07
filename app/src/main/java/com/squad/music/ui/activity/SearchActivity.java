@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.ui.fragment.GridViewFragment;
+import com.squad.music.ui.fragment.SearchAlbumsArtistsFragment;
 import com.squad.music.ui.fragment.SearchSongsFragment;
 import com.squad.music.utility.AppConstants;
 
@@ -105,27 +106,23 @@ public class SearchActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             Bundle bundle = new Bundle();
+            bundle.putString(AppConstants.SEARCH_QUERY, mSearchQuery);
+
             switch (position) {
                 case 0:
-                    bundle.putString(AppConstants.SEARCH_QUERY, mSearchQuery);
-
                     SearchSongsFragment fragment1 = new SearchSongsFragment();
                     fragment1.setArguments(bundle);
 
                     return fragment1;
                 case 1:
-                    bundle.putInt(Common.FRAGMENT_ID, Common.ALBUMS_FRAGMENT);
-                    bundle.putString(FRAGMENT_HEADER, SearchActivity.this.getResources().getString(R.string.albums));
-
-                    GridViewFragment fragment2 = new GridViewFragment();
+                    SearchAlbumsArtistsFragment fragment2 = new SearchAlbumsArtistsFragment();
+                    bundle.putInt(Common.FRAGMENT_ID, Common.SEARCH_ALBUMS_FRAGMENT);
                     fragment2.setArguments(bundle);
 
                     return fragment2;
                 case 2:
-                    bundle.putInt(Common.FRAGMENT_ID, Common.ARTISTS_FRAGMENT);
-                    bundle.putString(FRAGMENT_HEADER, SearchActivity.this.getResources().getString(R.string.artists));
-
-                    GridViewFragment fragment3 = new GridViewFragment();
+                    SearchAlbumsArtistsFragment fragment3 = new SearchAlbumsArtistsFragment();
+                    bundle.putInt(Common.FRAGMENT_ID, Common.SEARCH_ARTISTS_FRAGMENT);
                     fragment3.setArguments(bundle);
 
                     return fragment3;

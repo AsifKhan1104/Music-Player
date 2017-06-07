@@ -31,7 +31,6 @@ import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.PauseOnScrollHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
-import com.squad.music.ui.activity.MainActivity;
 import com.squad.music.ui.adapter.SearchSongsAdapter;
 import com.squad.music.utility.AppConstants;
 
@@ -114,6 +113,19 @@ public class SearchSongsFragment extends Fragment {
     }
 
     /**
+     * Query runnable.
+     */
+    public Runnable queryRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            new AsyncRunQuery().execute();
+
+        }
+
+    };
+
+    /**
      * Item click listener for the ListView.
      */
     private OnItemClickListener onItemClickListener = new OnItemClickListener() {
@@ -156,7 +168,7 @@ public class SearchSongsFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            mCursor = mApp.getDBAccessHelper().getSongsSearch(mSearchQuery);
+            mCursor = mApp.getDBAccessHelper().getSongsViaSearch(mSearchQuery);
             mCursor.getCount();
 
             loadDBColumnNames();

@@ -36,7 +36,6 @@ import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.BrowserSubGridActivity;
 import com.squad.music.ui.activity.BrowserSubListActivity;
 import com.squad.music.ui.activity.MainActivity;
-import com.squad.music.ui.adapter.GridViewCardsAdapter;
 import com.squad.music.ui.adapter.SearchAlbumsArtitstsAdapter;
 import com.squad.music.utility.AppConstants;
 
@@ -213,18 +212,18 @@ public class SearchAlbumsArtistsFragment extends Fragment {
 
             switch (mFragmentId) {
                 case Common.SEARCH_ARTISTS_FRAGMENT:
-                    mDBColumnsMap.put(GridViewCardsAdapter.TITLE_TEXT, DBAccessHelper.SONG_ARTIST);
-                    mDBColumnsMap.put(GridViewCardsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
-                    mDBColumnsMap.put(GridViewCardsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
-                    mDBColumnsMap.put(GridViewCardsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
-                    mDBColumnsMap.put(GridViewCardsAdapter.FIELD_1, DBAccessHelper.ALBUMS_COUNT);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.TITLE_TEXT, DBAccessHelper.SONG_ARTIST);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.FIELD_1, DBAccessHelper.ALBUMS_COUNT);
                     break;
                 case Common.SEARCH_ALBUMS_FRAGMENT:
-                    mDBColumnsMap.put(GridViewCardsAdapter.TITLE_TEXT, DBAccessHelper.SONG_ALBUM);
-                    mDBColumnsMap.put(GridViewCardsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
-                    mDBColumnsMap.put(GridViewCardsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
-                    mDBColumnsMap.put(GridViewCardsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
-                    mDBColumnsMap.put(GridViewCardsAdapter.FIELD_1, DBAccessHelper.SONG_ARTIST);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.TITLE_TEXT, DBAccessHelper.SONG_ALBUM);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.SOURCE, DBAccessHelper.SONG_SOURCE);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.FILE_PATH, DBAccessHelper.SONG_FILE_PATH);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.ARTWORK_PATH, DBAccessHelper.SONG_ALBUM_ART_PATH);
+                    mDBColumnsMap.put(SearchAlbumsArtitstsAdapter.FIELD_1, DBAccessHelper.SONG_ARTIST);
                     break;
             }
 
@@ -268,7 +267,7 @@ public class SearchAlbumsArtistsFragment extends Fragment {
             //Init the quick scroll widget.
             mQuickScroll.init(QuickScrollGridView.TYPE_INDICATOR_WITH_HANDLE,
                     mGridView,
-                    (GridViewCardsAdapter) mGridViewAdapter,
+                    (SearchAlbumsArtitstsAdapter) mGridViewAdapter,
                     QuickScrollGridView.STYLE_HOLO);
 
             int[] quickScrollColors = UIElementsHelper.getQuickScrollColors(mContext);
@@ -330,17 +329,14 @@ public class SearchAlbumsArtistsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        //Apply the ActionBar title.
-        getActivity().setTitle(mFragmentTitle);
     }
 
     /*
      * Getter methods.
      */
 
-    public GridViewCardsAdapter getGridViewAdapter() {
-        return (GridViewCardsAdapter) mGridViewAdapter;
+    public SearchAlbumsArtitstsAdapter getGridViewAdapter() {
+        return (SearchAlbumsArtitstsAdapter) mGridViewAdapter;
     }
 
     public GridView getGridView() {

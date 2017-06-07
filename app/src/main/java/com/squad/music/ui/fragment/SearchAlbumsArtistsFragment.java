@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +24,10 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.andraskindler.quickscroll.QuickScrollGridView;
 import com.nhaarman.listviewanimations.swinginadapters.prepared.SwingBottomInAnimationAdapter;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
-import com.squad.music.helper.PauseOnScrollHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.BrowserSubGridActivity;
@@ -51,7 +48,6 @@ public class SearchAlbumsArtistsFragment extends Fragment {
     public int mFragmentId;
     private String mSearchQuery;
 
-    private QuickScrollGridView mQuickScroll;
     private BaseAdapter mGridViewAdapter;
     private HashMap<Integer, String> mDBColumnsMap;
     private GridView mGridView;
@@ -64,7 +60,7 @@ public class SearchAlbumsArtistsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_grid_view, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_search_grid_view, container, false);
         mContext = getActivity().getApplicationContext();
         mApp = (Common) mContext;
         mFragment = this;
@@ -76,8 +72,6 @@ public class SearchAlbumsArtistsFragment extends Fragment {
         mFragmentId = getArguments().getInt(Common.FRAGMENT_ID);
         mSearchQuery = getArguments().getString(AppConstants.SEARCH_QUERY);
         mDBColumnsMap = new HashMap<Integer, String>();
-
-        mQuickScroll = (QuickScrollGridView) mRootView.findViewById(R.id.quickscrollgrid);
 
         //Set the adapter for the outer gridview.
         mGridView = (GridView) mRootView.findViewById(R.id.generalGridView);
@@ -242,7 +236,6 @@ public class SearchAlbumsArtistsFragment extends Fragment {
     public void showGrid() {
         // no data found text
         if (mCursor.getCount() == 0) {
-            mEmptyTextView.setText(getString(R.string.no_data_found_via_search));
             mEmptyTextView.setVisibility(View.VISIBLE);
         }
 
@@ -265,27 +258,10 @@ public class SearchAlbumsArtistsFragment extends Fragment {
         mGridView.setAdapter(animationAdapter);
         mGridView.setOnItemClickListener(onItemClickListener);
 
-        //Init the quick scroll widget.
-        mQuickScroll.init(QuickScrollGridView.TYPE_INDICATOR_WITH_HANDLE,
-                mGridView,
-                (SearchAlbumsArtitstsAdapter) mGridViewAdapter,
-                QuickScrollGridView.STYLE_HOLO);
-
-        int[] quickScrollColors = UIElementsHelper.getQuickScrollColors(mContext);
-        PauseOnScrollHelper scrollHelper = new PauseOnScrollHelper(mApp.getPicasso(), null, false, true);
-
-        mQuickScroll.setOnScrollListener(scrollHelper);
-        mQuickScroll.setPicassoInstance(mApp.getPicasso());
-        mQuickScroll.setHandlebarColor(quickScrollColors[0], quickScrollColors[0], quickScrollColors[1]);
-        mQuickScroll.setIndicatorColor(quickScrollColors[1], quickScrollColors[0], quickScrollColors[2]);
-        mQuickScroll.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 48);
-
         animation.setAnimationListener(new AnimationListener() {
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                mQuickScroll.setVisibility(View.VISIBLE);
-                //animationAdapter.setShouldAnimate(false);
 
             }
 

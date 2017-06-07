@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/fragment_grid_view_root_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true">
+
+    <RelativeLayout
+        android:id="@+id/fragment_grid_view_frontal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="4.5dp"
+        android:layout_marginRight="4.5dp">
+
+        <GridView
+            android:id="@+id/generalGridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:drawSelectorOnTop="true"
+            android:horizontalSpacing="3dp"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:scrollbars="none"
+            android:verticalSpacing="3dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/empty_view_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center"
+        android:text="@string/no_data_found_via_search"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#0099CC"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

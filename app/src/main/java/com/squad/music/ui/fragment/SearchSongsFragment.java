@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +23,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.andraskindler.quickscroll.QuickScroll;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.database.DBAccessHelper;
-import com.squad.music.helper.PauseOnScrollHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.adapter.SearchSongsAdapter;
@@ -45,7 +42,6 @@ public class SearchSongsFragment extends Fragment {
     private View mRootView;
     private String mSearchQuery;
 
-    private QuickScroll mQuickScroll;
     private SearchSongsAdapter mSearchSongsAdapter;
     private HashMap<Integer, String> mDBColumnsMap;
     private ListView mListView;
@@ -60,7 +56,7 @@ public class SearchSongsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_list_view, container, false);
+        mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_search_list_view, container, false);
         mContext = getActivity().getApplicationContext();
         mApp = (Common) mContext;
         mFragment = this;
@@ -82,8 +78,6 @@ public class SearchSongsFragment extends Fragment {
         mSearchEditText.setTextColor(UIElementsHelper.getThemeBasedTextColor(mContext));
         mSearchEditText.setFocusable(true);
         mSearchEditText.setCursorVisible(true);
-
-        mQuickScroll = (QuickScroll) mRootView.findViewById(R.id.quickscroll);
 
         mListView = (ListView) mRootView.findViewById(R.id.generalListView);
         mListView.setVerticalScrollBarEnabled(false);
@@ -192,7 +186,6 @@ public class SearchSongsFragment extends Fragment {
 
             // no data found text
             if (mCursor.getCount() == 0) {
-                mEmptyTextView.setText(getString(R.string.no_data_found_via_search));
                 mEmptyTextView.setVisibility(View.VISIBLE);
             }
 
@@ -208,26 +201,10 @@ public class SearchSongsFragment extends Fragment {
             mListView.setAdapter(mSearchSongsAdapter);
             mListView.setOnItemClickListener(onItemClickListener);
 
-            //Init the quick scroll widget.
-            mQuickScroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE,
-                    mListView,
-                    (SearchSongsAdapter) mSearchSongsAdapter,
-                    QuickScroll.STYLE_HOLO);
-
-            int[] quickScrollColors = UIElementsHelper.getQuickScrollColors(mContext);
-            PauseOnScrollHelper scrollListener = new PauseOnScrollHelper(mApp.getPicasso(), null, true, true);
-
-            mQuickScroll.setOnScrollListener(scrollListener);
-            mQuickScroll.setPicassoInstance(mApp.getPicasso());
-            mQuickScroll.setHandlebarColor(quickScrollColors[0], quickScrollColors[0], quickScrollColors[1]);
-            mQuickScroll.setIndicatorColor(quickScrollColors[1], quickScrollColors[0], quickScrollColors[2]);
-            mQuickScroll.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 48);
-
             animation.setAnimationListener(new AnimationListener() {
 
                 @Override
                 public void onAnimationEnd(Animation arg0) {
-                    mQuickScroll.setVisibility(View.VISIBLE);
 
                 }
 

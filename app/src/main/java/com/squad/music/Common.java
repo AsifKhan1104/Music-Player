@@ -138,6 +138,10 @@ public class Common extends Application {
 	public static final int ALBUMS_FLIPPED_FRAGMENT = 11;
 	public static final int GENRES_FLIPPED_FRAGMENT = 12;
 	public static final int GENRES_FLIPPED_SONGS_FRAGMENT = 13;
+    public static final int SEARCH_FRAGMENT = 14;
+    public static final int SEARCH_SONGS_FRAGMENT = 15;
+    public static final int SEARCH_ALBUMS_FRAGMENT = 16;
+    public static final int SEARCH_ARTISTS_FRAGMENT = 17;
 
     //Constants for identifying playback routes.
     public static final int PLAY_ALL_SONGS = 0;

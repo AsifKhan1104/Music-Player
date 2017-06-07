@@ -123,8 +123,8 @@ public class SearchSongsFragment extends Fragment {
             mApp.getPlaybackKickstarter()
 
                     .initPlayback(mContext,
-                            mQuerySelection,
-                            Common.PLAY_ALL_SONGS,
+                            mSearchQuery,
+                            Common.SEARCH_SONGS_FRAGMENT,
                             index,
                             true,
                             false);

@@ -833,7 +833,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     public Cursor getPlaybackCursor(Context context, String querySelection, int fragmentId) {
         String currentLibrary = mApp.getCurrentLibraryNormalized();
 
-        if (fragmentId == Common.PLAYLISTS_FRAGMENT) {
+        if (fragmentId == Common.SEARCH_SONGS_FRAGMENT) {
+            return getSongsSearch(querySelection);
+
+        } else if (fragmentId == Common.PLAYLISTS_FRAGMENT) {
             return getFragmentCursorHelper(querySelection, fragmentId);
 
         } else if (currentLibrary.equals(context.getResources().getString(R.string.all_libraries))) {

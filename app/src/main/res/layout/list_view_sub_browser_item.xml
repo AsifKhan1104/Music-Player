@@ -22,7 +22,6 @@
         android:layout_alignParentLeft="true"
 		android:layout_centerVertical="true"
         android:src="@drawable/empty_color_patch_circular"
-        android:text="1"
         android:paddingLeft="8dp"
         android:paddingRight="8dp" />
     

@@ -63,6 +63,7 @@
             android:gravity="center"
             android:hint="@string/no_data_found_via_search"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
             android:visibility="invisible"/>
 
     </RelativeLayout>

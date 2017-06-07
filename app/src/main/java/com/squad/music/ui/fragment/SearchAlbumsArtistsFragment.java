@@ -31,8 +31,8 @@ import com.squad.music.database.DBAccessHelper;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.BrowserSubGridActivity;
-import com.squad.music.ui.activity.BrowserSubListActivity;
 import com.squad.music.ui.activity.MainActivity;
+import com.squad.music.ui.activity.SearchSubListActivity;
 import com.squad.music.ui.adapter.SearchAlbumsArtitstsAdapter;
 import com.squad.music.utility.AppConstants;
 
@@ -146,7 +146,7 @@ public class SearchAlbumsArtistsFragment extends Fragment {
             Bundle bundle = new Bundle();
             if (newFragmentId == Common.SEARCH_ALBUMS_FRAGMENT) {
                 bundle.putInt("fragmentId", Common.ALBUMS_FLIPPED_FRAGMENT);
-                intent = new Intent(mContext, BrowserSubListActivity.class);
+                intent = new Intent(mContext, SearchSubListActivity.class);
             } else {
                 bundle.putInt("fragmentId", Common.ARTISTS_FLIPPED_FRAGMENT);
                 intent = new Intent(mContext, BrowserSubGridActivity.class);

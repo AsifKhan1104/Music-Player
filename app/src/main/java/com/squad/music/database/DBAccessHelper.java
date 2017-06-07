@@ -1136,9 +1136,16 @@ public class DBAccessHelper extends SQLiteOpenHelper {
 
     public Cursor getArtistsViaSearch(String selection) {
         String selectQuery = "SELECT  * FROM " + MUSIC_LIBRARY_TABLE + " WHERE " +
-                BLACKLIST_STATUS + "=" + "?" + " AND " + SONG_ARTIST + " LIKE ?";
+                BLACKLIST_STATUS + "=" + "?" + " AND " + SONG_ARTIST + " LIKE ?" + "GROUP BY " + SONG_ARTIST;
 
         return getDatabase().rawQuery(selectQuery, new String[]{"0", "%" + selection + "%"});
+    }
+
+    public Cursor getSongsInAlbum(String selection) {
+        String selectQuery = "SELECT  * FROM " + MUSIC_LIBRARY_TABLE + " WHERE " +
+                BLACKLIST_STATUS + "=?" + " AND " + SONG_ALBUM + " =?";
+
+        return getDatabase().rawQuery(selectQuery, new String[]{"0", selection});
     }
 
     /**

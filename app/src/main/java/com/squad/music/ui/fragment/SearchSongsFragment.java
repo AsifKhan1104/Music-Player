@@ -156,7 +156,6 @@ public class SearchSongsFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            //String selection = "AND " + DBAccessHelper.SONG_TITLE + "LIKE '%" + mSearchQuery + "%'";
             mCursor = mApp.getDBAccessHelper().getSongsSearch(mSearchQuery);
             mCursor.getCount();
 
@@ -192,12 +191,6 @@ public class SearchSongsFragment extends Fragment {
             mListView.setAdapter(mSearchSongsAdapter);
             mListView.setOnItemClickListener(onItemClickListener);
 
-	     /* SwingBottomInAnimationAdapter animationAdapter = new SwingBottomInAnimationAdapter(mSearchSongsAdapter);
-            animationAdapter.setShouldAnimate(true);
-	        animationAdapter.setShouldAnimateFromPosition(0);
-	        animationAdapter.setAbsListView(mListView);
-	        mListView.setAdapter(animationAdapter); */
-
             //Init the quick scroll widget.
             mQuickScroll.init(QuickScroll.TYPE_INDICATOR_WITH_HANDLE,
                     mListView,
@@ -232,7 +225,6 @@ public class SearchSongsFragment extends Fragment {
                     mListView.setVisibility(View.VISIBLE);
 
                 }
-
             });
 
             mListView.startAnimation(animation);

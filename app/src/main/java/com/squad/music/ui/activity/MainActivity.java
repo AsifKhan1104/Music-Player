@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout mNavDrawerLayout;
     private RelativeLayout mCurrentQueueDrawerLayout;
     private Toolbar mToolbar;
-    private QueueDrawerFragment mQueueDrawerFragment;
+    public QueueDrawerFragment mQueueDrawerFragment;
     private Menu mMenu;
     private FloatingActionButton mFloatingActionButton1, mFloatingActionButton2;
 

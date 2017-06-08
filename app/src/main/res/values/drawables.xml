@@ -1,8 +1,10 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <item name="ic_menu_camera" type="drawable">@android:drawable/ic_menu_camera</item>
-    <item name="ic_menu_gallery" type="drawable">@android:drawable/ic_menu_gallery</item>
-    <item name="ic_menu_slideshow" type="drawable">@android:drawable/ic_menu_slideshow</item>
-    <item name="ic_menu_manage" type="drawable">@android:drawable/ic_menu_manage</item>
-    <item name="ic_menu_share" type="drawable">@android:drawable/ic_menu_share</item>
-    <item name="ic_menu_send" type="drawable">@android:drawable/ic_menu_send</item>
+<resources>
+    <item name="ic_menu_artists" type="drawable">@drawable/artists_icon_states</item>
+    <item name="ic_menu_albums" type="drawable">@android:drawable/ic_menu_gallery</item>
+    <item name="ic_menu_songs" type="drawable">@drawable/songs_icon_states</item>
+    <item name="ic_menu_genres" type="drawable">@drawable/genres_icon_states</item>
+    <item name="ic_menu_folders" type="drawable">@drawable/folder_states</item>
+    <item name="ic_menu_playlists" type="drawable">@drawable/queue_drawer_states</item>
+    <item name="ic_menu_equaliser" type="drawable">@drawable/equalizer_button_states</item>
+    <item name="ic_menu_settings" type="drawable">@drawable/settings_button_states</item>
 </resources>

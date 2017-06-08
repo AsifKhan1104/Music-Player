@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<selector xmlns:android="http://schemas.android.com/apk/res/android">  
+	<item android:state_pressed="true"  
+		android:drawable="@drawable/genres"/>
+	<item android:drawable="@drawable/genres_light"/>
+</selector>  

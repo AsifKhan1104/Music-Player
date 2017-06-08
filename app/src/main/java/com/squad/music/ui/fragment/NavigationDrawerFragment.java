@@ -2,19 +2,24 @@ package com.squad.music.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -25,16 +30,14 @@ import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
+import com.squad.music.ui.activity.EqualizerActivity;
 import com.squad.music.ui.activity.MainActivity;
 import com.squad.music.ui.adapter.NavigationDrawerAdapter;
 import com.squad.music.ui.adapter.NavigationDrawerLibrariesAdapter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class NavigationDrawerFragment extends Fragment implements View.OnClickListener {
+public class NavigationDrawerFragment extends Fragment implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_CODE_TIMER_DIALOG = 421;
     private Context mContext;
@@ -53,6 +56,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private NavigationDrawerAdapter mBrowsersAdapter;
     private Handler mHandler;
     private CountDownTimer mCountDownTimer;
+    private NavigationView mNavigationView;
+    private View rootView;
 
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
@@ -63,26 +68,20 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mApp = (Common) mContext.getApplicationContext();
         mHandler = new Handler();
 
-        View rootView = inflater.inflate(R.layout.navigation_drawer_layout, null);
+        rootView = inflater.inflate(R.layout.navigation_drawer_layout, null);
         rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
 
-        browsersListView = (ListView) rootView.findViewById(R.id.browsers_list_view);
-        mLibraryPickerLayout = (RelativeLayout) rootView.findViewById(R.id.library_picker_layout);
-        mLibraryPickerSpinner = (Spinner) rootView.findViewById(R.id.library_picker_spinner);
-        mLibraryPickerHeaderText = (TextView) rootView.findViewById(R.id.library_picker_header_text);
-        mTextViewTimerText = (TextView) rootView.findViewById(R.id.textview_timer_text);
-        mImageViewTimerEditor = (ImageView) rootView.findViewById(R.id.imageview_timer_edit);
-        mImageViewTimerCancel = (ImageView) rootView.findViewById(R.id.imageview_timer_cancel);
+        mNavigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
+        View headerView = mNavigationView.getHeaderView(0);
+        mLibraryPickerLayout = (RelativeLayout) headerView.findViewById(R.id.library_picker_layout);
+        mLibraryPickerSpinner = (Spinner) headerView.findViewById(R.id.library_picker_spinner);
+        mLibraryPickerHeaderText = (TextView) headerView.findViewById(R.id.library_picker_header_text);
+        mTextViewTimerText = (TextView) headerView.findViewById(R.id.textview_timer_text);
+        mImageViewTimerEditor = (ImageView) headerView.findViewById(R.id.imageview_timer_edit);
+        mImageViewTimerCancel = (ImageView) headerView.findViewById(R.id.imageview_timer_cancel);
         mImageViewTimerEditor.setOnClickListener(this);
         mImageViewTimerCancel.setOnClickListener(this);
         mLibraryPickerHeaderText.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
-
-        //Apply the Browser ListView's adapter.
-        List<String> titles = Arrays.asList(getActivity().getResources().getStringArray(R.array.sliding_menu_array));
-        mBrowsersAdapter = new NavigationDrawerAdapter(getActivity(), new ArrayList<String>(titles));
-        browsersListView.setAdapter(mBrowsersAdapter);
-        browsersListView.setOnItemClickListener(browsersClickListener);
-        setListViewHeightBasedOnChildren(browsersListView);
 
         //Apply the Libraries ListView's adapter.
         cursor = mApp.getDBAccessHelper().getAllUniqueLibraries();
@@ -91,9 +90,27 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mLibraryPickerSpinner.setSelection(mApp.getCurrentLibraryIndex());
         mLibraryPickerSpinner.setOnItemSelectedListener(librariesItemSelectedListener);
 
-        browsersListView.setDividerHeight(0);
+        customizeNavigationItems();
 
         return rootView;
+    }
+
+    private void customizeNavigationItems() {
+        if (mNavigationView != null) {
+            // For more customization, kindly view NavigationDrawerAdapter class
+            Menu menu = mNavigationView.getMenu();
+            for (int i = 0; i < menu.size(); i++) {
+                changeTypefaceAndColor(menu.getItem(i));
+            }
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
+    }
+
+    private void changeTypefaceAndColor(MenuItem item) {
+        SpannableString s = new SpannableString(item.getTitle());
+        s.setSpan(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"), 0, s.length(), 0);
+        s.setSpan(new ForegroundColorSpan(UIElementsHelper.getThemeBasedTextColor(mContext)), 0, s.length(), 0);
+        item.setTitle(s);
     }
 
     private AdapterView.OnItemSelectedListener librariesItemSelectedListener = new AdapterView.OnItemSelectedListener() {
@@ -131,84 +148,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         }
 
     };
-
-    private OnItemClickListener browsersClickListener = new OnItemClickListener() {
-
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int position, long dbID) {
-            switch (position) {
-                case 0:
-                    ((MainActivity) getActivity()).setCurrentFragmentId(Common.ARTISTS_FRAGMENT);
-                    break;
-                /*case 1:
-                    ((MainActivity) getActivity()).setCurrentFragmentId(Common.ALBUM_ARTISTS_FRAGMENT);
-                    break;*/
-                case 1:
-                    ((MainActivity) getActivity()).setCurrentFragmentId(Common.ALBUMS_FRAGMENT);
-                    break;
-                case 2:
-                    ((MainActivity) getActivity()).setCurrentFragmentId(Common.SONGS_FRAGMENT);
-                    break;
-                case 3:
-                    ((MainActivity) getActivity()).setCurrentFragmentId(Common.PLAYLISTS_FRAGMENT);
-                    break;
-                case 4:
-                    ((MainActivity) getActivity()).setCurrentFragmentId(Common.GENRES_FRAGMENT);
-                    break;
-                case 5:
-                    ((MainActivity) getActivity()).setCurrentFragmentId(Common.FOLDERS_FRAGMENT);
-                    break;
-                case 6:
-                    /*Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                    startActivity(intent);*/
-                    break;
-            }
-
-            //Update the adapter to reflect the new fragment.
-            List<String> titles = Arrays.asList(getActivity().getResources().getStringArray(R.array.sliding_menu_array));
-            mBrowsersAdapter = new NavigationDrawerAdapter(getActivity(), new ArrayList<String>(titles));
-            browsersListView.setAdapter(mBrowsersAdapter);
-
-            //Update the fragment.
-            ((MainActivity) getActivity()).loadFragment(null);
-
-            //Reset the ActionBar after 500ms.
-            mHandler.postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    getActivity().invalidateOptionsMenu();
-
-                }
-
-            }, 500);
-
-        }
-
-    };
-
-    /**
-     * Clips ListViews to fit within the drawer's boundaries.
-     */
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
-
-        int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
 
     @Override
     public void onDestroyView() {
@@ -274,5 +213,48 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                     TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
         }
         return str;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_artists) {
+            ((MainActivity) getActivity()).setCurrentFragmentId(Common.ARTISTS_FRAGMENT);
+        } else if (id == R.id.nav_albums) {
+            ((MainActivity) getActivity()).setCurrentFragmentId(Common.ALBUMS_FRAGMENT);
+        } else if (id == R.id.nav_songs) {
+            ((MainActivity) getActivity()).setCurrentFragmentId(Common.SONGS_FRAGMENT);
+        } else if (id == R.id.nav_genres) {
+            ((MainActivity) getActivity()).setCurrentFragmentId(Common.GENRES_FRAGMENT);
+        } else if (id == R.id.nav_folders) {
+            ((MainActivity) getActivity()).setCurrentFragmentId(Common.FOLDERS_FRAGMENT);
+        } else if (id == R.id.nav_playlists) {
+            ((MainActivity) getActivity()).setCurrentFragmentId(Common.PLAYLISTS_FRAGMENT);
+        } else if (id == R.id.nav_play_queue) {
+            ((MainActivity) getActivity()).mQueueDrawerFragment.setIsDrawerOpen(true);
+        } else if (id == R.id.nav_equalizer) {
+            Intent intent = new Intent(getActivity(), EqualizerActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_settings) {
+            /*Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            startActivity(intent);*/
+        }
+
+        //Update the fragment.
+        ((MainActivity) getActivity()).loadFragment(null);
+
+        //Reset the ActionBar after 500ms.
+        mHandler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                getActivity().invalidateOptionsMenu();
+            }
+
+        }, 500);
+
+        return true;
     }
 }

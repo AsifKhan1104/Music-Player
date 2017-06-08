@@ -103,6 +103,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 changeTypefaceAndColor(menu.getItem(i));
             }
             mNavigationView.setNavigationItemSelectedListener(this);
+            mNavigationView.getMenu().getItem(0).setChecked(true);
         }
     }
 

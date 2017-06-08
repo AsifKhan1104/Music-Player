@@ -232,11 +232,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             ((MainActivity) getActivity()).setCurrentFragmentId(Common.FOLDERS_FRAGMENT);
         } else if (id == R.id.nav_playlists) {
             ((MainActivity) getActivity()).setCurrentFragmentId(Common.PLAYLISTS_FRAGMENT);
-        } else if (id == R.id.nav_play_queue) {
-            ((MainActivity) getActivity()).mQueueDrawerFragment.setIsDrawerOpen(true);
-        } else if (id == R.id.nav_equalizer) {
-            Intent intent = new Intent(getActivity(), EqualizerActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_settings) {
             /*Intent intent = new Intent(getActivity(), SettingsActivity.class);
             startActivity(intent);*/

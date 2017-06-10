@@ -30,16 +30,19 @@ import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
 import com.squad.music.helper.UIElementsHelper;
-import com.squad.music.ui.activity.EqualizerActivity;
 import com.squad.music.ui.activity.MainActivity;
+import com.squad.music.ui.activity.SettingsActivity;
 import com.squad.music.ui.adapter.NavigationDrawerAdapter;
 import com.squad.music.ui.adapter.NavigationDrawerLibrariesAdapter;
 
 import java.util.concurrent.TimeUnit;
 
+import static android.app.Activity.RESULT_OK;
+
 public class NavigationDrawerFragment extends Fragment implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_CODE_TIMER_DIALOG = 421;
+    private static final int REQUEST_CODE_SETTINGS = 422;
     private Context mContext;
     private Common mApp;
 
@@ -58,6 +61,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private CountDownTimer mCountDownTimer;
     private NavigationView mNavigationView;
     private View rootView;
+    private int mSelectedFragmentId;
 
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
@@ -234,8 +238,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         } else if (id == R.id.nav_playlists) {
             ((MainActivity) getActivity()).setCurrentFragmentId(Common.PLAYLISTS_FRAGMENT);
         } else if (id == R.id.nav_settings) {
-            /*Intent intent = new Intent(getActivity(), SettingsActivity.class);
-            startActivity(intent);*/
+            Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            mSelectedFragmentId = ((MainActivity) getActivity()).getCurrentFragmentId();
+            startActivityForResult(intent, REQUEST_CODE_SETTINGS);
         }
 
         //Update the fragment.
@@ -252,5 +257,32 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         }, 500);
 
         return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_SETTINGS && resultCode == RESULT_OK) {
+            Menu menu = mNavigationView.getMenu();
+            switch (mSelectedFragmentId) {
+                case 0:
+                    menu.getItem(0).setChecked(true);
+                    break;
+                case 2:
+                    menu.getItem(1).setChecked(true);
+                    break;
+                case 3:
+                    menu.getItem(2).setChecked(true);
+                    break;
+                case 4:
+                    menu.getItem(5).setChecked(true);
+                    break;
+                case 5:
+                    menu.getItem(3).setChecked(true);
+                    break;
+                case 6:
+                    menu.getItem(4).setChecked(true);
+                    break;
+            }
+        }
     }
 }

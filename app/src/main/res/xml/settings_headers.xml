@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
     <header
-        android:fragment="com.squad.music.SettingsActivity.SettingsAppearanceFragment"
+        android:fragment="com.squad.music.ui.fragment.SettingsAppearanceFragment"
         android:icon="@drawable/color_palette"
         android:summary="@string/appearance_description"
-        android:title="@string/appearance" />
+        android:title="@string/appearance"/>
 
     <!--<header
         android:fragment="com.squad.music.SettingsActivity.SettingsLayoutsFragment"
@@ -25,10 +25,10 @@
         android:title="@string/audio_settings" />-->
 
     <header
-        android:fragment="com.squad.music.SettingsActivity.SettingsMusicLibraryFragment"
+        android:fragment="com.squad.music.ui.fragment.SettingsMusicLibraryFragment"
         android:icon="@drawable/playlists_folders"
         android:summary="@string/music_folders_description"
-        android:title="@string/music_library" />
+        android:title="@string/music_library"/>
 
     <!--<header
         android:fragment="com.squad.music.SettingsActivity.SettingsGMusicFragment"
@@ -48,22 +48,22 @@
         android:summary="@string/folders_description"
         android:title="@string/folders" />-->
 
-    <!--<header
-        android:fragment="com.squad.music.SettingsActivity.SettingsBlacklistsFragment"
+    <header
+        android:fragment="com.squad.music.ui.fragment.SettingsBlacklistsFragment"
         android:icon="@drawable/manage_blacklists"
         android:summary="@string/blacklists_description"
-        android:title="@string/blacklists" />-->
+        android:title="@string/blacklists"/>
 
-    <!--<header
-        android:fragment="com.squad.music.SettingsActivity.SettingsScrobblingFragment"
+    <header
+        android:fragment="com.squad.music.ui.fragment.SettingsScrobblingFragment"
         android:icon="@drawable/scrobbling"
         android:summary="@string/scrobbling_description"
-        android:title="@string/scrobbling" />-->
+        android:title="@string/scrobbling"/>
 
-    <!--<header
-        android:fragment="com.squad.music.SettingsActivity.SettingsAboutFragment"
+    <header
+        android:fragment="com.squad.music.ui.activity.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_action_about"
         android:summary="@string/about_description"
-        android:title="@string/licenses_and_about" />-->
+        android:title="@string/licenses_and_about"/>
 
 </preference-headers>

@@ -3,6 +3,9 @@
         
     </style></file><file name="ic_launcher" path="/home/mdasifkhan/Android_Projects_Old/MusePlayer/velocityviewpagerlibrary/build/intermediates/bundles/default/res/drawable-mdpi-v4/ic_launcher.png" qualifiers="mdpi-v4" type="drawable"/><file path="/home/mdasifkhan/Android_Projects_Old/MusePlayer/velocityviewpagerlibrary/build/intermediates/bundles/default/res/values-v14/values-v14.xml" qualifiers="v14"><style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         
+    </style></file><file path="/home/mdasifkhan/Android_Projects_Old/MusePlayer/velocityviewpagerlibrary/build/intermediates/bundles/default/res/values-v21/values-v21.xml" qualifiers="v21"><style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        
+        <item name="android:colorPrimaryDark">@android:color/background_dark</item>
     </style></file><file path="/home/mdasifkhan/Android_Projects_Old/MusePlayer/velocityviewpagerlibrary/build/intermediates/bundles/default/res/values/values.xml" qualifiers=""><style name="AppTheme" parent="AppBaseTheme">
         
     </style><string name="app_name">velocity-view-pager-library</string><style name="AppBaseTheme" parent="android:Theme.Light">

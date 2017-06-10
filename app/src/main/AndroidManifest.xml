@@ -282,6 +282,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"
@@ -290,6 +291,10 @@
         <activity
             android:name=".ui.activity.SearchSubListActivity"
             android:label="@string/title_activity_browsser_sub_grid"/>
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
     </application>
 
 </manifest>

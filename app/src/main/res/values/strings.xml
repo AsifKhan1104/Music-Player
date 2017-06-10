@@ -723,7 +723,7 @@
 
     <string-array name="startup_screen_items">
         <item>Artists</item>
-        <item>Album Artists</item>
+        <!--<item>Album Artists</item>-->
         <item>Albums</item>
         <item>Songs</item>
         <item>Playlists</item>

@@ -4,11 +4,16 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +25,7 @@ import android.widget.Toast;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
+import com.squad.music.ui.activity.AppCompatPreferenceActivity;
 import com.squad.music.ui.dialog.ApplicationThemeDialog;
 import com.squad.music.ui.dialog.NowPlayingColorSchemesDialog;
 
@@ -45,7 +51,7 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle onSavedInstanceState) {
-        mRootView = super.onCreateView(inflater, container, onSavedInstanceState);
+        mRootView = inflater.inflate(R.layout.activity_settings, container, false);
 
         mContext = getActivity().getApplicationContext();
         mApp = (Common) mContext;
@@ -56,6 +62,7 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
         int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
         TextView actionBarText = (TextView) getActivity().findViewById(titleId);
         actionBarText.setTextColor(0xFFFFFFFF);*/
+        setToolbar();
 
         mAppThemePreference = getPreferenceManager().findPreference("preference_key_app_theme");
         mColorPreference = getPreferenceManager().findPreference("preference_key_player_color_scheme");
@@ -69,6 +76,28 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
         mLockscreenControlsPreference.setOnPreferenceChangeListener(lockscreenControlsClickListener);
 
         return mRootView;
+    }
+
+    private void setToolbar() {
+        if (mRootView != null) {
+            AppCompatPreferenceActivity activity = (AppCompatPreferenceActivity) getActivity();
+            Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
+            activity.setSupportActionBar(toolbar);
+
+            ActionBar bar = activity.getSupportActionBar();
+            bar.setHomeButtonEnabled(true);
+            bar.setDisplayHomeAsUpEnabled(true);
+            bar.setDisplayShowTitleEnabled(true);
+            bar.setTitle(getActivity().getTitle());
+
+            // to change the color of back arrow in toolbar
+            final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
+            upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+            bar.setHomeAsUpIndicator(upArrow);
+
+            // to change the title text color of toolbar
+            toolbar.setTitleTextColor(Color.WHITE);
+        }
     }
 
     /**
@@ -151,10 +180,11 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        if (Build.VERSION.SDK_INT==Build.VERSION_CODES.KITKAT)
-            getActivity().getActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
+        if (getView() != null) {
+            View frame = (View) getView().getParent();
+            if (frame != null)
+                frame.setPadding(0, 0, 0, 0);
+        }
 
     }
-
 }

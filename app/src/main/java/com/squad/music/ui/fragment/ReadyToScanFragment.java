@@ -12,29 +12,30 @@ import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
 
 public class ReadyToScanFragment extends Fragment {
-	
-	private Context mContext;
-	private TextView welcomeHeader;
-	private TextView welcomeText1;
-	private TextView swipeLeftToContinue;
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		
-		mContext = getActivity().getApplication();
-		View rootView = (View) getActivity().getLayoutInflater().inflate(R.layout.fragment_welcome_screen_6, null);
-		
-		welcomeHeader = (TextView) rootView.findViewById(R.id.permission_header);
-		welcomeHeader.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Light"));
-		
-		welcomeText1 = (TextView) rootView.findViewById(R.id.welcome_text_1);
-		welcomeText1.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
-        
-		swipeLeftToContinue = (TextView) rootView.findViewById(R.id.swipe_left_to_continue);
-		swipeLeftToContinue.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+
+    private Context mContext;
+    private TextView welcomeHeader;
+    private TextView welcomeText1;
+    private TextView swipeLeftToContinue;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mContext = getActivity().getApplication();
+        View rootView = (View) getActivity().getLayoutInflater().inflate(R.layout.fragment_welcome_screen_6, null);
+
+        welcomeHeader = (TextView) rootView.findViewById(R.id.permission_header);
+        welcomeHeader.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Light"));
+
+        welcomeText1 = (TextView) rootView.findViewById(R.id.welcome_text_1);
+        welcomeText1.setText(mContext.getString(R.string.app_name) + " " + mContext.getString(R.string.ready_to_scan_instructions));
+        welcomeText1.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
+
+        swipeLeftToContinue = (TextView) rootView.findViewById(R.id.swipe_left_to_continue);
+        swipeLeftToContinue.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
 
         return rootView;
     }
-	
+
 }
 

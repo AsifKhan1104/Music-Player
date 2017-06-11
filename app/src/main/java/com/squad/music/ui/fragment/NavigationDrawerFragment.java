@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -76,6 +77,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
 
         mNavigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
+        mNavigationView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         View headerView = mNavigationView.getHeaderView(0);
         mLibraryPickerLayout = (RelativeLayout) headerView.findViewById(R.id.library_picker_layout);
         mLibraryPickerSpinner = (Spinner) headerView.findViewById(R.id.library_picker_spinner);

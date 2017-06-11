@@ -61,7 +61,7 @@
         android:title="@string/scrobbling"/>
 
     <header
-        android:fragment="com.squad.music.ui.activity.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="com.squad.music.ui.fragment.SettingsAboutFragment"
         android:icon="@drawable/ic_action_about"
         android:summary="@string/about_description"
         android:title="@string/licenses_and_about"/>

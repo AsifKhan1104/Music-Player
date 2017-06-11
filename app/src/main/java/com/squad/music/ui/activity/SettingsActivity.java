@@ -21,8 +21,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 import com.squad.music.R;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.fragment.SettingsAppearanceFragment;
 
 import java.util.List;
@@ -39,6 +41,7 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+    private LinearLayout mRootView;
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -149,6 +152,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         loadHeadersFromResource(R.xml.settings_headers, target);
 
         setContentView(R.layout.activity_settings);
+        mRootView = (LinearLayout) findViewById(R.id.rootView);
+        mRootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(this));
         setToolbar();
     }
 

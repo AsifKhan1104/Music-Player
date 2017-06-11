@@ -7,24 +7,20 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squad.music.Common;
 import com.squad.music.R;
-import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.AppCompatPreferenceActivity;
 import com.squad.music.ui.dialog.ApplicationThemeDialog;
 import com.squad.music.ui.dialog.NowPlayingColorSchemesDialog;
@@ -57,11 +53,6 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
         mApp = (Common) mContext;
         mListView = (ListView) mRootView.findViewById(android.R.id.list);
 
-        //Set the ActionBar background and text color.
-        /*getActivity().getActionBar().setTitle(R.string.settings);
-        int titleId = getResources().getIdentifier("action_bar_title", "id", "android");
-        TextView actionBarText = (TextView) getActivity().findViewById(titleId);
-        actionBarText.setTextColor(0xFFFFFFFF);*/
         setToolbar();
 
         mAppThemePreference = getPreferenceManager().findPreference("preference_key_app_theme");
@@ -107,9 +98,9 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            /*FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             ApplicationThemeDialog appThemeDialog = new ApplicationThemeDialog();
-            appThemeDialog.show(ft, "appThemeDialog");*/
+            appThemeDialog.show(ft, "appThemeDialog");
 
             return false;
         }
@@ -123,9 +114,9 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            /*FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             NowPlayingColorSchemesDialog appThemeDialog = new NowPlayingColorSchemesDialog();
-            appThemeDialog.show(ft, "colorSchemesDialog");*/
+            appThemeDialog.show(ft, "colorSchemesDialog");
 
             return false;
         }

@@ -18,6 +18,7 @@ import android.view.animation.TranslateAnimation;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.PlaylistHelper;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.model.Playlist;
 import com.squad.music.ui.adapter.PlaylistAdapter;
 
@@ -42,6 +43,7 @@ public class PlaylistFragment extends Fragment {
         mActivity = getActivity();
 
         mRootView = (ViewGroup) inflater.inflate(R.layout.fragment_playlist_view, container, false);
+        mRootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerview);
 
         mHandler.postDelayed(queryRunnable, 400);

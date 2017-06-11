@@ -79,5 +79,4 @@ public class ApplicationThemeDialog extends DialogFragment {
 
         return builder.create();
     }
-
 }

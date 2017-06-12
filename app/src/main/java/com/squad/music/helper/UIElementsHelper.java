@@ -368,7 +368,7 @@ public class UIElementsHelper {
 
         int color;
         if (mApp.getCurrentTheme()==Common.DARK_THEME) {
-            color = 0xFF111111;
+            color = Color.parseColor("#303030");
         } else {
             color = 0xFFDDDDDD;
         }

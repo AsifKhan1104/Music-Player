@@ -131,8 +131,8 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
 
             mHolder.gridViewArt.setScaleType(ImageView.ScaleType.CENTER_CROP);
             mHolder.gridViewArt.setImageResource(UIElementsHelper.getEmptyColorPatch(mContext));
-            //mHolder.textLayout.setBackgroundColor(UIElementsHelper.getGridViewBackground(mContext));
-            //mHolder.overflowButton.setBackgroundColor(UIElementsHelper.getGridViewBackground(mContext));
+            //mHolder.textLayout.setBackgroundColor(UIElementsHelper.getListViewBackground(mContext));
+            //mHolder.overflowButton.setBackgroundColor(UIElementsHelper.getListViewBackground(mContext));
             mHolder.titleText.setTextColor(UIElementsHelper.getThemeBasedTextColor(mContext));
             mHolder.subText.setTextColor(UIElementsHelper.getSmallTextColor(mContext));
 

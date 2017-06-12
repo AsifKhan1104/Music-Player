@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,8 +74,8 @@ public class ListViewFragment extends Fragment {
         mFragment = this;
         mActivity = getActivity();
 
-        //Set the background. We're using getGridViewBackground() since the list doesn't have card items.
-        mRootView.setBackgroundColor(UIElementsHelper.getGridViewBackground(mContext));
+        //Set the background. We're using getListViewBackground() since the list doesn't have card items.
+        mRootView.setBackgroundColor(UIElementsHelper.getListViewBackground(mContext));
 
         //Grab the fragment. This will determine which data to load into the cursor.
         mFragmentId = getArguments().getInt(Common.FRAGMENT_ID);

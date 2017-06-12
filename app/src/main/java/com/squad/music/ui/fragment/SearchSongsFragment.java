@@ -62,8 +62,8 @@ public class SearchSongsFragment extends Fragment {
         mFragment = this;
         mActivity = getActivity();
 
-        //Set the background. We're using getGridViewBackground() since the list doesn't have card items.
-        mRootView.setBackgroundColor(UIElementsHelper.getGridViewBackground(mContext));
+        //Set the background. We're using getListViewBackground() since the list doesn't have card items.
+        mRootView.setBackgroundColor(UIElementsHelper.getListViewBackground(mContext));
 
         //Grab the fragment. This will determine which data to load into the cursor.
         mSearchQuery = getArguments().getString(AppConstants.SEARCH_QUERY);

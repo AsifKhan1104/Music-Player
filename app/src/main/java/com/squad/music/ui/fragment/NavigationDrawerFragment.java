@@ -80,6 +80,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
 
             rootView = localInflater.inflate(R.layout.navigation_drawer_layout, null);
+            mNavigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
+            mNavigationView.setItemTextColor(mContext.getColorStateList(R.color.drawer_item_light));
+            mNavigationView.setItemIconTintList(mContext.getColorStateList(R.color.drawer_item_light));
             //rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         } else {
             // create ContextThemeWrapper from the original Activity Context with the custom theme
@@ -88,10 +91,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
 
             rootView = localInflater.inflate(R.layout.navigation_drawer_layout, null);
+            mNavigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
+            mNavigationView.setItemTextColor(mContext.getColorStateList(R.color.drawer_item_dark));
+            mNavigationView.setItemIconTintList(mContext.getColorStateList(R.color.drawer_item_dark));
             //rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         }
 
-        mNavigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
         //mNavigationView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         View headerView = mNavigationView.getHeaderView(0);
         mLibraryPickerLayout = (RelativeLayout) headerView.findViewById(R.id.library_picker_layout);

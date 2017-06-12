@@ -50,7 +50,7 @@ public class WelcomeActivity extends FragmentActivity {
         mApp = (Common) this.getApplicationContext();
 
         // set UI theme
-        setTheme(R.style.AppThemeLight);
+        setTheme(R.style.AppTheme);
 
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.activity_welcome);

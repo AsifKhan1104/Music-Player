@@ -73,7 +73,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         //Set the UI theme.
         Context contextThemeWrapper = null;
-        if (mApp.getCurrentTheme() == Common.DARK_THEME) {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
             // create ContextThemeWrapper from the original Activity Context with the custom theme
             contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
             // clone the inflater using the ContextThemeWrapper
@@ -83,7 +83,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             //rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         } else {
             // create ContextThemeWrapper from the original Activity Context with the custom theme
-            contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppThemeLight);
+            contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppThemeDark);
             // clone the inflater using the ContextThemeWrapper
             LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
 

@@ -855,7 +855,7 @@ public class Common extends Application {
     }
 
     public int getCurrentTheme() {
-        return getSharedPreferences().getInt(CURRENT_THEME, DARK_THEME);
+        return getSharedPreferences().getInt(CURRENT_THEME, LIGHT_THEME);
     }
     
     public boolean isServiceRunning() {

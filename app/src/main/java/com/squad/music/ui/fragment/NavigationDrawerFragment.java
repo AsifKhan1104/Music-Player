@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -13,7 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +29,6 @@ import android.widget.Toast;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
-import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.MainActivity;
 import com.squad.music.ui.activity.SettingsActivity;
 import com.squad.music.ui.adapter.NavigationDrawerAdapter;
@@ -73,11 +71,28 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mApp = (Common) mContext.getApplicationContext();
         mHandler = new Handler();
 
-        rootView = inflater.inflate(R.layout.navigation_drawer_layout, null);
-        rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        //Set the UI theme.
+        Context contextThemeWrapper = null;
+        if (mApp.getCurrentTheme() == Common.DARK_THEME) {
+            // create ContextThemeWrapper from the original Activity Context with the custom theme
+            contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
+            // clone the inflater using the ContextThemeWrapper
+            LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+
+            rootView = localInflater.inflate(R.layout.navigation_drawer_layout, null);
+            //rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        } else {
+            // create ContextThemeWrapper from the original Activity Context with the custom theme
+            contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppThemeLight);
+            // clone the inflater using the ContextThemeWrapper
+            LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
+
+            rootView = localInflater.inflate(R.layout.navigation_drawer_layout, null);
+            //rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        }
 
         mNavigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
-        mNavigationView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        //mNavigationView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         View headerView = mNavigationView.getHeaderView(0);
         mLibraryPickerLayout = (RelativeLayout) headerView.findViewById(R.id.library_picker_layout);
         mLibraryPickerSpinner = (Spinner) headerView.findViewById(R.id.library_picker_spinner);
@@ -116,7 +131,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private void changeTypefaceAndColor(MenuItem item) {
         SpannableString s = new SpannableString(item.getTitle());
         s.setSpan(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"), 0, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(UIElementsHelper.getThemeBasedTextColor(mContext)), 0, s.length(), 0);
+        //s.setSpan(new ForegroundColorSpan(UIElementsHelper.getThemeBasedTextColor(mContext)), 0, s.length(), 0);
         item.setTitle(s);
     }
 

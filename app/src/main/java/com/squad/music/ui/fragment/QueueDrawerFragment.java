@@ -66,11 +66,7 @@ public class QueueDrawerFragment extends Fragment {
         mApp = (Common) mContext.getApplicationContext();
 
         View rootView = inflater.inflate(R.layout.fragment_queue_drawer, null);
-        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
-            rootView.setBackgroundColor(0xFFFFFFFF);
-        } else {
-            rootView.setBackgroundColor(0xFF191919);
-        }
+        rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
 
         mMiniPlayerLayout = (RelativeLayout) rootView.findViewById(R.id.queue_drawer_mini_player_layout);
         mMiniPlayerAlbumArt = (ImageView) rootView.findViewById(R.id.queue_drawer_album_art);
@@ -89,6 +85,7 @@ public class QueueDrawerFragment extends Fragment {
         mTitleText.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
         mSubText.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Regular"));
         mEmptyInfoText.setTypeface(TypefaceHelper.getTypeface(getActivity(), "Roboto-Regular"));
+        mEmptyInfoText.setTextColor(UIElementsHelper.getThemeBasedTextColor(mContext));
 
         //Set the click listeners.
         mMiniPlayerLayout.setOnClickListener(mOnClickMiniPlayer);

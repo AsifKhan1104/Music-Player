@@ -23,6 +23,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.fragment.SettingsAppearanceFragment;
@@ -42,6 +43,8 @@ import java.util.List;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
     private LinearLayout mRootView;
+    private Context mContext;
+    private Common mApp;
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -127,6 +130,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = SettingsActivity.this;
+        mApp = (Common) mContext.getApplicationContext();
+
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+        } else {
+            setTheme(R.style.AppThemeDark);
+        }
     }
 
     @Override
@@ -149,7 +160,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(List<Header> target) {
-        loadHeadersFromResource(R.xml.settings_headers, target);
+        mContext = SettingsActivity.this;
+        mApp = (Common) mContext.getApplicationContext();
+
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            loadHeadersFromResource(R.xml.settings_headers_light, target);
+        } else {
+            loadHeadersFromResource(R.xml.settings_headers_dark, target);
+        }
 
         setContentView(R.layout.activity_settings);
         mRootView = (LinearLayout) findViewById(R.id.rootView);

@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.MainActivity;
 import com.squad.music.ui.activity.SettingsActivity;
 import com.squad.music.ui.adapter.NavigationDrawerAdapter;
@@ -81,9 +83,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
             rootView = localInflater.inflate(R.layout.navigation_drawer_layout, null);
             mNavigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
-            mNavigationView.setItemTextColor(mContext.getColorStateList(R.color.drawer_item_light));
-            mNavigationView.setItemIconTintList(mContext.getColorStateList(R.color.drawer_item_light));
-            //rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+            mNavigationView.setItemTextColor(ContextCompat.getColorStateList(mContext, R.color.drawer_item_light));
+            mNavigationView.setItemIconTintList(ContextCompat.getColorStateList(mContext, R.color.drawer_item_light));
+            rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         } else {
             // create ContextThemeWrapper from the original Activity Context with the custom theme
             contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppThemeDark);
@@ -92,12 +94,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
             rootView = localInflater.inflate(R.layout.navigation_drawer_layout, null);
             mNavigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
-            mNavigationView.setItemTextColor(mContext.getColorStateList(R.color.drawer_item_dark));
-            mNavigationView.setItemIconTintList(mContext.getColorStateList(R.color.drawer_item_dark));
-            //rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+            mNavigationView.setItemTextColor(ContextCompat.getColorStateList(mContext, R.color.drawer_item_dark));
+            mNavigationView.setItemIconTintList(ContextCompat.getColorStateList(mContext, R.color.drawer_item_dark));
+            rootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         }
 
-        //mNavigationView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        mNavigationView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
         View headerView = mNavigationView.getHeaderView(0);
         mLibraryPickerLayout = (RelativeLayout) headerView.findViewById(R.id.library_picker_layout);
         mLibraryPickerSpinner = (Spinner) headerView.findViewById(R.id.library_picker_spinner);

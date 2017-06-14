@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.squad.music.Common;
 import com.squad.music.R;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.AppCompatPreferenceActivity;
 import com.squad.music.ui.dialog.ApplicationThemeDialog;
 import com.squad.music.ui.dialog.NowPlayingColorSchemesDialog;
@@ -48,6 +49,7 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle onSavedInstanceState) {
         mRootView = inflater.inflate(R.layout.activity_settings, container, false);
+        mRootView.setBackgroundColor(UIElementsHelper.getBackgroundColor(getActivity()));
 
         mContext = getActivity().getApplicationContext();
         mApp = (Common) mContext;

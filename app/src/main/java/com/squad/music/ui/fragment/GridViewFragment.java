@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -110,7 +109,7 @@ public class GridViewFragment extends Fragment {
         return mRootView;
     }
 
-    public void startRunnable(){
+    public void startRunnable() {
         mHandler.postDelayed(queryRunnable, 250);
     }
 

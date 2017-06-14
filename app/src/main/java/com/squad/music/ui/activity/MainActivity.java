@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mNavDrawerLayout = (RelativeLayout) findViewById(R.id.nav_drawer_container);
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);
 
+        mDrawerLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+
         mFloatingActionButton1 = (FloatingActionButton) findViewById(R.id.floating_action_menu_item1);
         mFloatingActionButton2 = (FloatingActionButton) findViewById(R.id.floating_action_menu_item2);
 
@@ -112,6 +114,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setToolBar();
         setDrawer();
+        setTheme();
+    }
+
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+        } else {
+            setTheme(R.style.AppThemeDark);
+        }
     }
 
     private void setDrawer() {

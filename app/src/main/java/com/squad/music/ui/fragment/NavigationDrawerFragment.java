@@ -131,7 +131,14 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
                 changeTypefaceAndColor(menu.getItem(i));
             }
             mNavigationView.setNavigationItemSelectedListener(this);
-            mNavigationView.getMenu().getItem(0).setChecked(true);
+
+            // get deafult nav item
+            int id = ((MainActivity) getActivity()).getCurrentFragmentId();
+            if (id == 0) {
+                mNavigationView.getMenu().getItem(id).setChecked(true);
+            } else {
+                mNavigationView.getMenu().getItem(id - 1).setChecked(true);
+            }
         }
     }
 

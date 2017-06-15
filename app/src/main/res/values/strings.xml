@@ -730,6 +730,16 @@
         <item>Genres</item>
         <item>Folders</item>
     </string-array>
+
+    <string-array name="browser_items">
+        <item>Artists</item>
+        <item>Albums</item>
+        <item>Songs</item>
+        <item>Playlists</item>
+        <item>Genres</item>
+        <item>Folders</item>
+    </string-array>
+
     <string-array name="layout_preference_items">
         <item>Grid</item>
         <item>List</item>

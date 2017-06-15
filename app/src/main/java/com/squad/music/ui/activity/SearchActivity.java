@@ -14,12 +14,10 @@ import android.view.MenuItem;
 
 import com.squad.music.Common;
 import com.squad.music.R;
-import com.squad.music.ui.fragment.GridViewFragment;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.fragment.SearchAlbumsArtistsFragment;
 import com.squad.music.ui.fragment.SearchSongsFragment;
 import com.squad.music.utility.AppConstants;
-
-import static com.squad.music.ui.activity.MainActivity.FRAGMENT_HEADER;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -38,14 +36,16 @@ public class SearchActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private String mSearchQuery;
+    private Toolbar mToolbar;
+    private TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         // Create the adapter that will return a fragment for each of the three
@@ -56,8 +56,8 @@ public class SearchActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        mTabLayout.setupWithViewPager(mViewPager);
 
         handleIntent(getIntent());
     }
@@ -153,5 +153,14 @@ public class SearchActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        mToolbar.setBackground(UIElementsHelper.getGeneralActionBarBackground(this));
+        mTabLayout.setBackground(UIElementsHelper.getGeneralActionBarBackground(this));
+        UIElementsHelper.setStatusBarColor(this);
     }
 }

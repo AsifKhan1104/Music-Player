@@ -1448,4 +1448,11 @@ public class EqualizerActivity extends AppCompatActivity {
         this.bassBoostLevel = bassBoostLevel;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(this));
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

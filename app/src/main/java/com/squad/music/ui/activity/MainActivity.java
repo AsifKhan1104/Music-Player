@@ -2,7 +2,6 @@ package com.squad.music.ui.activity;
 
 import android.app.AlertDialog;
 import android.app.SearchManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -363,6 +362,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Set the ActionBar background
         getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
+        UIElementsHelper.setStatusBarColor(this);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -522,11 +522,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
-            getWindow().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
-        }
 
+        getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
+        UIElementsHelper.setStatusBarColor(this);
     }
 
     /**

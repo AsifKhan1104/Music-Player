@@ -60,30 +60,13 @@ public class BlacklistManagerActivity extends FragmentActivity {
         sharedPreferences = mContext.getSharedPreferences("com.squad.music", Context.MODE_PRIVATE);
 
         //Set the UI theme.
-        /*if (mApp.getCurrentTheme()==Common.DARK_THEME) {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
             setTheme(R.style.AppTheme);
-    	} else {
-    		setTheme(R.style.AppThemeLight);
-    	}*/
-        super.onCreate(savedInstanceState);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
-            int topPadding = Common.getStatusBarHeight(mContext);
-            View activityView = (View) findViewById(android.R.id.content);
-
-            //Calculate ActionBar height
-            TypedValue tv = new TypedValue();
-            int actionBarHeight = 0;
-            if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-                actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
-            }
-
-            if (activityView != null) {
-                activityView.setPadding(0, topPadding + actionBarHeight, 0, 0);
-            }
-
+        } else {
+            setTheme(R.style.AppThemeDark);
         }
+
+        super.onCreate(savedInstanceState);
 
         //Retrieve the actionbar.
         actionBar = getActionBar();
@@ -316,4 +299,11 @@ public class BlacklistManagerActivity extends FragmentActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(this));
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

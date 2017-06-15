@@ -139,6 +139,7 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
             ColorPicker colorPicker = new ColorPicker(getActivity());
             colorPicker.setColors(getResources().getIntArray(R.array.toolbar_bgs))
                     .setRoundColorButton(true)
+                    .setTitle(getString(R.string.choose_accent_color))
                     .disableDefaultButtons(true)
                     .setDefaultColorButton(R.color.colorPrimary)
                     .setColumns(4)
@@ -162,10 +163,10 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
     private void changeColor(int position, SharedPreferences sharedPreferences) {
         switch (position) {
             case 0:
-                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, GRAY).commit();
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, BLUE).commit();
                 break;
             case 1:
-                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, BLUE).commit();
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, GRAY).commit();
                 break;
             case 2:
                 sharedPreferences.edit().putString(NOW_PLAYING_COLOR, RED).commit();
@@ -187,8 +188,8 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
                 break;
         }
 
-        mToolbar.setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(getActivity()));
-        getActivity().getWindow().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(getActivity()));
+        mToolbar.setBackground(UIElementsHelper.getGeneralActionBarBackground(getActivity()));
+        UIElementsHelper.setStatusBarColor(getActivity());
     }
 
     /**

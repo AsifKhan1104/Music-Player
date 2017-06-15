@@ -59,7 +59,7 @@
     <color name="orange">#FF9800</color>
     <color name="purple">#673AB7</color>
     <color name="magneta">#00BCD4</color>
-    <color name="dark_black">#000000</color>
+    <color name="t_black">#5c3145</color>
 
     <array name="toolbar_bgs">
         <item>@color/colorPrimary</item>
@@ -69,8 +69,17 @@
         <item>@color/orange</item>
         <item>@color/purple</item>
         <item>@color/magneta</item>
-        <item>@color/dark_black</item>
+        <item>@color/t_black</item>
     </array>
 
-
+    <array name="status_bar_bgs">
+        <item>@color/colorPrimaryDark</item>
+        <item>#616161</item>
+        <item>#D32F2F</item>
+        <item>#388E3C</item>
+        <item>#F57C00</item>
+        <item>#512DA8</item>
+        <item>#0097A7</item>
+        <item>#382d33</item>
+    </array>
 </resources>

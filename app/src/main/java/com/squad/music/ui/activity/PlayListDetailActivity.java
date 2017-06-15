@@ -315,4 +315,12 @@ public class PlayListDetailActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(mPlaylistName);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(this));
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

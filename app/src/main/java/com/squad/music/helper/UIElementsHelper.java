@@ -1,9 +1,12 @@
 package com.squad.music.helper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.view.Window;
 
 import com.squad.music.Common;
 import com.squad.music.R;
@@ -293,8 +296,55 @@ public class UIElementsHelper {
     }
 
     /**
+     * Returns the Status bar color based on the selected color theme (not used for the player).
+     */
+    public static int getGeneralStatusBarBackgroundColor(Context context) {
+
+        mApp = (Common) context.getApplicationContext();
+        int[] colors = context.getResources().getIntArray(R.array.status_bar_bgs);
+
+        if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLUE)) {
+            return colors[0];
+
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GRAY)) {
+            return colors[1];
+
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(RED)) {
+            return colors[2];
+
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GREEN)) {
+            return colors[3];
+
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(ORANGE)) {
+            return colors[4];
+
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(PURPLE)) {
+            return colors[5];
+
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(MAGENTA)) {
+            return colors[6];
+
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLACK)) {
+            return colors[7];
+        }
+
+        return colors[0];
+    }
+
+    // changes status bar color programmatically
+    public static void setStatusBarColor(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(getGeneralStatusBarBackgroundColor(activity));
+        } else {
+            Drawable drawable = new ColorDrawable(getGeneralStatusBarBackgroundColor(activity));
+            activity.getWindow().setBackgroundDrawable(drawable);
+        }
+    }
+
+    /**
      * Returns the resource id of the shadowed circle drawable based on the selected theme.
      */
+
     public static int getShadowedCircle(Context context) {
 
         int resourceID = context.getResources().getIdentifier("shadowed_circle_red", "drawable", context.getPackageName());

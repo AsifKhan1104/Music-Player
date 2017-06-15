@@ -209,4 +209,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         setResult(RESULT_OK);
         finish();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

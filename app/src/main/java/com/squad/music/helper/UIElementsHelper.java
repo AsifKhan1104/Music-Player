@@ -261,35 +261,35 @@ public class UIElementsHelper {
     public static Drawable getGeneralActionBarBackground(Context context) {
 
         mApp = (Common) context.getApplicationContext();
+        int[] colors = context.getResources().getIntArray(R.array.toolbar_bgs);
 
         Drawable drawable = new ColorDrawable(context.getResources().getColor(R.color.colorPrimary));
         if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLUE)) {
-            drawable = new ColorDrawable(context.getResources().getColor(R.color.colorPrimary));
+            drawable = new ColorDrawable(colors[0]);
 
         } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GRAY)) {
-            drawable = new ColorDrawable(Color.parseColor("#555555"));
+            drawable = new ColorDrawable(colors[1]);
 
         } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(RED)) {
-            drawable = new ColorDrawable(Color.parseColor("#A40000"));
+            drawable = new ColorDrawable(colors[2]);
 
         } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GREEN)) {
-            drawable = new ColorDrawable(0xFF0A7E07);
+            drawable = new ColorDrawable(colors[3]);
 
         } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(ORANGE)) {
-            drawable = new ColorDrawable(0xFFEF6C00);
+            drawable = new ColorDrawable(colors[4]);
 
         } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(PURPLE)) {
-            drawable = new ColorDrawable(0xFF6A1B9A);
+            drawable = new ColorDrawable(colors[5]);
 
         } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(MAGENTA)) {
-            drawable = new ColorDrawable(Color.parseColor("#CF71AF"));
+            drawable = new ColorDrawable(colors[6]);
 
         } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLACK)) {
-            drawable = new ColorDrawable(Color.parseColor("#000000"));
+            drawable = new ColorDrawable(colors[7]);
         }
 
         return drawable;
-
     }
 
     /**

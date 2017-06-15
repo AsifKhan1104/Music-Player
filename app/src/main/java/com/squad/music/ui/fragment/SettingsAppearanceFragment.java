@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -24,7 +25,8 @@ import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.activity.AppCompatPreferenceActivity;
 import com.squad.music.ui.dialog.ApplicationThemeDialog;
-import com.squad.music.ui.dialog.NowPlayingColorSchemesDialog;
+
+import petrov.kristiyan.colorpicker.ColorPicker;
 
 public class SettingsAppearanceFragment extends PreferenceFragment {
 
@@ -33,11 +35,22 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
 
     private View mRootView;
     private ListView mListView;
+    private Toolbar mToolbar;
 
     private Preference mAppThemePreference;
     private Preference mColorPreference;
     private Preference mDefaultScreenPreference;
     private CheckBoxPreference mLockscreenControlsPreference;
+
+    private static final String NOW_PLAYING_COLOR = "NOW_PLAYING_COLOR";
+    private static final String BLUE = "BLUE";
+    private static final String RED = "RED";
+    private static final String GREEN = "GREEN";
+    private static final String ORANGE = "ORANGE";
+    private static final String PURPLE = "PURPLE";
+    private static final String MAGENTA = "MAGENTA";
+    private static final String GRAY = "GRAY";
+    private static final String BLACK = "BLACK";
 
     @Override
     public void onCreate(Bundle onSavedInstanceState) {
@@ -74,8 +87,8 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
     private void setToolbar() {
         if (mRootView != null) {
             AppCompatPreferenceActivity activity = (AppCompatPreferenceActivity) getActivity();
-            Toolbar toolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
-            activity.setSupportActionBar(toolbar);
+            mToolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
+            activity.setSupportActionBar(mToolbar);
 
             ActionBar bar = activity.getSupportActionBar();
             bar.setHomeButtonEnabled(true);
@@ -89,7 +102,7 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
             bar.setHomeAsUpIndicator(upArrow);
 
             // to change the title text color of toolbar
-            toolbar.setTitleTextColor(Color.WHITE);
+            mToolbar.setTitleTextColor(Color.WHITE);
         }
     }
 
@@ -116,14 +129,67 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            /*FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             NowPlayingColorSchemesDialog appThemeDialog = new NowPlayingColorSchemesDialog();
-            appThemeDialog.show(ft, "colorSchemesDialog");
+            appThemeDialog.show(ft, "colorSchemesDialog");*/
+
+            final SharedPreferences sharedPreferences = getActivity().
+                    getSharedPreferences("com.squad.music", Context.MODE_PRIVATE);
+
+            ColorPicker colorPicker = new ColorPicker(getActivity());
+            colorPicker.setColors(getResources().getIntArray(R.array.toolbar_bgs))
+                    .setRoundColorButton(true)
+                    .disableDefaultButtons(true)
+                    .setDefaultColorButton(R.color.colorPrimary)
+                    .setColumns(4)
+                    .setOnFastChooseColorListener(new ColorPicker.OnFastChooseColorListener() {
+                        @Override
+                        public void setOnFastChooseColorListener(int position, int color) {
+                            changeColor(position, sharedPreferences);
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    }).show();
 
             return false;
         }
 
     };
+
+    private void changeColor(int position, SharedPreferences sharedPreferences) {
+        switch (position) {
+            case 0:
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, GRAY).commit();
+                break;
+            case 1:
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, BLUE).commit();
+                break;
+            case 2:
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, RED).commit();
+                break;
+            case 3:
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, GREEN).commit();
+                break;
+            case 4:
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, ORANGE).commit();
+                break;
+            case 5:
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, PURPLE).commit();
+                break;
+            case 6:
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, MAGENTA).commit();
+                break;
+            case 7:
+                sharedPreferences.edit().putString(NOW_PLAYING_COLOR, BLACK).commit();
+                break;
+        }
+
+        mToolbar.setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(getActivity()));
+        getActivity().getWindow().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(getActivity()));
+    }
 
     /**
      * Click listener for the default browser preference.

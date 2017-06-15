@@ -51,4 +51,26 @@
 
     <color name="list_1">#343434</color>
     <color name="list_2">#222222</color>
+
+    <!--toolbar color palette-->
+    <color name="grey">#9E9E9E</color>
+    <color name="red">#F44336</color>
+    <color name="green">#4CAF50</color>
+    <color name="orange">#FF9800</color>
+    <color name="purple">#673AB7</color>
+    <color name="magneta">#00BCD4</color>
+    <color name="dark_black">#000000</color>
+
+    <array name="toolbar_bgs">
+        <item>@color/colorPrimary</item>
+        <item>@color/grey</item>
+        <item>@color/red</item>
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/purple</item>
+        <item>@color/magneta</item>
+        <item>@color/dark_black</item>
+    </array>
+
+
 </resources>

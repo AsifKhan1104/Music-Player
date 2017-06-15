@@ -201,6 +201,9 @@ public class SettingsAppearanceFragment extends PreferenceFragment {
         public boolean onPreferenceClick(Preference preference) {
             //Get the current preference.
             int currentPreference = mApp.getSharedPreferences().getInt(Common.STARTUP_BROWSER, 0);
+            if (currentPreference != 0) {
+                currentPreference = currentPreference - 1;
+            }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle(R.string.default_browser);

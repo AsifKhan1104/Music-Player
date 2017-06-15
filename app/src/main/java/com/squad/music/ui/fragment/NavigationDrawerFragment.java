@@ -133,11 +133,31 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             mNavigationView.setNavigationItemSelectedListener(this);
 
             // get deafult nav item
-            int id = ((MainActivity) getActivity()).getCurrentFragmentId();
-            if (id == 0) {
-                mNavigationView.getMenu().getItem(id).setChecked(true);
-            } else {
-                mNavigationView.getMenu().getItem(id - 1).setChecked(true);
+            if (getActivity() instanceof MainActivity) {
+                int id = ((MainActivity) getActivity()).getCurrentFragmentId();
+                MenuItem menuItem = mNavigationView.getMenu().getItem(0);
+                switch (id) {
+                    case Common.ARTISTS_FRAGMENT:
+                        menuItem = mNavigationView.getMenu().getItem(0);
+                        break;
+                    case Common.ALBUMS_FRAGMENT:
+                        menuItem = mNavigationView.getMenu().getItem(1);
+                        break;
+                    case Common.SONGS_FRAGMENT:
+                        menuItem = mNavigationView.getMenu().getItem(2);
+                        break;
+                    case Common.GENRES_FRAGMENT:
+                        menuItem = mNavigationView.getMenu().getItem(3);
+                        break;
+                    case Common.FOLDERS_FRAGMENT:
+                        menuItem = mNavigationView.getMenu().getItem(4);
+                        break;
+                    case Common.PLAYLISTS_FRAGMENT:
+                        menuItem = mNavigationView.getMenu().getItem(5);
+                        break;
+                }
+
+                menuItem.setChecked(true);
             }
         }
     }

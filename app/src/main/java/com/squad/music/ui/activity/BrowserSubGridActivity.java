@@ -536,4 +536,10 @@ public class BrowserSubGridActivity extends FragmentActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

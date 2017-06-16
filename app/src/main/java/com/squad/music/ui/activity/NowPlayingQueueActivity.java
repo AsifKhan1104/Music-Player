@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.squad.music.Common;
 import com.squad.music.R;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.fragment.NowPlayingQueueFragment;
 import com.squad.music.utility.TypefaceSpan;
 
@@ -160,4 +161,9 @@ public class NowPlayingQueueActivity extends FragmentActivity {
         Toast.makeText(mContext, R.string.rotate_device_to_go_back, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

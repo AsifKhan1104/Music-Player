@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.utility.MarshMallowUtils;
 
 public class SplashActivity extends AppCompatActivity {
@@ -111,5 +112,11 @@ public class SplashActivity extends AppCompatActivity {
                 });
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UIElementsHelper.setStatusBarColor(this);
     }
 }

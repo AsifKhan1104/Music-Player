@@ -488,4 +488,9 @@ public class SearchSubListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

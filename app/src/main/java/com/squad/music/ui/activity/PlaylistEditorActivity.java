@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.squad.music.Common;
 import com.squad.music.R;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.adapter.PlaylistEditorAlbumsMultiselectAdapter;
 import com.squad.music.ui.adapter.PlaylistEditorArtistsMultiselectAdapter;
 import com.squad.music.ui.adapter.PlaylistEditorSongsMultiselectAdapter;
@@ -247,4 +248,10 @@ public class PlaylistEditorActivity extends FragmentActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

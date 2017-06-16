@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.asynctask.AsyncSaveMusicFoldersTask;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.service.BuildMusicLibraryService;
 import com.squad.music.ui.fragment.AlbumArtFragment;
 import com.squad.music.ui.fragment.BuildingLibraryProgressFragment;
@@ -361,4 +362,9 @@ public class WelcomeActivity extends FragmentActivity {
         finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

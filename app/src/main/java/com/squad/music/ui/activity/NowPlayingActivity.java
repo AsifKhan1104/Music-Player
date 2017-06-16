@@ -1204,6 +1204,7 @@ public class NowPlayingActivity extends AppCompatActivity {
 
         }
 
+        UIElementsHelper.setStatusBarColor(this);
     }
 
     @Override

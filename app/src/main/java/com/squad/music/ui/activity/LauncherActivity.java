@@ -28,6 +28,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.TypefaceHelper;
+import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.inapp_billing.IabHelper;
 import com.squad.music.service.BuildMusicLibraryService;
 import com.squad.music.ui.fragment.TrialFragment;
@@ -779,5 +780,12 @@ public class LauncherActivity extends FragmentActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        UIElementsHelper.setStatusBarColor(this);
     }
 }

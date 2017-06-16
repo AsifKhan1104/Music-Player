@@ -310,4 +310,11 @@ public class MusicLibraryEditorActivity extends FragmentActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(this));
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

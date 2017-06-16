@@ -526,4 +526,10 @@ public class BrowserSubListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        UIElementsHelper.setStatusBarColor(this);
+    }
 }

@@ -27,6 +27,7 @@ import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
 import com.squad.music.ui.fragment.SettingsAppearanceFragment;
+import com.squad.music.ui.fragment.SettingsMusicLibraryFragment;
 
 import java.util.List;
 
@@ -143,7 +144,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
-                || SettingsAppearanceFragment.class.getName().equals(fragmentName);
+                || SettingsAppearanceFragment.class.getName().equals(fragmentName)
+                || SettingsMusicLibraryFragment.class.getName().equals(fragmentName);
     }
 
     /**

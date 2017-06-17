@@ -3,10 +3,10 @@ package com.squad.music.ui.dialog;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -41,7 +41,7 @@ public class LicensesDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        //Set the dialog title.
+        //Set the dialog title
         builder.setTitle(R.string.licenses);
         builder.setView(rootView);
         builder.setPositiveButton(R.string.done, new OnClickListener() {
@@ -49,7 +49,7 @@ public class LicensesDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 dialogFragment.dismiss();
-                getActivity().finish();
+                //getActivity().finish();
 
             }
 
@@ -73,5 +73,4 @@ public class LicensesDialog extends DialogFragment {
         getActivity().finish();
 
     }
-
 }

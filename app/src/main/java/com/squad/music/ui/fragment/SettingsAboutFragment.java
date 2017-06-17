@@ -1,6 +1,7 @@
 package com.squad.music.ui.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -36,6 +37,7 @@ public class SettingsAboutFragment extends PreferenceFragment {
         mListView = (ListView) mRootView.findViewById(android.R.id.list);
 
         setToolbar();
+        showLicensesDialog();
 
         return mRootView;
     }
@@ -60,6 +62,19 @@ public class SettingsAboutFragment extends PreferenceFragment {
             // to change the title text color of toolbar
             mToolbar.setTitleTextColor(Color.WHITE);
         }
+    }
+
+    public void showLicensesDialog() {
+        new de.psdev.licensesdialog.LicensesDialog.Builder(getActivity())
+                .setNotices(R.raw.notices)
+                .build()
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        getActivity().finish();
+                    }
+                })
+                .show();
     }
 
     @Override

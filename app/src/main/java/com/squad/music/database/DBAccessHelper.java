@@ -16,6 +16,7 @@ import com.squad.music.model.Song;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * SQLite database implementation. Note that this class
@@ -1562,6 +1563,21 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         values.put(BLACKLIST_STATUS, blacklist);
         getDatabase().update(MUSIC_LIBRARY_TABLE, values, where, null);
 
+    }
+
+    /**
+     * get the list of blacklist artist.
+     */
+    public List<String> getBlacklistArtistList() {
+        List<String> list = new ArrayList<>();
+        String where = BLACKLIST_STATUS + "=" + "'" + "1" + "'";
+        Cursor cursor = getDatabase().rawQuery("SELECT " + SONG_ARTIST + " FROM " + MUSIC_LIBRARY_TABLE + " WHERE " + where, null);
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return list;
     }
 
     /**

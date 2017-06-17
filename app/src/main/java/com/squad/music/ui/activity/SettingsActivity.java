@@ -26,8 +26,11 @@ import android.widget.LinearLayout;
 import com.squad.music.Common;
 import com.squad.music.R;
 import com.squad.music.helper.UIElementsHelper;
+import com.squad.music.ui.fragment.SettingsAboutFragment;
 import com.squad.music.ui.fragment.SettingsAppearanceFragment;
+import com.squad.music.ui.fragment.SettingsBlacklistsFragment;
 import com.squad.music.ui.fragment.SettingsMusicLibraryFragment;
+import com.squad.music.ui.fragment.SettingsScrobblingFragment;
 
 import java.util.List;
 
@@ -145,7 +148,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || SettingsAppearanceFragment.class.getName().equals(fragmentName)
-                || SettingsMusicLibraryFragment.class.getName().equals(fragmentName);
+                || SettingsMusicLibraryFragment.class.getName().equals(fragmentName)
+                || SettingsBlacklistsFragment.class.getName().equals(fragmentName)
+                || SettingsScrobblingFragment.class.getName().equals(fragmentName)
+                || SettingsAboutFragment.class.getName().equals(fragmentName);
     }
 
     /**

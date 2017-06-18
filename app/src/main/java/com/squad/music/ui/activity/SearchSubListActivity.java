@@ -45,7 +45,6 @@ public class SearchSubListActivity extends AppCompatActivity {
     //UI elements
     private ImageView mHeaderImage;
     public ListView mListView;
-    private RelativeLayout mDrawerParentLayout;
     private RelativeLayout mHeaderLayout;
     private TextView mHeaderTextView;
     private TextView mHeaderSubTextView;
@@ -95,7 +94,6 @@ public class SearchSubListActivity extends AppCompatActivity {
         mHeaderTextView = (TextView) findViewById(R.id.browser_sub_header_text);
         mHeaderSubTextView = (TextView) findViewById(R.id.browser_sub_header_sub_text);
         mListView = (ListView) findViewById(R.id.browser_sub_list_view);
-        mDrawerParentLayout = (RelativeLayout) findViewById(R.id.browser_sub_drawer_parent);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.browser_sub_drawer_root);
         mNavDrawerLayout = (RelativeLayout) findViewById(R.id.nav_drawer_container);
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);
@@ -147,7 +145,7 @@ public class SearchSubListActivity extends AppCompatActivity {
         }
         mListView.setDividerHeight(1);
 
-        mDrawerParentLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        mDrawerLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
 
         //Load the drawer fragments.
         loadDrawerFragments();

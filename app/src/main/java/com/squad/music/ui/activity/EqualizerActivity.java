@@ -133,7 +133,7 @@ public class EqualizerActivity extends AppCompatActivity {
         mApp = (Common) mContext.getApplicationContext();
         mFragment = this;
 
-        //setTheme();
+        setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equalizer);
 
@@ -343,13 +343,15 @@ public class EqualizerActivity extends AppCompatActivity {
     /**
      * Sets the activity theme based on the user preference.
      */
-   /* private void setTheme() {
-        if (mApp.getCurrentTheme() == Common.DARK_THEME) {
-            setTheme(R.style.AppThemeNoTranslucentNav);
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
         } else {
-            setTheme(R.style.AppThemeNoTranslucentNavLight);
+            setTheme(R.style.AppThemeDark);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
         }
-    }*/
+    }
 
     /**
      * 50 Hz equalizer seekbar listener.

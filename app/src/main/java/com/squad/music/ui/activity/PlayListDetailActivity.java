@@ -42,7 +42,6 @@ public class PlayListDetailActivity extends AppCompatActivity {
     //UI elements
     private ImageView mHeaderImage;
     public ListView mListView;
-    private RelativeLayout mDrawerParentLayout;
     private DrawerLayout mDrawerLayout;
     private RelativeLayout mNavDrawerLayout;
     private RelativeLayout mCurrentQueueDrawerLayout;
@@ -77,7 +76,6 @@ public class PlayListDetailActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.browser_sub_list_view);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDrawerParentLayout = (RelativeLayout) findViewById(R.id.browser_sub_drawer_parent);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.browser_sub_drawer_root);
         mNavDrawerLayout = (RelativeLayout) findViewById(R.id.nav_drawer_container);
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);

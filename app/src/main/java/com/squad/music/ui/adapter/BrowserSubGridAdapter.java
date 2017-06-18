@@ -220,7 +220,7 @@ public class BrowserSubGridAdapter extends SimpleCursorAdapter implements Scroll
 
         @Override
         public void onClick(View v) {
-            PopupMenu menu = new PopupMenu(mContext, v);
+            PopupMenu menu = new PopupMenu(mActivity, v);
             menu.inflate(R.menu.sub_grid_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mAlbum = (String) v.getTag(R.string.title_text);

@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -35,18 +35,18 @@ import com.squad.music.ui.fragment.QueueDrawerFragment;
 
 import java.util.HashMap;
 
-public class BrowserSubGridActivity extends FragmentActivity {
+public class BrowserSubGridActivity extends AppCompatActivity {
 
     //Context and common objects.
     private Context mContext;
     private Common mApp;
     private Handler mHandler;
     private QueueDrawerFragment mQueueDrawerFragment;
+    private Toolbar mToolbar;
 
     //UI elements
     private ImageView mHeaderImage;
     private GridView mGridView;
-    private RelativeLayout mDrawerParentLayout;
     private RelativeLayout mHeaderLayout;
     private TextView mHeaderTextView;
     private TextView mHeaderSubTextView;
@@ -89,12 +89,12 @@ public class BrowserSubGridActivity extends FragmentActivity {
         if (mHeaderText == null || mHeaderText.isEmpty())
             mHeaderText = mContext.getResources().getString(R.string.unknown_genre);
 
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mHeaderLayout = (RelativeLayout) findViewById(R.id.browser_sub_header_layout);
         mHeaderImage = (ImageView) findViewById(R.id.browser_sub_header_image);
         mHeaderTextView = (TextView) findViewById(R.id.browser_sub_header_text);
         mHeaderSubTextView = (TextView) findViewById(R.id.browser_sub_header_sub_text);
         mGridView = (GridView) findViewById(R.id.browser_sub_grid_view);
-        mDrawerParentLayout = (RelativeLayout) findViewById(R.id.browser_sub_drawer_parent);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.browser_sub_drawer_root);
         mNavDrawerLayout = (RelativeLayout) findViewById(R.id.nav_drawer_container);
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);
@@ -138,7 +138,11 @@ public class BrowserSubGridActivity extends FragmentActivity {
 
         });
 
-        mDrawerParentLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        setToolBar();
+        //Set the theme and inflate the layout.
+        setTheme();
+
+        mDrawerLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
 
         //Load the drawer fragments.
         loadDrawerFragments();
@@ -541,5 +545,22 @@ public class BrowserSubGridActivity extends FragmentActivity {
         super.onResume();
 
         UIElementsHelper.setStatusBarColor(this);
+    }
+
+    private void setToolBar() {
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
+        } else {
+            setTheme(R.style.AppThemeDark);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
+        }
     }
 }

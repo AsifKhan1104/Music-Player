@@ -1244,6 +1244,22 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Returns a cursor of unique songs in an album by a specific artist.
+     */
+    public Cursor getAllUniqueSongsInAlbumByArtist(String selection) {
+        String selectQuery = "SELECT DISTINCT(" + SONG_TITLE + "), " +
+                _ID + ", " + SONG_ARTIST + ", " + SONG_FILE_PATH + ", " + SONGS_COUNT +
+                ", " + SONG_YEAR + ", " + SONG_SOURCE + ", " + SONG_DURATION + ", " +
+                LOCAL_COPY_PATH + ", " + SONG_ALBUM_ART_PATH + ", " + SONG_TITLE +
+                ", " + SONG_ALBUM + ", " + SONG_GENRE + " FROM " +
+                MUSIC_LIBRARY_TABLE + " WHERE " +
+                BLACKLIST_STATUS + "=" + "'0'" + selection +
+                " ORDER BY " + SONG_TRACK_NUMBER + "*1 ASC";
+
+        return getDatabase().rawQuery(selectQuery, null);
+    }
+
+    /**
      * Returns a cursor of all the songs in an album by a specific artist, within the specified library.
      */
     public Cursor getAllSongsInAlbumByArtistInLibrary(String selection) {

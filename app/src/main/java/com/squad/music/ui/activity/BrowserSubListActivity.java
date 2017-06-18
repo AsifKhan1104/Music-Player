@@ -284,17 +284,17 @@ public class BrowserSubListActivity extends AppCompatActivity {
                     break;
                 case Common.ALBUMS_FLIPPED_FRAGMENT:
                     mQuerySelection = " AND " + DBAccessHelper.SONG_ALBUM + "=" + "'"
-                            + mHeaderText.replace("'", "''") + "'" + " AND "
+                            + mHeaderText.replace("'", "''") /*+ "'" + " AND "
                             + DBAccessHelper.SONG_ARTIST + "=" + "'"
-                            + mHeaderSubText.replace("'", "''") + "'";
+                            + mHeaderSubText.replace("'", "''") */ + "'";
                     break;
                 case Common.GENRES_FLIPPED_SONGS_FRAGMENT:
                     mQuerySelection = " AND " + DBAccessHelper.SONG_ALBUM + "=" + "'"
                             + mHeaderText.replace("'", "''") + "'" + " AND "
                             + DBAccessHelper.SONG_GENRE + "=" + "'"
-                            + mHeaderSubText.replace("'", "''") + "'" + " AND "
+                            + mHeaderSubText.replace("'", "''") /*+ "'" + " AND "
                             + DBAccessHelper.SONG_ARTIST + "=" + "'"
-                            + mField2.replace("'", "''") + "'";
+                            + mField2.replace("'", "''")*/ + "'";
                     break;
             }
 

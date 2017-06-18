@@ -3,11 +3,11 @@ package com.squad.music.ui.activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -42,11 +42,11 @@ public class BrowserSubListActivity extends AppCompatActivity {
     private Common mApp;
     private Handler mHandler;
     private QueueDrawerFragment mQueueDrawerFragment;
+    private Toolbar mToolbar;
 
     //UI elements
     private ImageView mHeaderImage;
     public ListView mListView;
-    private RelativeLayout mDrawerParentLayout;
     private RelativeLayout mHeaderLayout;
     private TextView mHeaderTextView;
     private TextView mHeaderSubTextView;
@@ -76,8 +76,6 @@ public class BrowserSubListActivity extends AppCompatActivity {
         mHandler = new Handler();
         mDBColumnsMap = new HashMap<Integer, String>();
 
-        //Set the theme and inflate the layout.
-        //setTheme();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser_sub_list);
@@ -91,12 +89,12 @@ public class BrowserSubListActivity extends AppCompatActivity {
         if (mHeaderText == null || mHeaderText.isEmpty())
             mHeaderText = mContext.getResources().getString(R.string.unknown_genre);
 
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mHeaderLayout = (RelativeLayout) findViewById(R.id.browser_sub_header_layout);
         mHeaderImage = (ImageView) findViewById(R.id.browser_sub_header_image);
         mHeaderTextView = (TextView) findViewById(R.id.browser_sub_header_text);
         mHeaderSubTextView = (TextView) findViewById(R.id.browser_sub_header_sub_text);
         mListView = (ListView) findViewById(R.id.browser_sub_list_view);
-        mDrawerParentLayout = (RelativeLayout) findViewById(R.id.browser_sub_drawer_parent);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.browser_sub_drawer_root);
         mNavDrawerLayout = (RelativeLayout) findViewById(R.id.nav_drawer_container);
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);
@@ -140,6 +138,9 @@ public class BrowserSubListActivity extends AppCompatActivity {
 
         });
 
+        setToolBar();
+        //Set the theme and inflate the layout.
+        setTheme();
         //Apply the ListViews' dividers.
         if (mApp.getCurrentTheme() == Common.DARK_THEME) {
             mListView.setDivider(mContext.getResources().getDrawable(R.drawable.list_divider));
@@ -148,7 +149,7 @@ public class BrowserSubListActivity extends AppCompatActivity {
         }
         mListView.setDividerHeight(1);
 
-        mDrawerParentLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+        mDrawerLayout.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
 
         //Load the drawer fragments.
         loadDrawerFragments();
@@ -165,18 +166,6 @@ public class BrowserSubListActivity extends AppCompatActivity {
         AsyncRunQuery task = new AsyncRunQuery();
         task.execute();
     }
-
-    /**
-     * Sets the entire activity-wide theme.
-     */
-    /*private void setTheme() {
-        if (mApp.getCurrentTheme()==Common.DARK_THEME) {
-            setTheme(R.style.AppThemeNoActionBar);
-        } else {
-            setTheme(R.style.AppThemeLightNoActionBar);
-        }
-
-    }*/
 
     /**
      * Loads the drawer fragments.
@@ -531,5 +520,22 @@ public class BrowserSubListActivity extends AppCompatActivity {
         super.onResume();
 
         UIElementsHelper.setStatusBarColor(this);
+    }
+
+    private void setToolBar() {
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
+        } else {
+            setTheme(R.style.AppThemeDark);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
+        }
     }
 }

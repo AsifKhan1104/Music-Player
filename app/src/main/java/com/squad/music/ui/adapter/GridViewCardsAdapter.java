@@ -1,5 +1,6 @@
 package com.squad.music.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -48,6 +49,7 @@ import java.util.HashMap;
 public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrollable {
 
     private Context mContext;
+    private Activity mActivity;
     private Common mApp;
     private GridViewFragment mGridViewFragment;
     public static GridViewHolder mHolder = null;
@@ -68,11 +70,12 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
     public static final int FIELD_4 = 7;
     public static final int FIELD_5 = 8;
 
-    public GridViewCardsAdapter(Context context, GridViewFragment gridViewFragment,
+    public GridViewCardsAdapter(Context context, Activity activity, GridViewFragment gridViewFragment,
                                 HashMap<Integer, String> dbColumnsMap) {
 
         super(context, -1, gridViewFragment.getCursor(), new String[]{}, new int[]{}, 0);
         mContext = context;
+        mActivity = activity;
         mGridViewFragment = gridViewFragment;
         mApp = (Common) mContext.getApplicationContext();
         mDBColumnsMap = dbColumnsMap;
@@ -258,7 +261,7 @@ public class GridViewCardsAdapter extends SimpleCursorAdapter implements Scrolla
 
         @Override
         public void onClick(View v) {
-            PopupMenu menu = new PopupMenu(mContext, v);
+            PopupMenu menu = new PopupMenu(mActivity, v);
             menu.inflate(R.menu.grid_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mFilePath = (String) v.getTag(R.string.file_path);

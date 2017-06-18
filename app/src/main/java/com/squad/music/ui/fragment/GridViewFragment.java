@@ -276,7 +276,7 @@ public class GridViewFragment extends Fragment {
             animation.setDuration(150);
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
 
-            mGridViewAdapter = new GridViewCardsAdapter(mContext, mFragment, mDBColumnsMap);
+            mGridViewAdapter = new GridViewCardsAdapter(mContext, getActivity(), mFragment, mDBColumnsMap);
             //mGridView.setAdapter(mGridViewAdapter);
 
             //GridView animation adapter.

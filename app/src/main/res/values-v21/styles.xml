@@ -10,15 +10,15 @@
         <!--To hide window action bar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
-        <item name="android:popupMenuStyle">@style/PopupMenu.AppthemeLight</item>
     </style>
 
-    <style name="PopupMenu.Apptheme" parent="@android:style/Widget.Holo.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_apptheme</item>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:popupBackground">@color/light_background</item>
     </style>
 
-    <!--Light Theme-->
+    <!--Dark Theme-->
     <style name="AppThemeDark" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -28,22 +28,11 @@
         <!--To hide window action bar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
-        <item name="android:popupMenuStyle">@style/PopupMenu.Apptheme</item>
     </style>
 
-    <style name="PopupMenu.AppthemeLight" parent="@android:style/Widget.Holo.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/appwidget_bg</item>
-    </style>
+    <style name="AppTheme.AppBarOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay.Dark" parent="ThemeOverlay.AppCompat.Dark"/>
 
     <!-- Notification bar actions -->
     <style name="NotificationAction">

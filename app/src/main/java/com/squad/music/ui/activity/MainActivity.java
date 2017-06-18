@@ -119,8 +119,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setTheme() {
         if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
             setTheme(R.style.AppTheme);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
         } else {
             setTheme(R.style.AppThemeDark);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
         }
     }
 

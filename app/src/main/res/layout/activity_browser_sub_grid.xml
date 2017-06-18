@@ -3,7 +3,7 @@
                 android:id="@+id/browser_sub_drawer_parent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.squad.music.BrowserSubListActivity.BrowserSubListActivity">
+                tools:context="com.squad.music.ui.activity.BrowserSubListActivity">
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/browser_sub_drawer_root"

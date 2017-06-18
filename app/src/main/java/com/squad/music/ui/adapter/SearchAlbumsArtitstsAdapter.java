@@ -254,7 +254,7 @@ public class SearchAlbumsArtitstsAdapter extends SimpleCursorAdapter implements 
 
         @Override
         public void onClick(View v) {
-            PopupMenu menu = new PopupMenu(mContext, v);
+            PopupMenu menu = new PopupMenu(mSearchAlbumsArtistsFragment.getActivity(), v);
             menu.inflate(R.menu.grid_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mFilePath = (String) v.getTag(R.string.file_path);

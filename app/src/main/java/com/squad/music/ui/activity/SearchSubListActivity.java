@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -41,6 +42,7 @@ public class SearchSubListActivity extends AppCompatActivity {
     private Common mApp;
     private Handler mHandler;
     private QueueDrawerFragment mQueueDrawerFragment;
+    private Toolbar mToolbar;
 
     //UI elements
     private ImageView mHeaderImage;
@@ -74,8 +76,6 @@ public class SearchSubListActivity extends AppCompatActivity {
         mHandler = new Handler();
         mDBColumnsMap = new HashMap<Integer, String>();
 
-        //Set the theme and inflate the layout.
-        //setTheme();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser_sub_list);
@@ -89,6 +89,7 @@ public class SearchSubListActivity extends AppCompatActivity {
         if (mHeaderText == null || mHeaderText.isEmpty())
             mHeaderText = mContext.getResources().getString(R.string.unknown_genre);
 
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mHeaderLayout = (RelativeLayout) findViewById(R.id.browser_sub_header_layout);
         mHeaderImage = (ImageView) findViewById(R.id.browser_sub_header_image);
         mHeaderTextView = (TextView) findViewById(R.id.browser_sub_header_text);
@@ -137,6 +138,9 @@ public class SearchSubListActivity extends AppCompatActivity {
 
         });
 
+        //Set the theme and inflate the layout.
+        setTheme();
+
         //Apply the ListViews' dividers.
         if (mApp.getCurrentTheme() == Common.DARK_THEME) {
             mListView.setDivider(mContext.getResources().getDrawable(R.drawable.list_divider));
@@ -166,14 +170,15 @@ public class SearchSubListActivity extends AppCompatActivity {
     /**
      * Sets the entire activity-wide theme.
      */
-    /*private void setTheme() {
-        if (mApp.getCurrentTheme()==Common.DARK_THEME) {
-            setTheme(R.style.AppThemeNoActionBar);
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
         } else {
-            setTheme(R.style.AppThemeLightNoActionBar);
+            setTheme(R.style.AppThemeDark);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
         }
-
-    }*/
+    }
 
     /**
      * Loads the drawer fragments.

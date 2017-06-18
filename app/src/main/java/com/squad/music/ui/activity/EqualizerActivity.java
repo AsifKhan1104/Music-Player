@@ -133,7 +133,6 @@ public class EqualizerActivity extends AppCompatActivity {
         mApp = (Common) mContext.getApplicationContext();
         mFragment = this;
 
-        setTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equalizer);
 
@@ -142,6 +141,8 @@ public class EqualizerActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         mScrollView = (ScrollView) findViewById(R.id.equalizerScrollView);
         mScrollView.setBackgroundColor(UIElementsHelper.getBackgroundColor(mContext));
+
+        setTheme();
 
         //50Hz equalizer controls.
         equalizer50HzSeekBar = (VerticalSeekBar) findViewById(R.id.equalizer50Hz);

@@ -65,8 +65,6 @@ public class PlayListDetailActivity extends AppCompatActivity {
         mHandler = new Handler();
         mDBColumnsMap = new HashMap<Integer, String>();
 
-        //Set the theme and inflate the layout.
-        //setTheme();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail_main);
@@ -81,6 +79,9 @@ public class PlayListDetailActivity extends AppCompatActivity {
         mCurrentQueueDrawerLayout = (RelativeLayout) findViewById(R.id.current_queue_drawer_container);
 
         setToolBar();
+
+        //Set the theme and inflate the layout.
+        setTheme();
 
         //Apply the ListViews' dividers.
         if (mApp.getCurrentTheme() == Common.DARK_THEME) {
@@ -107,14 +108,15 @@ public class PlayListDetailActivity extends AppCompatActivity {
     /**
      * Sets the entire activity-wide theme.
      */
-    /*private void setTheme() {
-        if (mApp.getCurrentTheme()==Common.DARK_THEME) {
-            setTheme(R.style.AppThemeNoActionBar);
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
         } else {
-            setTheme(R.style.AppThemeLightNoActionBar);
+            setTheme(R.style.AppThemeDark);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
         }
-
-    }*/
+    }
 
     /**
      * Loads the drawer fragments.

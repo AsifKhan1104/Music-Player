@@ -135,7 +135,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            PopupMenu menu = new PopupMenu(mContext, v);
+            PopupMenu menu = new PopupMenu(mActivity, v);
             menu.inflate(R.menu.playlist_overflow_menu);
             menu.setOnMenuItemClickListener(popupMenuItemClickListener);
             mPlaylistId = (String) v.getTag(R.string.title_text);

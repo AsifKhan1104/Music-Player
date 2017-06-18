@@ -137,11 +137,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         mContext = SettingsActivity.this;
         mApp = (Common) mContext.getApplicationContext();
 
-        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
-            setTheme(R.style.AppTheme);
-        } else {
-            setTheme(R.style.AppThemeDark);
-        }
+        setTheme();
     }
 
     @Override
@@ -224,5 +220,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         getSupportActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(mContext));
         UIElementsHelper.setStatusBarColor(this);
+    }
+
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+        } else {
+            setTheme(R.style.AppThemeDark);
+        }
     }
 }

@@ -113,7 +113,7 @@ public class NowPlayingActivity extends AppCompatActivity {
         setNowPlayingActivityListener(mApp.getPlaybackKickstarter());
 
         //Set the UI theme.
-        //setTheme();
+        setTheme();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_now_playing);
@@ -291,14 +291,15 @@ public class NowPlayingActivity extends AppCompatActivity {
     /**
      * Sets the activity's theme based on user preferences.
      */
-    /*private void setTheme() {
-        if (mApp.getCurrentTheme()==Common.DARK_THEME) {
-            this.setTheme(R.style.AppThemeNoActionBar);
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+            //mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
         } else {
-            this.setTheme(R.style.AppThemeLightNoActionBar);
+            setTheme(R.style.AppThemeDark);
+            //mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
         }
-        
-    }*/
+    }
 
     /**
      * Initializes the view pager.
@@ -931,7 +932,7 @@ public class NowPlayingActivity extends AppCompatActivity {
 
         @Override
         public void onPageScrolled(final int pagerPosition, float swipeVelocity, int offsetFromCurrentPosition) {
-			
+
 			/* swipeVelocity determines whether the viewpager has finished scrolling or not.
 			 * Throw in an if statement that only allows the track to change when
 			 * swipeVelocity is 0 (which means the page is done scrolling). This ensures

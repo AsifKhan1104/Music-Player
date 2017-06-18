@@ -38,16 +38,22 @@ public class SearchActivity extends AppCompatActivity {
     private String mSearchQuery;
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
+    private Common mApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        mApp = (Common) getApplicationContext();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //Set the theme and inflate the layout.
+        setTheme();
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -162,5 +168,18 @@ public class SearchActivity extends AppCompatActivity {
         mToolbar.setBackground(UIElementsHelper.getGeneralActionBarBackground(this));
         mTabLayout.setBackground(UIElementsHelper.getGeneralActionBarBackground(this));
         UIElementsHelper.setStatusBarColor(this);
+    }
+
+    /**
+     * Sets the entire activity-wide theme.
+     */
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay);
+        } else {
+            setTheme(R.style.AppThemeDark);
+            mToolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
+        }
     }
 }

@@ -65,11 +65,7 @@ public class MusicLibraryEditorActivity extends FragmentActivity {
         }
 
         //Set the UI theme.
-        /*if (mApp.getCurrentTheme()==Common.DARK_THEME) {
-            setTheme(R.style.AppTheme);
-    	} else {
-    		setTheme(R.style.AppThemeLight);
-    	}*/
+        setTheme();
         super.onCreate(savedInstanceState);
 
         //Initialize the database helper.
@@ -227,7 +223,7 @@ public class MusicLibraryEditorActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.select_all_music_library_editor:
-	        /* DB IDs are sequential, so to save CPU cycles, 
+            /* DB IDs are sequential, so to save CPU cycles,
 	         * we'll just get the size of the DB (the number of 
 	         * rows) and add that many entries to the HashSet.
 	         */
@@ -316,5 +312,13 @@ public class MusicLibraryEditorActivity extends FragmentActivity {
 
         getActionBar().setBackgroundDrawable(UIElementsHelper.getGeneralActionBarBackground(this));
         UIElementsHelper.setStatusBarColor(this);
+    }
+
+    private void setTheme() {
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            setTheme(R.style.AppTheme);
+        } else {
+            setTheme(R.style.AppThemeDark);
+        }
     }
 }

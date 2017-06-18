@@ -40,10 +40,10 @@ public class NowPlayingQueueActivity extends FragmentActivity {
         //Set the UI theme.
         if (sharedPreferences.getString(Common.CURRENT_THEME, "LIGHT_CARDS_THEME").equals("DARK_THEME") ||
                 sharedPreferences.getString(Common.CURRENT_THEME, "LIGHT_CARDS_THEME").equals("DARK_CARDS_THEME")) {
-            setTheme(R.style.AppTheme);
+            setTheme(R.style.AppThemeDark);
         } else {
             // UNCOMMENT TO SET THEME
-            //setTheme(R.style.AppThemeLight);
+            setTheme(R.style.AppTheme);
         }
 
         super.onCreate(savedInstanceState);

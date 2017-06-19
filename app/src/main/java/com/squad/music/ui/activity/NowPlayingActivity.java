@@ -745,6 +745,8 @@ public class NowPlayingActivity extends AppCompatActivity {
                     animatePlayToPause();
                     mHandler.post(seekbarUpdateRunnable);
                 }
+            } else {
+                finish();
             }
 
             /*
@@ -756,7 +758,11 @@ public class NowPlayingActivity extends AppCompatActivity {
 
                 @Override
                 protected Object doInBackground(Object[] params) {
-                    mApp.getService().togglePlaybackState();
+                    if (mApp != null && mApp.getService() != null) {
+                        mApp.getService().togglePlaybackState();
+                    } else {
+                        finish();
+                    }
                     return null;
                 }
 
@@ -943,7 +949,7 @@ public class NowPlayingActivity extends AppCompatActivity {
 			 */
 
             if (mApp.isServiceRunning() && mApp.getService().getCursor().getCount() != 1) {
-				
+
 				/* Change tracks ONLY when the user has finished the swiping gesture (swipeVelocity will be zero).
 				 * Also, don't skip tracks if the new pager position is the same as the current mCursor position (indicates 
 				 * that the starting and ending position of the pager is the same).

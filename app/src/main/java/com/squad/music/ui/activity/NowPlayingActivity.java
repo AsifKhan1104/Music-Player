@@ -737,12 +737,14 @@ public class NowPlayingActivity extends AppCompatActivity {
             view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 
             //Update the playback UI elements.
-            if (mApp.getService().isPlayingMusic()) {
-                animatePauseToPlay();
-                mHandler.removeCallbacks(seekbarUpdateRunnable);
-            } else {
-                animatePlayToPause();
-                mHandler.post(seekbarUpdateRunnable);
+            if (mApp != null && mApp.getService() != null) {
+                if (mApp.getService().isPlayingMusic()) {
+                    animatePauseToPlay();
+                    mHandler.removeCallbacks(seekbarUpdateRunnable);
+                } else {
+                    animatePlayToPause();
+                    mHandler.post(seekbarUpdateRunnable);
+                }
             }
 
             /*
@@ -934,7 +936,7 @@ public class NowPlayingActivity extends AppCompatActivity {
         public void onPageScrolled(final int pagerPosition, float swipeVelocity, int offsetFromCurrentPosition) {
 
 			/* swipeVelocity determines whether the viewpager has finished scrolling or not.
-			 * Throw in an if statement that only allows the track to change when
+             * Throw in an if statement that only allows the track to change when
 			 * swipeVelocity is 0 (which means the page is done scrolling). This ensures
 			 * that the tracks don't jump around or get truncated while the user is 
 			 * swiping between different pages.

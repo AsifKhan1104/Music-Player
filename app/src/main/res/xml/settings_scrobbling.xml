@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:checked="false"
+        android:key="preference_key_scrobbling_controls"
+        android:summary="@string/show_scrobbling_controls_description"
+        android:title="@string/show_scrobbling_controls"/>
+
+    <Preference
+        android:key="preference_key_scrobbler_download"
+        android:title="@string/download_scrobbling_app"/>
+</PreferenceScreen>

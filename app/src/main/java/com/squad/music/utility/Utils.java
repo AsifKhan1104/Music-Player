@@ -36,4 +36,12 @@ public class Utils {
         }
         return deleteSuccess;
     }
+
+    public static void openAppInGooglePlay(Context context, String packageName) {
+        try {
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
+        } catch (android.content.ActivityNotFoundException e) { // if there is no Google Play on device
+            context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+        }
+    }
 }

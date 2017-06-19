@@ -32,4 +32,7 @@ public interface AppConstants {
     String PLAYLIST_NAME = "PlaylistName";
 
     String SEARCH_QUERY = "searchQuery";
+
+    String SCROBBLER_APP_PACKAGE_NAME = "com.adam.aslfms";
+    String SCROBBLER_FLAG = "scrobblerFlag";
 }

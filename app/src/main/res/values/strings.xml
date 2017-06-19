@@ -778,6 +778,9 @@
     <string name="dashclock_description">Displays current track information.</string>
     <string name="show_lockscreen_controls">Show lockscreen controls</string>
     <string name="show_lockscreen_controls_description">Toggle lockscreen playback controls.</string>
+    <string name="show_scrobbling_controls">Enable Scrobbling</string>
+    <string name="show_scrobbling_controls_description">Enable scrobbling via Simple Last.fm scrobbler</string>
+    <string name="download_scrobbling_app">Download Simple Last.FM Scrobbler</string>
     <string name="lockscreen_controls_disabled_next_run">Lockscreen controls will be disabled the next time you start playing music.</string>
     <string name="show_more">Show more</string>
     <string name="special_offer">Special Offer!</string>
@@ -870,7 +873,7 @@
     <string name="album_art_description">Modify album art sources and download album art from the Internet.</string>
     <string name="blacklists_description">Modify blacklisted artists, albums, and songs.</string>
     <string name="audio_settings_description">Configure crossfade, headphone plug actions and toggle equalizer.</string>
-    <string name="scrobbling_description">Toggle scrobbling and choose your scrobbling app.</string>
+    <string name="scrobbling_description">Toggle scrobbling and download your scrobbling app.</string>
     <string name="about_description">About the app, open source licenses, and contact information</string>
     <string name="labels">Labels</string>
     <string name="dark">Dark</string>

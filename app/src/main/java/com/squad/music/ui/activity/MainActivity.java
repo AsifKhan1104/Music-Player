@@ -38,6 +38,7 @@ import com.squad.music.ui.fragment.ListViewFragment;
 import com.squad.music.ui.fragment.NavigationDrawerFragment;
 import com.squad.music.ui.fragment.PlaylistFragment;
 import com.squad.music.ui.fragment.QueueDrawerFragment;
+import com.squad.music.utility.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     //Context and Common object(s).
@@ -549,7 +550,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.floating_action_menu_item1:
-                openAppInGooglePlay(this.getPackageName());
+                Utils.openAppInGooglePlay(this, this.getPackageName());
 
                 break;
             case R.id.floating_action_menu_item2:
@@ -565,14 +566,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 break;
-        }
-    }
-
-    private void openAppInGooglePlay(String packageName) {
-        try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
-        } catch (android.content.ActivityNotFoundException e) { // if there is no Google Play on device
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
         }
     }
 }

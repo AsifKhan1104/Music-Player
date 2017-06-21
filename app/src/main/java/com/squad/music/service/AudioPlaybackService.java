@@ -225,6 +225,8 @@ public class AudioPlaybackService extends Service {
         mMediaButtonReceiverComponent = new ComponentName(this.getPackageName(), HeadsetButtonsReceiver.class.getName());
         mAudioManager.registerMediaButtonEventReceiver(mMediaButtonReceiverComponent);
 
+        registerHeadsetPlugReceiver();
+
         if (mApp.getSharedPreferences().getBoolean(Common.SHOW_LOCKSCREEN_CONTROLS, true) == true) {
             initRemoteControlClient();
         }
@@ -1967,11 +1969,11 @@ public class AudioPlaybackService extends Service {
      */
     public void registerHeadsetPlugReceiver() {
         //Register the headset plug receiver.
-        if (mApp.getSharedPreferences().getString("UNPLUG_ACTION", "DO_NOTHING").equals("PAUSE_MUSIC_PLAYBACK")) {
+        //if (mApp.getSharedPreferences().getString("UNPLUG_ACTION", "DO_NOTHING").equals("PAUSE_MUSIC_PLAYBACK")) {
             IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
             mHeadsetPlugReceiver = new HeadsetPlugBroadcastReceiver();
             mService.registerReceiver(mHeadsetPlugReceiver, filter);
-        }
+        //}
 
     }
 

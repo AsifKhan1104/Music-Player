@@ -266,29 +266,29 @@ public class UIElementsHelper {
         mApp = (Common) context.getApplicationContext();
         int[] colors = context.getResources().getIntArray(R.array.toolbar_bgs);
 
-        Drawable drawable = new ColorDrawable(context.getResources().getColor(R.color.colorPrimary));
-        if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLUE)) {
+        Drawable drawable = new ColorDrawable(context.getResources().getColor(R.color.t_black));
+        if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(BLUE)) {
             drawable = new ColorDrawable(colors[0]);
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GRAY)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(GRAY)) {
             drawable = new ColorDrawable(colors[1]);
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(RED)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(RED)) {
             drawable = new ColorDrawable(colors[2]);
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GREEN)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(GREEN)) {
             drawable = new ColorDrawable(colors[3]);
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(ORANGE)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(ORANGE)) {
             drawable = new ColorDrawable(colors[4]);
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(PURPLE)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(PURPLE)) {
             drawable = new ColorDrawable(colors[5]);
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(MAGENTA)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(MAGENTA)) {
             drawable = new ColorDrawable(colors[6]);
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLACK)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(BLACK)) {
             drawable = new ColorDrawable(colors[7]);
         }
 
@@ -303,32 +303,32 @@ public class UIElementsHelper {
         mApp = (Common) context.getApplicationContext();
         int[] colors = context.getResources().getIntArray(R.array.status_bar_bgs);
 
-        if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLUE)) {
+        if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(BLUE)) {
             return colors[0];
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GRAY)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(GRAY)) {
             return colors[1];
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(RED)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(RED)) {
             return colors[2];
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(GREEN)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(GREEN)) {
             return colors[3];
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(ORANGE)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(ORANGE)) {
             return colors[4];
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(PURPLE)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(PURPLE)) {
             return colors[5];
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(MAGENTA)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(MAGENTA)) {
             return colors[6];
 
-        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLUE).equals(BLACK)) {
+        } else if (mApp.getSharedPreferences().getString(NOW_PLAYING_COLOR, BLACK).equals(BLACK)) {
             return colors[7];
         }
 
-        return colors[0];
+        return colors[7];
     }
 
     // changes status bar color programmatically

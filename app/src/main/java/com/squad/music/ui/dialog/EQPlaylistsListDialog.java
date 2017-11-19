@@ -20,10 +20,6 @@ public class EQPlaylistsListDialog extends DialogFragment {
         super();
     }
 
-    public EQPlaylistsListDialog(EqualizerActivity fragment) {
-        mFragment = fragment;
-    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

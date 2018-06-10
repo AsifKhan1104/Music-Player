@@ -26,7 +26,6 @@
         android:paddingRight="8dp" />
     
     <LinearLayout
-        android:id="@+id/listViewTextContainer"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_centerVertical="true"

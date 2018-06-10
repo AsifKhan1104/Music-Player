@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PLAYit</string>
+    <string name="app_name_extended">PLAYit म्यूजिक</string>
+    <string name="load_preset_caps">लोड प्रीसेट</string>
+    <string name="save_preset_caps">सेव प्रीसेट</string>
+    <string name="load_preset">लोड प्रीसेट</string>
+    <string name="save_preset">सेव प्रीसेट</string>
+    <string name="apply_to">पर लागू</string>
+    <string name="artists">आर्टिस्ट्स</string>
+    <string name="albums">एलबम्स</string>
+    <string name="songs">सांग्स</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="search">खोज</string>
+    <string name="playlists">प्लेलिस्ट</string>
+    <string name="artists_caps">आर्टिस्ट्स</string>
+    <string name="albums_caps">एलबम्स</string>
+    <string name="songs_caps">सांग्स</string>
+    <string name="playlists_caps">प्लेलिस्ट</string>
+    <string name="virtualizer_caps">विर्तुअलिज़ेर</string>
+    <string name="bass_boost_caps">बास बूस्ट</string>
+    <string name="reverb_caps">रेवेरब इफ़ेक्ट:</string>
+
+    <string name="app_theme">थीम</string>
+
+    <string-array name="app_theme_choices">
+        <item>हल्का</item>
+        <item>गाढ़ा</item>
+    </string-array>
+
+    <string name="ok">ठीक</string>
+    <string name="cancel">रद्द</string>
+
+    <string-array name="now_playing_color_schemes">
+        <item>ग्रे</item>
+        <item>नीला</item>
+        <item>लाल</item>
+        <item>हरा</item>
+        <item>नारंगी</item>
+        <item>बैंगनी</item>
+        <item>मैजेंटा</item>
+        <item>काली</item>
+    </string-array>
+
+    <string name="folders_caps">फ़ोल्डर</string>
+    <string name="licenses">लाइसेंस</string>
+    <string name="oxygen_icons_license_description">यह एप्लिकेशन ऑक्सीजन आइकन थीम से एक या एक से अधिक आइकन का उपयोग करता है, जो इस ऐप से किसी भी तरह से सम्मिलित नहीं है। चिन्ह क्रिएटिव कॉमन्स 3.0 शेयर्यलिंक लाइसेंस के तहत वितरित किए जाते हैं। लाइसेंस की एक प्रति यहां प्राप्त की जा सकती है:</string>
+    <string name="invalid_file_message"> कोई ऑडियो फ़ाइल नहीं लगती है यह सुनिश्चित करने के लिए जांचें कि फ़ाइल एक्सटेंशन ठीक से सेट है|</string>
+    <string name="error">त्रुटि</string>
+    <string name="changes_saved">बदलाव सुरक्षित किया गया।</string>
+    <string name="title_activity_settings">सेटिंग्स</string>
+    <string name="genres_caps">शैलियां</string>
+    <string name="building_music_library">बिल्डिंग म्यूजिक लाइब्रेरी</string>
+    <string name="welcome_text_1">डाउनलोड करने के लिए धन्यवाद</string>
+    <string name="welcome_text_1_half">ऐप के साथ आरंभ करने में आपकी सहायता के लिए, आपको कुछ प्रारंभिक चरणों के माध्यम से निर्देशित किया जाएगा। जारी रखने के लिए बाएं स्वाइप करें|</string>
+    <string name="done">कर दिया</string>
+    <string name="welcome">स्वागत हे</string>
+    <string name="scan_frequency">स्कैन फ़्रिक्वेंसी</string>
+
+    <string-array name="scan_frequency_choices">
+        <item>प्रत्येक स्टार्टअप पर स्कैन करें</item>
+        <item>प्रत्येक 3 स्टार्टअप स्कैन करें</item>
+        <item>प्रत्येक 5 स्टार्टअप स्कैन करें</item>
+        <item>प्रत्येक 10 स्टार्टअप स्कैन करें</item>
+        <item>प्रत्येक 20 स्टार्टअप स्कैन करें</item>
+        <item>मैन्युअल रूप से स्कैन करें</item>
+    </string-array>
+
+    <string name="finish">समाप्त</string>
+    <string name="title">शीर्षक:</string>
+    <string name="artist">आर्टिस्ट:</string>
+    <string name="album">एल्बम:</string>
+    <string name="genre">शैली:</string>
+    <string name="year">साल:</string>
+    <string name="album_artist">एल्बम आर्टिस्ट:</string>
+    <string name="producer">उत्पादक:</string>
+    <string name="comments">टिप्पणियाँ: </string>
+    <string name="track">ट्रैक:</string>
+    <string name="of">का</string>
+    <string name="caution">सावधान</string>
+    <string name="caution_albums_text">इस एल्बम के टैग को संपादित करने से एल्बम में हर गीत को अपने टैग बदलने होंगे। क्या तुम वाकई जारी रखना चाहते हो?</string>
+    <string name="caution_artists_text">इस आर्टिस्ट के टैग को संपादित करने से आर्टिस्ट द्वारा प्रत्येक गीत को अपने टैग बदलने होंगे। क्या तुम वाकई जारी रखना चाहते हो?</string>
+    <string name="yes">हाँ</string>
+    <string name="no">नहीं</string>
+    <string name="neutral">कोई कार्रवाई नहीं</string>
+    <string name="varies_by_song">गीत द्वारा बदलता है</string>
+    <string name="edit_tags">टैग संपादित करें</string>
+    <string name="blacklist_artist">ब्लैकलिस्ट आर्टिस्ट</string>
+    <string name="add_to_queue">क़तार में जोड़ें</string>
+    <string name="edit_details">विवरण संपादित करें</string>
+
+    <string name="save">सेव</string>
+    <string name="error_occurred_tags">आपके टैग्स को सहेजते समय एक त्रुटि हुई अपनी लाइब्रेरी को पुन: स्कैन करने का प्रयास करें|</string>
+    <string name="edit">संपादित करें</string>
+    <string name="album_art_not_found">इस एल्बम के लिए एल्बम कला नहीं मिली।</string>
+    <string name="dont_show_again">इस संदेश को दोबारा नहीं दिखाएं</string>
+    <string name="customize_screens_text">उनके क्रम को पुनर्व्यवस्थित करने के लिए स्क्रीन सूची में आइटम खींचें।</string>
+    <string name="customize_screens">कस्टमाइज़ स्क्रीन</string>
+    <string name="now_playing_queue">नाउ प्लेइंग कतार</string>
+    <string name="album_doesnt_have_artwork">इस एल्बम में कोई कलाकृति नहीं है</string>
+    <string name="album_art_deleted">एल्बम कलाकृति हटाई गई</string>
+
+    <string-array name="cover_art_style_choices">
+        <item>प्रतिबिंब के साथ कार्ड शैली</item>
+        <item>स्क्रीन भरें</item>
+    </string-array>
+
+    <string name="cover_art_style">कवर कला शैली</string>
+    <string name="downloading_missing_cover_art">लापता कवर आर्ट डाउनलोड करना</string>
+    <string name="playlist_name">प्लेलिस्ट नाम</string>
+    <string name="playlist_created">प्लेलिस्ट बनाई गई</string>
+    <string name="playlist_could_not_be_created">प्लेलिस्ट को बनाया नहीं जा सका।</string>
+
+    <string name="add_to_playlist">प्लेलिस्ट में जोड़ें</string>
+    <string name="application_theme">एप्लिकेशन थीम</string>
+    <string name="album_art">एलबम कला</string>
+    <string name="album_art_sources">एल्बम कला स्रोत</string>
+    <string name="folders">फ़ोल्डर्स</string>
+    <string name="licenses_and_about">लाइसेंस और इसके बारे में</string>
+
+    <string name="delete_playlist_warning">क्या आप वाकई इस प्लेलिस्ट को हटाना चाहते हैं?</string>
+    <string name="delete_song_warning">क्या आप इस गीत को हटाना चाहते हैं?</string>
+    <string name="delete">हटाना</string>
+    <string name="playlist_deleted">प्लेलिस्ट सफलतापूर्वक हटाई गई</string>
+    <string name="song_deleted">गीत सफलतापूर्वक हटाया गया</string>
+    <string name="rename_playlist_info">प्लेलिस्ट के लिए एक नया नाम टाइप करें।</string>
+    <string name="playlist_renamed">प्लेलिस्ट को सफलतापूर्वक नाम दिया गया</string>
+    <string name="playlist_name_caps">प्लेलिस्ट का नाम:</string>
+    <string name="playlist_format_caps">प्लेलिस्ट फ़ॉर्मेट:</string>
+    <string name="playlist_location_caps">प्लेलिस्ट स्थान:</string>
+    <string name="number_of_songs_caps">गीतों की संख्या:</string>
+    <string name="last_modified_caps">अंतिम बार संशोधित:</string>
+    <string name="added_to_library_caps">लाइब्रेरी में जोड़ा गया:</string>
+    <string name="created_caps">बनाया था:</string>
+    <string name="rename_playlist">प्लेलिस्ट का नाम बदलें</string>
+    <string name="songs_enqueued_toast">गाने कतार में जोड़े गए</string>
+    <string name="song_enqueued_toast">गीत कतार में जोड़ा गया</string>
+    <string name="rotate_device_to_go_back">पिछली स्क्रीन पर वापस जाने के लिए अपनी डिवाइस को पोर्ट्रेट मोड में घुमाएं।</string>
+    <string name="artist_blacklisted">आर्टिस्ट ब्लैकलिस्टेड।</string>
+    <string name="blacklists">ब्लैकलिस्ट</string>
+    <string name="manage_blacklisted_artists">ब्लैकलिस्ट किए गए आर्टिस्ट को प्रबंधित करें</string>
+    <string name="manage_blacklisted_albums">ब्लैकलिस्टेड एल्बम प्रबंधित करें</string>
+    <string name="manage_blacklisted_songs">ब्लैकलिस्ट किए गए गीतों को प्रबंधित करें</string>
+    <string name="manage_blacklisted_playlists">ब्लैकलिस्ट किए गए प्लेलिस्ट प्रबंधित करें</string>
+
+    <string-array name="apply_equalizer_to_array">
+        <item>वर्तमान गीत</item>
+        <item>सभी गीत</item>
+        <item>एक आर्टिस्ट</item>
+        <item>एक एल्बम</item>
+        <item>एक शैली</item>
+    </string-array>
+
+    <string name="equalizer_applied_to_songs_by">इक्वलाइज़र द्वारा सभी गाने के लिए लागू</string>
+    <string name="equalizer_applied_to_songs_in">इक्वलाइज़र में सभी गाने के लिए आवेदन</string>
+    <string name="equalizer_applied_to_all_songs">इक्वलाइज़र सभी गाने पर लागू</string>
+    <string name="applying_equalizer_to_all_songs">सभी गीतों के लिए इक्वलाइज़र आवेदन करना ...</string>
+    <string name="applying_to">के लिए आवेदन</string>
+    <string name="applying_equalizer_to">इक्वलाइज़र को आवेदन करने के लिए</string>
+    <string name="error_occurred">एक त्रुटि पाई गई।</string>
+    <string name="enter_playlist_name">प्लेलिस्ट नाम दर्ज करें:</string>
+    <string name="preset_name">प्रीसेट नाम</string>
+    <string name="new_eq_preset">नया इक्वलाइज़र प्रीसेट</string>
+    <string name="preset_saved">प्रीसेट सहेजा गया</string>
+    <string name="run_in_background">पृष्ठभूमि में चलो</string>
+
+    <string name="no_audio_files_found">कोई ऑडियो फ़ाइलें नहीं मिली</string>
+    <string name="play_folder_recursive">प्ले फ़ोल्डर (रिकर्सिव)</string>
+    <string name="scanning_for_files">ऑडियो फ़ाइलों के लिए स्कैनिंग:</string>
+    <string name="file_could_not_be_written_new_location">फाइल (ओं) को नए स्थान पर नहीं लिखा जा सका।</string>
+    <string name="copy">कॉपी</string>
+    <string name="done_copy">कॉपी किया गया फ़ाइल (ओं)</string>
+    <string name="done_move">संचिकाएं बढ़ाई गईं</string>
+    <string name="copying_file">फ़ाइल कॉपी करना</string>
+    <string name="source_target_same">स्रोत और गंतव्य फ़ोल्डर समान हैं</string>
+    <string name="move">मूव</string>
+    <string name="moving_file">फाइल को ले जाना</string>
+    <string name="deleting_files">फाइल को हटाना</string>
+    <string name="file_deleted">फ़ाइल हटाई गई</string>
+    <string name="file_could_not_be_deleted">फाइल को हटाया नहीं जा सका।</string>
+    <string name="folder_deleted">फ़ोल्डर हटाया गया</string>
+    <string name="folder_could_not_be_deleted">फ़ोल्डर हटाया नहीं जा सका</string>
+    <string name="rename">नाम बदलें</string>
+    <string name="file_name">फ़ाइल का नाम</string>
+    <string name="folder_could_not_be_renamed">फ़ोल्डर का नाम बदला नहीं जा सका</string>
+    <string name="folder_renamed">फ़ोल्डर का नाम बदल दिया गया</string>
+    <string name="enter_a_name_for_folder">आपको एक फ़ोल्डर नाम दर्ज करना होगा।</string>
+    <string name="blacklist_manager">ब्लैकलिस्ट प्रबंधक</string>
+    <string name="blacklisted_artists">ब्लैकलिस्ट आर्टिस्ट्स</string>
+    <string name="blacklisted_albums">ब्लैकलिस्टेड एल्बम</string>
+    <string name="blacklisted_songs">ब्लैकलिस्ट किए गए गीत</string>
+    <string name="blacklisted_playlists">ब्लैकलिस्ट किए गए प्लेलिस्ट</string>
+    <string name="blacklist_manager_info">ब्लैकलिस्ट से कोई आइटम निकालने के लिए, इसे किसी भी दिशा में हटा दें।</string>
+    <string name="no_blacklisted_items_found">कोई ब्लैकलिस्टेड आइटम नहीं मिला।</string>
+    <string name="scanning_for_missing_art">गायब एल्बम कला के लिए स्कैनिंग</string>
+    <string name="downloading_album_art">एल्बम कला डाउनलोड करना</string>
+    <string name="downloading_artwork_for">इसके लिए एल्बम कला डाउनलोड करना</string>
+    <string name="done_downloading_art">एल्बम कला डाउनलोड करना समाप्त हो गया</string>
+    <string name="checking_if">अगर जांच रहा है</string>
+    <string name="has_album_art">एल्बम कला है</string>
+    <string name="days_remaining_caps">बचे हुए दिन</string>
+    <string name="title_activity_blacklist_manager">ब्लैकलिस्ट मैनेजर</string>
+    <string name="item_removed_from_blacklist">आइटम को ब्लैकलिस्ट से हटा दिया गया</string>
+    <string name="no_embedded_lyrics_found">कोई एम्बेडेड गीत नहीं मिला</string>
+    <string name="scanning_subfolders">सबफ़ोल्डर्स स्कैन करना</string>
+    <string name="scanning_subfolders_message">में सबफ़ोल्डर के लिए स्कैनिंग</string>
+    <string name="enter_google_play_credentials">कृपया अपने Google Play संगीत खाते के लिए उपयोगकर्ता नाम और पासवर्ड दर्ज करें यह जानकारी आपके डिवाइस पर संग्रहीत की जाएगी और आपके गाने और प्लेलिस्ट को एक्सेस करने के लिए उपयोग की जाएगी।</string>
+    <string name="unknown_error_google_music">Google Play संगीत में प्रवेश करने में असमर्थ अपने नेटवर्क कनेक्शन की जांच करें।</string>
+    <string name="contacting_google_play_music">Google Play संगीत से संपर्क करना</string>
+    <string name="google_play_music">Google Play संगीत *</string>
+    <string name="sign_in_google_play_music">Google Play Music में साइन इन करें</string>
+    <string name="signing_in_to_google_play_music">Google Play संगीत में साइन इन करना</string>
+    <string name="syncing_with_google_play_music">Google Play Music के साथ समन्वयन करना</string>
+    <string name="signing_in">साइन इन</string>
+    <string name="starting_download">डाउनलोड प्रारम्भ हो रहा है।</string>
+    <string name="downloading_no_dot">रखना</string>
+    <string name="song_failed_to_load">गीत लोड करने में विफल रहा</string>
+    <string name="google_play_music_instructions">Playit आपकी Google Play संगीत लाइब्रेरी को अपने डिवाइस में स्ट्रीम कर सकता है इस सुविधा का उपयोग करने के लिए आपके पास आधिकारिक Google Play Music ऐप इंस्टॉल होना चाहिए।</string>
+    <string name="dont_use_google_play_music">Google Play Music का उपयोग न करें</string>
+    <string name="ready_to_scan_instructions"> अब आपकी संगीत लाइब्रेरी और एल्बम कला का निर्माण होगा इस प्रक्रिया के दौरान एप को बंद करने के लिए स्वतंत्र महसूस करें</string>
+    <string name="swipe_left_to_continue">जारी रखने के लिए बाएं स्वाइप करें</string>
+    <string name="signed_in_as">इस रूप में साइन इन किया</string>
+    <string name="google_play_music_disclaimer">* Google प्लेइट संगीत प्लेयर का समर्थन और समर्थन नहीं करता है और Google Play संगीत सेवा का इसका उपयोग नहीं करता है। प्लेइट अनौपचारिक एपीआई का उपयोग कर अपनी संगीत लाइब्रेरी तक पहुंच जाएगा। Google किसी भी समय अपनी सेवा बदलना चुन सकता है और इस ऐप को आपकी लाइब्रेरी तक पहुंच खोने का कारण बन सकता है। अपने जोख़िम पर आगे बढ़ें।</string>
+    <string name="genres">शैलियां</string>
+    <string name="tip">टिप</string>
+    <string name="prompt_user_install_google_play_music">प्लेइट के साथ अपने संगीत को स्ट्रीम करने से पहले आपको आधिकारिक Google Play Music ऐप इंस्टॉल करना होगा क्या आप इसे अभी स्थापित करना चाहते हैं?</string>
+    <string name="prompt_user_set_up_google_play_music">क्या आपने अपने चयनित खाते को आधिकारिक Google Play संगीत ऐप में सेट किया है? ऐसा करने से प्लेइट को अपने संगीत को क्लाउड से सिंक्रनाइज़ करने में सक्षम होगा। यदि आप आधिकारिक Google Play Music ऐप सेट अप न करने का चयन करते हैं, तो आपको हर बार जब आप अपनी लाइब्रेरी को अपडेट करते हैं, तो आपको अपने संगीत को मैन्युअल रूप से सिंक्रनाइज़ करना होगा।</string>
+    <string name="set_up_already">मैंने इसे पहले ही सेट कर दिया है </string>
+    <string name="sync_manually">मैं मैन्युअल रूप से सिंक कर दूँगा</string>
+    <string name="let_me_check">मुझे जाँचने दो</string>
+    <string name="preferred_album_art">एलबम कला</string>
+    <string name="use_embedded_art_only">एम्बेडेड कला का उपयोग करें केवल</string>
+    <string name="use_folder_art_only">केवल फ़ोल्डर कला का उपयोग करें</string>
+    <string name="preferred_album_art_instructions">अपना पसंदीदा एल्बम कला स्रोत चुनें यदि आप सुनिश्चित नहीं हैं, तो पहला विकल्प चुनें आप इन विकल्पों को बाद में सेटिंग्स में बदल सकते हैं।</string>
+    <string name="google_play_music_no_asterisk">Google Play संगीत</string>
+    <string name="google_play_music_disabled">Google Play संगीत अक्षम</string>
+    <string name="add_music_library">कस्टम लाइब्रेरी बनाएं</string>
+    <string name="edit_music_library">कस्टम लाइब्रेरी संपादित करें</string>
+    <string name="delete_music_library">कस्टम लाइब्रेरी हटाएं</string>
+    <string name="music_library_name">कस्टम लाइब्रेरी नाम</string>
+    <string name="music_library_editor">कस्टम लाइब्रेरी संपादक</string>
+    <string name="select_all">सभी का चयन करे</string>
+    <string name="add_music_library_instructions">एक नाम दर्ज करें और अपनी नई कस्टम लाइब्रेरी के लिए एक लेबल चुनें।</string>
+    <string name="music_library_label">कस्टम लाइब्रेरी लेबल</string>
+
+    <string-array name="library_labels">
+        <item>काली</item>
+        <item>नीला</item>
+        <item>हल्का नीला</item>
+        <item>हरा</item>
+        <item>हल्का हरा</item>
+        <item>बैंगनी</item>
+        <item>हल्का बैंगनी</item>
+        <item>लाल</item>
+        <item>गुलाबी</item>
+        <item>सफेद</item>
+        <item>नारंगी</item>
+        <item>पीला</item>
+    </string-array>
+
+    <string name="artists_music_library_editor_instructions">एक आर्टिस्ट को अपने कस्टम लाइब्रेरी में उनके गीत जोड़ने के लिए टैप करें</string>
+    <string name="songs_music_library_editor_instructions">इस कस्टम लाइब्रेरी में जोड़ने के लिए एक गीत टैप करें</string>
+    <string name="albums_music_library_editor_instructions">एल्बम को अपने पसंदीदा लाइब्रेरी में जोड़ने के लिए उसे टैप करें</string>
+    <string name="done_creating_library">कस्टम लाइब्रेरी बनाई गई</string>
+    <string name="deleted">हटाए गए</string>
+    <string name="no_music_libraries_found">कोई कस्टम लाइब्रेरी नहीं मिला</string>
+    <string name="blacklist_manager_artists_instructions">किसी आर्टिस्ट पर ब्लैकलिस्ट (हाइलाइट) करने के लिए उसे टैप करें या उन्हें ब्लैकलिस्ट (अनहहाइटेड) से निकालें।</string>
+    <string name="blacklist_manager_albums_instructions">एक एल्बम पर ब्लैकलिस्ट (हाइलाइट) करने के लिए टैप करें या उसे ब्लैकलिस्ट (अनहहाइटेड) से हटा दें।</string>
+    <string name="blacklist_manager_songs_instructions">किसी गीत पर ब्लैकलिस्ट (हाइलाइट) करने के लिए टैप करें या उसे ब्लैकलिस्ट (अनहहाइटेड) से हटा दें।</string>
+    <string name="done_updating_blacklists">ब्लैकलिस्ट को अपडेट करना पूर्ण हुआ</string>
+    <string name="updating_blacklists">ब्लैकलिस्ट को अपडेट करना</string>
+    <string name="fetching_blacklists">ब्लैकलिस्ट प्राप्त करना</string>
+    <string name="current_queue">वर्तमान कतार</string>
+    <string name="close_other_audio_apps">ऑडियो चलाए जा सकने वाले अन्य ऐप्स को बंद करें</string>
+
+    <string name="no_music_playing">कोई संगीत बजाना नहीं</string>
+    <string name="no_songs_found_info">कोई गीत नहीं मिला आप सेटिंग में अपने संगीत फ़ोल्डरों को कॉन्फ़िगर कर सकते हैं।</string>
+    <string name="song_tags_saved">गाने टैग सहेजे गए</string>
+    <string name="edit_google_play_music_tags_unsupported">Playit Google Play संगीत पर गीतों के लिए समर्थन टैग संपादन नहीं करता है, फिर भी यह सुविधा भविष्य के अपडेट में जोड़ दी जाएगी।</string>
+    <string name="download_failed_to_initialize">डाउनलोड आरंभ करने में विफल रहा</string>
+    <string name="pinned_songs_removed">पिन किए गए गीत (गीत) हटाए गए</string>
+    <string name="removing_pinned_songs">पिन किए गए गीत को निकालना</string>
+    <string name="repeat_song_range_instructions">उस गीत का हिस्सा चुनने के लिए स्क्रबर्स खींचें, जिसे आप दोहराना चाहेंगे।</string>
+    <string name="repeat">दोहराना</string>
+    <string name="saving_album_info">एल्बम जानकारी सहेज रहा है</string>
+    <string name="music_library">म्यूजिक लाइब्रेरी</string>
+
+    <string name="new_playlist">नई प्लेलिस्ट</string>
+    <string name="album_artists">एल्बम आर्टिस्ट</string>
+    <string name="album_art_downloaded">एल्बम कला डाउनलोड की गई</string>
+    <string name="getting_album_art_toast">एल्बम कला प्राप्त करना ...</string>
+    <string name="unable_to_get_album_art">एल्बम कला प्राप्त करने में असमर्थ अपने नेटवर्क कनेक्शन की जांच करें।</string>
+    <string name="trial_expired">प्लेइट संगीत प्लेयर का उपयोग करने के लिए धन्यवाद आपके 7 दिन का परीक्षण समाप्त हो गया है। इस समय सीमा को हटाने के लिए, कृपया प्लेइट के पूर्ण संस्करण में अपग्रेड करें। \ n \ n यदि आपने पहले से ही Playit खरीदा है और अभी भी यह संदेश देख रहे हैं, तो सुनिश्चित करें कि आपने उस Google खाते में साइन इन किया है जिसे आपने खरीदा था। अभी भी सहायता चाहिए? हमें pioneeringworld@gmail.com पर एक चिल्लाना दो।</string>
+    <string name="upgrade">अपग्रेड</string>
+    <string name="trial_running">आप वर्तमान में Playit के परीक्षण संस्करण का उपयोग कर रहे हैं पूर्ण संस्करण में अपग्रेड करना, परीक्षण समय सीमा को निकाल देगा। \ n \ n यदि आपने पहले से ही Playit खरीदा है और अभी भी यह संदेश देख रहे हैं, तो सुनिश्चित करें कि आपने उस Google खाते में साइन इन किया है जिसे आपने खरीदा था। अभी भी सहायता चाहिए? सेटिंग > हमसे संपर्क करें</string>
+    <string name="later">बाद में</string>
+    <string name="expired">समय सीमा समाप्त</string>
+    <string name="jams_trial_time_removed">PLAYit खरीदने के लिए धन्यवाद! आपकी परीक्षण समय सीमा हटा दी गई है</string>
+    <string name="unable_to_purchase">ऊप्स! खरीद के साथ एक समस्या थी बाद में पुन: प्रयास करें।</string>
+    <string name="got_it">समझ गया</string>
+    <string name="gmusic_app_not_installed_pin">आधिकारिक Google Play Music ऐप्स इंस्टॉल नहीं है</string>
+    <string name="wait_until_pinning_complete">कृपया तब तक प्रतीक्षा करें जब तक कि अन्य गीतों को पिन किया जा चुका हो।</string>
+    <string name="getting_pinned_songs">Google Play संगीत ऐप से पिन किए गए गाने प्राप्त करना</string>
+    <string name="done_pinning_songs_from_gmusic">Google Play संगीत से सभी पिन किए गए गीतों को प्राप्त करने में हो गया</string>
+    <string name="done_pinning_songs">गाना लगाए गए गीत</string>
+    <string name="equalizer">इक्वलाइज़र</string>
+    <string name="play">प्ले</string>
+    <string name="scrobbling">सक्रोब्बलिङ्ग</string>
+    <string name="unable_to_get_audio_focus">ऑडियो फोकस प्राप्त करने में असमर्थ किसी भी अन्य ऑडियो ऐप को बंद करें और फिर से प्रयास करें।</string>
+    <string name="applying_equalizer">इक्वलाइज़र आवेदन कर रहा है ...</string>
+    <string name="jams_is_building_library">PLAYit आपकी लाइब्रेरी का निर्माण कर रहा है</string>
+    <string name="jams_is_building_library_info">इस प्रक्रिया के दौरान एप को बंद करने के लिए स्वतंत्र महसूस करें वर्तमान प्रगति की जांच के लिए किसी भी समय अपने अधिसूचना ड्रॉवर को स्वाइप करें</string>
+    <string name="jams_is_caching_artwork">प्लेइट एल्बम कला को कैशिंग कर रहा है</string>
+    <string name="default_browser">डिफ़ॉल्ट ब्राउज़र </string>
+    <string name="artists_layout">आर्टिस्ट्स का लेआउट</string>
+    <string name="album_artists_layout">एल्बम आर्टिस्ट्स का लेआउट</string>
+    <string name="albums_layout">एल्बम लेआउट</string>
+
+    <string-array name="startup_screen_items">
+        <item>आर्टिस्ट्स</item>
+        <item>एल्बम आर्टिस्ट्स</item>
+        <item>एल्बम</item>
+        <item>गीत</item>
+        <item>प्लेलिस्ट</item>
+        <item>शैलियां</item>
+        <item>फ़ोल्डर</item>
+    </string-array>
+
+    <string-array name="browser_items">
+        <item>आर्टिस्ट्स</item>
+        <item>एल्बम</item>
+        <item>गीत</item>
+        <item>प्लेलिस्ट</item>
+        <item>शैलियां</item>
+        <item>फ़ोल्डर</item>
+    </string-array>
+
+    <string-array name="layout_preference_items">
+        <item>ग्रिड</item>
+        <item>लिस्ट</item>
+    </string-array>
+
+    <string name="position">पोजीशन</string>
+    <string name="saving_artist_info">सहेजी जा रही आर्टिस्ट जानकारी</string>
+    <string name="create_playlist">प्लेलिस्ट बनायें</string>
+    <string name="playlist_modified">प्लेलिस्ट संशोधित</string>
+    <string name="playlist_could_not_be_modified">प्लेलिस्ट को संशोधित नहीं किया जा सका</string>
+    <string name="show_embedded_lyrics">गीत दिखाएँ</string>
+    <string name="play_next">प्ले नेक्स्ट</string>
+    <string name="set_as_ringtone">रिंगटोन के रूप में नियत करें</string>
+    <string name="will_be_played_next">आगे बजाया जाएगा</string>
+    <string name="the_top_25_played_tracks">शीर्ष 25 में बजाया गया गीत</string>
+    <string name="the_most_recently_added_songs">हाल ही में जोड़े गए गाने</string>
+    <string name="the_top_rated_songs">शीर्ष रेटेड गाने</string>
+    <string name="the_most_recently_played_songs">सबसे हाल ही में खेला गया गीत</string>
+    <string name="save_current_position">वर्तमान स्थिति को बचाएं</string>
+    <string name="track_will_resume_from">यह ट्रैक फिर से शुरू होगा</string>
+    <string name="next_time_you_play_it">अगली बार जब आप इसे बजायेंगे</string>
+    <string name="resuming_from">से फिर से शुरू</string>
+    <string name="clear_saved_position">सहेजी गई स्थिति साफ़ करें</string>
+    <string name="track_start_from_beginning_next_time_play">अगली बार जब आप इसे बजायेंगे तो यह ट्रैक शुरुआत से शुरू होगा।</string>
+    <string name="app_full_name">PLAYit म्यूजिक प्लेयर </string>
+    <string name="dashclock_description">वर्तमान ट्रैक जानकारी दिखाता है</string>
+    <string name="show_lockscreen_controls">लॉकस्क्रीन नियंत्रण दिखाएं</string>
+    <string name="show_lockscreen_controls_description">लॉकस्क्रीन प्लेबैक नियंत्रण टॉगल करें</string>
+    <string name="show_scrobbling_controls">स्क्रबब्लिंग को सक्षम करें</string>
+    <string name="show_scrobbling_controls_description">सरल Last.fm scrobbler के माध्यम से scrobbling सक्षम करें</string>
+    <string name="download_scrobbling_app">सरल Last.FM Scrobbler डाउनलोड करें</string>
+    <string name="select_widget_color">विजेट का रंग चुनें</string>
+    <string name="no_songs_to_select">चुनने के लिए कोई गीत नहीं</string>
+    <string name="unable_to_edit_song_tags">गीत टैग को संपादित करने में असमर्थ</string>
+    <string name="unable_to_edit_artist_tags">आर्टिस्ट टैग को संपादित करने में असमर्थ</string>
+    <string name="unable_to_edit_album_tags">एल्बम टैग को संपादित करने में असमर्थ</string>
+    <string name="unable_to_edit_genre_tags">शैली टैग को संपादित करने में असमर्थ</string>
+    <string name="now_playing">नाउ प्लेइंग</string>
+    <string name="unable_to_start_playback">प्लेबैक शुरू करने में असमर्थ</string>
+    <string name="unknown_artist">अज्ञात आर्टिस्ट</string>
+    <string name="unknown_album">अज्ञात एल्बम</string>
+    <string name="unknown_genre">अज्ञात शैली</string>
+    <string name="unknown_album_artist">अज्ञात एल्बम आर्टिस्ट</string>
+    <string name="get_all_songs_device">डिवाइस पर सभी संगीत प्राप्त करें</string>
+    <string name="let_me_pick_folders">मुझे अपने संगीत फ़ोल्डर्स चुनने दें</string>
+    <string name="pick_whats_best_for_me">चुनें कि मेरे लिए सबसे अच्छा क्या है</string>
+    <string name="building_album_art">बिल्डिंग एल्बम आर्ट</string>
+    <string name="no_songs_to_skip_to">छोड़ने के लिए और अधिक गाने नहीं</string>
+    <string name="eq_applied_to_current_song">इक्वलाइज़र वर्तमान गीत पर लागू होता है</string>
+    <string name="eq_applied">इक्वलाइज़र लागू होता है</string>
+    <string name="reset_all_caps">रिसेट आल</string>
+    <string name="eq_reset">इक्वलाइज़र रिसेट.</string>
+    <string name="hide_lyrics">गीत छिपाएं</string>
+    <string name="queue_empty_info">आपकी कतार रिक्त है</string>
+    <string name="play_all_caps">सभी को बजाएं</string>
+    <string name="a_b_repeat">ए-बी दोहराएं</string>
+    <string name="sleep_timer">सोने का टाइमर</string>
+    <string name="album_small">एल्बम</string>
+    <string name="song_small">गाना</string>
+    <string name="albums_small">एलबम</string>
+    <string name="songs_small">गाने</string>
+    <string name="finished_scanning_album_art">एल्बम कला के लिए स्कैनिंग समाप्त</string>
+    <string name="scanning_for_album_art_details">प्लेयर पृष्ठभूमि में एल्बम कला की स्कैनिंग जारी रखेगा। यह प्रक्रिया पूरी होने के बाद आपको सूचित किया जाएगा। अपनी प्रगति देखने के लिए, अपने अधिसूचना ड्रॉवर को नीचे स्वाइप करें</string>
+    <string name="up">ऊपर</string>
+    <string name="cant_play_this_file">इस फ़ाइल को नहीं चला सकते हैं I</string>
+    <string name="cant_copy_this_file_folder">इस फ़ाइल / फ़ोल्डर की नकल नहीं कर सकता</string>
+    <string name="paste_here">यहां पेस्ट करें</string>
+    <string name="copy_canceled">कॉपी ऑपरेशन रद्द।</string>
+    <string name="move_canceled">मूव ऑपरेशन रद्द</string>
+    <string name="up_to_parent_dir">मूल फ़ोल्डर तक</string>
+    <string name="appearance">दिखावट</string>
+    <string name="appearance_description">ऐप की थीम, रंग और अधिक बदलें।</string>
+    <string name="music_folders_description">अपनी संगीत लाइब्रेरी को फिर से बनाएं और चयनित संगीत फ़ोल्डर्स बदलें।</string>
+    <string name="blacklists_description">ब्लैकलिस्ट किए गए आर्टिस्ट, एल्बम, और गीतों को संशोधित करें।</string>
+    <string name="scrobbling_description">स्क्रॉबलिंग को टॉगल करें और अपने स्क्रॉबलिंग ऐप को डाउनलोड करें।</string>
+    <string name="about_description">ऐप, ओपन सोर्स लाइसेंस और संपर्क जानकारी के बारे में</string>
+    <string name="app_theme_description">एक काले और हल्के थीम के बीच चुनें</string>
+    <string name="colors_description">अपने चयनित थीम के साथ जाने के लिए एक रंग चुनें।</string>
+    <string name="default_browser_description">एप्लिकेशन को प्रारंभ होने पर प्रदर्शित करने के लिए डिफ़ॉल्ट ब्राउज़र चुनें</string>
+    <string name="genres_layout">शैली लेआउट</string>
+    <string name="playlists_layout">प्लेलिस्ट लेआउट</string>
+    <string name="folders_layout">फ़ोल्डर्स लेआउट</string>
+    <string name="select_music_folders">संगीत फ़ोल्डर्स चुनें</string>
+    <string name="refresh_music_library">ताज़ा संगीत लाइब्रेरी</string>
+    <string name="permission_denial_message">संगीत फ़ोल्डर्स देखने के लिए आपको यह अनुमति प्रदान करने की आवश्यकता थी।</string>
+    <string name="permission_denial_conseq">आपने इस सुविधा का उपयोग करने के लिए आवश्यक अनुमति नहीं दी है। कृपया एप्लिकेशन को पुनरारंभ करें और अनुमति दें।</string>
+    <string name="timer_set_success">टाइमर सफलतापूर्वक सेट किया गया</string>
+    <string name="timer_error_message">कृपया भविष्य के किसी भी समय का चयन करें</string>
+
+    <string name="add_to_queue_no_song_playing">कोई गाना नहीं बज रहा है कृपया एक गीत बजाओ</string>
+    <string name="playlist_header">प्लेलिस्ट</string>
+    <string name="song_added_to_playlist">गीत प्लेलिस्ट में जोड़ा गया</string>
+    <string name="songs_added_to_playlist">प्लेलिस्ट में जोड़े गए गीत</string>
+    <string name="some_error_occurred">कुछ त्रुटि हुई</string>
+    <string name="ringtone_set">रिंगटोन सफलतापूर्वक सेट किया गया</string>
+
+    <string name="app_exit_msg">क्या आप ऐप बंद करना चाहते हैं?</string>
+
+    <string name="songss">गीत</string>
+    <string name="song">गीत</string>
+    <string name="share">शेयर</string>
+    <string name="search_hint">संगीत खोजें</string>
+    <string name="search_invoke">हैलो संगीत</string>
+
+    <string name="no_data_found_via_search">इस खोज मापदंड से कोई डेटा मेल नहीं मिला।</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+
+    <!-- Example settings for Data & Sync -->
+
+    <!-- Example settings for Notifications -->
+
+    <string name="pref_ringtone_silent">साइलेंट</string>
+    <string name="choose_accent_color">रंग चुनें</string>
+    <string name="now_playing_color_scheme">Color Accent</string>
+    <string name="player_color_scheme">हैडर कलर</string>
+
+    <string name="navigation_drawer_open">नेविगेशन ड्रॉवर खोलें</string>
+    <string name="navigation_drawer_close">नेविगेशन ड्रॉवर को बंद करें</string>
+
+    <string name="menu">मेनू</string>
+    <string name="menu_rate">एप को रेट करे</string>
+    <string name="menu_share">एप को शेयर करे</string>
+
+    <!--no translation needed for below strings-->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="song_file_path">songFilePath</string>
+    <string name="folder_list_item_type">folder_list_item_type</string>
+    <string name="folder_path">folder_path</string>
+    <string name="username">example@gmail.com</string>
+    <string name="password">Password</string>
+    <string name="song_source">song_source</string>
+    <string name="song_id">song_id</string>
+    <string name="library_name">library_name</string>
+    <string name="library_color_code">library_color_code</string>
+    <string name="fb_app_id">431718623626519</string>
+    <string name="title_text">titleText</string>
+    <string name="source">source</string>
+    <string name="file_path">filePath</string>
+    <string name="field_1">field1</string>
+    <string name="field_2">field2</string>
+    <string name="field_3">field3</string>
+    <string name="field_4">field4</string>
+    <string name="field_5">field5</string>
+    <string name="title_activity_browser_sub">BrowserSubActivity</string>
+    <string name="title_activity_browsser_sub_grid">BrowsserSubGridActivity</string>
+    <string name="on_this_device">On This Device</string>
+    <string name="all_libraries">All Music</string>
+</resources>

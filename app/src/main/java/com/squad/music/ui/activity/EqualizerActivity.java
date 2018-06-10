@@ -1104,12 +1104,12 @@ public class EqualizerActivity extends AppCompatActivity {
         menu.findItem(R.id.action_done).setVisible(true);
 
         *//**
-         * The Toggle button in the actionbar doesn't work at this point. The setChecked()
-         * method doesn't do anything, so there's no way to programmatically set the
-         * switch to its correct position when the equalizer fragment is first shown.
-         * Users will just have to rely on the "Reset" button in the equalizer fragment
-         * to effectively switch off the equalizer.
-         *//*
+     * The Toggle button in the actionbar doesn't work at this point. The setChecked()
+     * method doesn't do anything, so there's no way to programmatically set the
+     * switch to its correct position when the equalizer fragment is first shown.
+     * Users will just have to rely on the "Reset" button in the equalizer fragment
+     * to effectively switch off the equalizer.
+     *//*
         menu.findItem(R.id.action_equalizer_toggle).setVisible(false); //Hide the toggle for now.
 
         //Set the toggle listener.

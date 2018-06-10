@@ -22,7 +22,6 @@
             <!-- 50 Hz Equalizer Layout -->
 
             <RelativeLayout
-                android:id="@+id/equalizer50HzLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -63,7 +62,6 @@
             <!-- 130Hz Equalizer Bar -->
 
             <RelativeLayout
-                android:id="@+id/equalizer130HzLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2">
@@ -104,7 +102,6 @@
             <!-- 320Hz Equalizer Bar -->
 
             <RelativeLayout
-                android:id="@+id/equalizer320HzLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2">
@@ -145,7 +142,6 @@
             <!-- 800 Hz Equalizer Bar -->
 
             <RelativeLayout
-                android:id="@+id/equalizer800HzLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2">
@@ -186,7 +182,6 @@
             <!-- 2 kHz Equalizer Bar -->
 
             <RelativeLayout
-                android:id="@+id/equalizer2kHzLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2">
@@ -227,7 +222,6 @@
             <!-- 5 kHz Equalizer Layout -->
 
             <RelativeLayout
-                android:id="@+id/equalizer5kHzLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2">
@@ -268,7 +262,6 @@
             <!-- 12.5 kHz Equalizer Layout -->
 
             <RelativeLayout
-                android:id="@+id/equalizer12_5kHzLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -377,7 +370,6 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/bass_boost_title_text"
@@ -386,7 +378,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <TextView
-                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignRight="@+id/textView3"
@@ -419,7 +410,6 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/equalizerPresetsLayout"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"

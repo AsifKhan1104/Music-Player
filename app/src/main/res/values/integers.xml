@@ -15,10 +15,6 @@
   -->
 
 <resources>
-    <integer name="card_flip_time_full">300</integer>
-    <integer name="card_flip_time_half">150</integer>
-    <integer name="artist_flipped_album_width">75</integer>
-    <integer name="artist_flipped_album_height">75</integer>
     <integer name="google_play_services_version">4030500</integer>
     <integer name="animation_padding">-5</integer>
 </resources>

@@ -5,6 +5,5 @@
     <item name="ic_menu_genres" type="drawable">@drawable/genres_icon_states</item>
     <item name="ic_menu_folders" type="drawable">@drawable/folder_states</item>
     <item name="ic_menu_playlists" type="drawable">@drawable/playlists_icon_states</item>
-    <item name="ic_menu_equaliser" type="drawable">@drawable/equalizer_button_states</item>
     <item name="ic_menu_settings" type="drawable">@drawable/settings_button_states</item>
 </resources>

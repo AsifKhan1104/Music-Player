@@ -31,7 +31,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ScrollView
-        android:id="@+id/google_play_music_radio_group_scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/google_play_music_disclaimer"

@@ -1,12 +1,15 @@
 package com.squad.music.ui.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -31,10 +34,12 @@ import com.squad.music.ui.fragment.BuildingLibraryProgressFragment;
 import com.squad.music.ui.fragment.MusicFoldersFragment;
 import com.squad.music.ui.fragment.ReadyToScanFragment;
 import com.squad.music.ui.fragment.WelcomeFragment;
+import com.squad.music.utility.MarshMallowUtils;
 import com.viewpagerindicator.LinePageIndicator;
 
 public class WelcomeActivity extends FragmentActivity {
 
+    private static final int READ_STORAGE_PERMISSION = 5464;
     private Context mContext;
     private Common mApp;
     private ViewPager welcomeViewPager;
@@ -175,8 +180,12 @@ public class WelcomeActivity extends FragmentActivity {
         public void onAnimationEnd(Animation arg0) {
             indicator.setVisibility(View.INVISIBLE);
 
-            Intent intent = new Intent(mContext, BuildMusicLibraryService.class);
-            startService(intent);
+            if (MarshMallowUtils.isPermissionGranted(WelcomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Intent intent = new Intent(mContext, BuildMusicLibraryService.class);
+                startService(intent);
+            } else {
+                MarshMallowUtils.requestPermission(WelcomeActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_STORAGE_PERMISSION, "Please grant this permission to access songs in your device.");
+            }
 
         }
 
@@ -366,5 +375,14 @@ public class WelcomeActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         UIElementsHelper.setStatusBarColor(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == READ_STORAGE_PERMISSION) {
+            Intent intent = new Intent(mContext, BuildMusicLibraryService.class);
+            startService(intent);
+        }
     }
 }

@@ -336,7 +336,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 EQ_800_HZ, EQ_2000_HZ, EQ_5000_HZ,
                 EQ_12500_HZ, VIRTUALIZER, BASS_BOOST, REVERB};
 
-        Cursor cursor = getDatabase().query(EQUALIZER_TABLE, columnsToReturn, condition, null, null, null, null);
+        // returns equlizer settings for specified song id
+        //Cursor cursor = getDatabase().query(EQUALIZER_TABLE, columnsToReturn, condition, null, null, null, null);
+        // returns equlizer settings irrespective of specified song id
+        Cursor cursor = getDatabase().query(EQUALIZER_TABLE, columnsToReturn, null, null, null, null, null);
         int[] eqValues = new int[11];
 
         if (cursor != null && cursor.getCount() != 0) {
@@ -391,7 +394,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(SONG_ID, songId);
         values.put(EQ_50_HZ, fiftyHertz);
-        values.put(EQ_130_HZ, threeTwentyHertz);
+        values.put(EQ_130_HZ, oneThirtyHertz);
         values.put(EQ_320_HZ, threeTwentyHertz);
         values.put(EQ_800_HZ, eightHundredHertz);
         values.put(EQ_2000_HZ, twoKilohertz);
@@ -451,7 +454,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(EQ_50_HZ, fiftyHertz);
-        values.put(EQ_130_HZ, threeTwentyHertz);
+        values.put(EQ_130_HZ, oneThirtyHertz);
         values.put(EQ_320_HZ, threeTwentyHertz);
         values.put(EQ_800_HZ, eightHundredHertz);
         values.put(EQ_2000_HZ, twoKilohertz);
@@ -462,7 +465,9 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         values.put(REVERB, reverb);
 
         String condition = SONG_ID + " = " + "'" + songId + "'";
-        getDatabase().update(EQUALIZER_TABLE, values, condition, null);
+        //getDatabase().update(EQUALIZER_TABLE, values, condition, null);
+        // just update without any condition
+        getDatabase().update(EQUALIZER_TABLE, values, null, null);
 
     }
 
@@ -488,7 +493,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(PRESET_NAME, presetName);
         values.put(EQ_50_HZ, fiftyHertz);
-        values.put(EQ_130_HZ, threeTwentyHertz);
+        values.put(EQ_130_HZ, oneThirtyHertz);
         values.put(EQ_320_HZ, threeTwentyHertz);
         values.put(EQ_800_HZ, eightHundredHertz);
         values.put(EQ_2000_HZ, twoKilohertz);

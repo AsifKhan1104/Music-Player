@@ -4,12 +4,11 @@
               android:id="@+id/linear_layout"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/now_playing_controls_background_light"
+              android:background="@drawable/splash"
               android:gravity="center"
               android:orientation="vertical">
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-        android:id="@+id/progress_bar"
         style="@style/Widget.MaterialProgressBar.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,11 +20,13 @@
         android:id="@+id/imageview_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:background="@drawable/ic_launcher"/>
 
     <TextView
         android:id="@+id/textview_app_name"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/app_name_extended"

@@ -2,37 +2,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
-        android:id="@+id/menu_1"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_artists"
             android:icon="@drawable/ic_menu_artists"
-            android:title="Artists"/>
+            android:title="@string/artists"/>
         <item
             android:id="@+id/nav_albums"
             android:icon="@drawable/ic_menu_albums"
-            android:title="Albums"/>
+            android:title="@string/albums"/>
         <item
             android:id="@+id/nav_songs"
             android:icon="@drawable/ic_menu_songs"
-            android:title="Songs"/>
+            android:title="@string/song"/>
         <item
             android:id="@+id/nav_genres"
             android:icon="@drawable/ic_menu_genres"
-            android:title="Genres"/>
+            android:title="@string/genres"/>
         <item
             android:id="@+id/nav_folders"
             android:icon="@drawable/ic_menu_folders"
-            android:title="Folders"/>
+            android:title="@string/folders"/>
     </group>
 
     <group
-        android:id="@+id/menu_2"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_playlists"
             android:icon="@drawable/ic_menu_playlists"
-            android:title="Playlists"/>
+            android:title="@string/playlists"/>
         <!--<item
             android:id="@+id/nav_play_queue"
             android:icon="@drawable/ic_menu_playlists"
@@ -40,7 +38,7 @@
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_settings"
-            android:title="Settings"/>
+            android:title="@string/settings"/>
     </group>
 
     <!--<group

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="album_art_sources">
+        <item >एम्बेडेड कला को प्राथमिकता दें</item>
+        <item >फ़ोल्डर कला को प्राथमिकता दें</item>
+        <item >एम्बेडेड कला का उपयोग करें केवल</item>
+        <item >केवल फ़ोल्डर कला का उपयोग करें</item>
+    </string-array>
+
+    <string-array name="widget_color_options">
+        <item>हल्का</item>
+        <item>गाढ़ा</item>
+    </string-array>
+
+</resources>

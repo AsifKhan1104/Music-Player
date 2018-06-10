@@ -317,7 +317,7 @@ public class AudioPlaybackService extends Service {
     private void initMediaPlayers() {
 
 		/*
-		 * Release the MediaPlayer objects if they are still valid.
+         * Release the MediaPlayer objects if they are still valid.
 		 */
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
@@ -1970,9 +1970,9 @@ public class AudioPlaybackService extends Service {
     public void registerHeadsetPlugReceiver() {
         //Register the headset plug receiver.
         //if (mApp.getSharedPreferences().getString("UNPLUG_ACTION", "DO_NOTHING").equals("PAUSE_MUSIC_PLAYBACK")) {
-            IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-            mHeadsetPlugReceiver = new HeadsetPlugBroadcastReceiver();
-            mService.registerReceiver(mHeadsetPlugReceiver, filter);
+        IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        mHeadsetPlugReceiver = new HeadsetPlugBroadcastReceiver();
+        mService.registerReceiver(mHeadsetPlugReceiver, filter);
         //}
 
     }
@@ -2026,7 +2026,11 @@ public class AudioPlaybackService extends Service {
     private void startMediaPlayer() throws IllegalStateException {
 
         //Set the media player's equalizer/audio fx.
-        applyMediaPlayerEQ(getMediaPlayerSongHelper().getId());
+        try {
+            applyMediaPlayerEQ(getMediaPlayerSongHelper().getId());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         //Aaaaand let the show begin!
         setCurrentMediaPlayer(1);

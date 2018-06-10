@@ -69,7 +69,6 @@
         android:background="@color/transparent_white" />
 
     <LinearLayout
-        android:id="@+id/app_widget_small_info_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_columnSpan="2"
@@ -92,7 +91,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/app_widget_small_text_separator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="none"

@@ -1,8 +1,9 @@
 apply plugin: 'android-library'
 
 android {
+    namespace 'com.velocity.view.pager.library'
+
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 15
@@ -18,5 +19,5 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:25.0.0'
+    api 'com.android.support:support-v4:' + project.properties.SUPPORT_LIBRARY_VERSION
 }

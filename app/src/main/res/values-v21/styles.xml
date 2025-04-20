@@ -76,4 +76,12 @@
         <item name="android:minHeight">48dp</item>
         <item name="android:maxHeight">48dp</item>
     </style>
+
+    <!-- Add any custom dialog themes -->
+    <style name="MyCustomDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Optional customizations -->
+        <item name="colorAccent">#FF4081</item> <!-- Button highlight color -->
+        <item name="android:textColorPrimary">#212121</item>
+        <item name="android:windowMinWidthMajor">90%</item> <!-- Dialog width on larger screens -->
+    </style>
 </resources>

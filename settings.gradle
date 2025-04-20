@@ -1,1 +1,32 @@
-include ':app', ':dragsortlistviewlibrary', ':picasso', ':quickScroll', ':velocityviewpagerlibrary', ':viewpagerindicatorlibrary'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven {
+            url 'https://mvnrepository.com/artifact/com.mobeta.android.dslv/library'
+        }
+        /*maven {
+            url 'http://dl.bintray.com/amulyakhare/maven'
+            allowInsecureProtocol(true) // Explicitly allow HTTP
+        }*/
+    }
+}
+
+rootProject.name = "IndianResso"
+
+include ':app', ':quickScroll', ':velocityviewpagerlibrary', ':viewpagerindicatorlibrary', ':picasso'
+include ':drag_sort_library'

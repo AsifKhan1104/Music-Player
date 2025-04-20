@@ -75,10 +75,10 @@
                 android:id="@+id/imageview_timer_cancel"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/ic_close_dark"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/cross"
                 android:padding="10dp"
                 android:visibility="gone"/>
         </RelativeLayout>

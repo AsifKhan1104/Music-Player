@@ -6,6 +6,6 @@
     android:initialLayout="@layout/small_widget_layout"
     android:widgetCategory="home_screen|keyguard"
     android:initialKeyguardLayout="@layout/small_widget_layout"
-    android:configure="com.squad.music.WidgetProviders.SmallWidgetConfigActivity"
+    android:configure="com.streaming.indianresso.widget.SmallWidgetConfigActivity"
     android:resizeMode="vertical|horizontal" >
 </appwidget-provider>

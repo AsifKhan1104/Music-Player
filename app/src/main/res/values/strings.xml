@@ -420,7 +420,7 @@
     <string name="folders_layout">Folders Layout</string>
     <string name="select_music_folders">Select Music Folders</string>
     <string name="refresh_music_library">Refresh Music Library</string>
-    <string name="permission_denial_message">To view Music Folders you needed to provide this permission.</string>
+    <string name="permission_denial_message">Let\'s get the music playing! Just a quick permission to access your songs.</string>
     <string name="permission_denial_conseq">You have not granted required permissions to use this feature. Please restart app and grant permission.</string>
     <string name="timer_set_success">Timer set successfully</string>
     <string name="timer_error_message">Please select any future time</string>

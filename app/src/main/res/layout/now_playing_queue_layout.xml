@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" >
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_weight="1"
@@ -10,21 +11,20 @@
         android:layout_height="match_parent" >
 
 		<com.mobeta.android.dslv.DragSortListView
-	    	xmlns:dslv="http://schemas.android.com/apk/res/com.squad.music"
             android:id="@+id/now_playing_queue_list_view"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:drawSelectorOnTop="true"
-            dslv:drag_enabled="true"
-		    dslv:drag_handle_id="@+id/playlists_flipped_handle"
-		    dslv:drag_scroll_start="0.33"
-		    dslv:drag_start_mode="onDown"
-		    dslv:float_alpha="0.6"
-		    dslv:remove_enabled="true"
-		    dslv:remove_mode="flingRemove"
-		    dslv:slide_shuffle_speed="0.3" />
+            app:drag_enabled="true"
+			app:drag_handle_id="@+id/playlists_flipped_handle"
+			app:drag_scroll_start="0.33"
+			app:drag_start_mode="onDown"
+			app:float_alpha="0.6"
+			app:remove_enabled="true"
+			app:remove_mode="flingRemove"
+			app:slide_shuffle_speed="0.3" />
 
 		<TextView
 		    android:id="@+id/now_playing_queue_no_music_playing"

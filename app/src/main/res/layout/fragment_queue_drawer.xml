@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/queue_drawer_mini_player_layout"
@@ -118,23 +119,22 @@
     </RelativeLayout>
 
     <com.mobeta.android.dslv.DragSortListView
-        xmlns:dslv="http://schemas.android.com/apk/res/com.squad.music"
         android:id="@+id/queue_drawer_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/queue_drawer_mini_player_layout"
         android:layout_alignParentBottom="true"
         android:drawSelectorOnTop="true"
-        dslv:click_remove_id="@+id/queue_remove_song"
-        dslv:drag_enabled="true"
-        dslv:drag_handle_id="@+id/drag_handle"
-        dslv:drag_scroll_start="0.33"
-        dslv:drag_start_mode="onDown"
-        dslv:float_alpha="0.6"
-        dslv:max_drag_scroll_speed="0.8"
-        dslv:remove_enabled="true"
-        dslv:remove_mode="clickRemove"
-        dslv:slide_shuffle_speed="0.5"
+        app:click_remove_id="@+id/queue_remove_song"
+        app:drag_enabled="true"
+        app:drag_handle_id="@+id/drag_handle"
+        app:drag_scroll_start="0.33"
+        app:drag_start_mode="onDown"
+        app:float_alpha="0.6"
+        app:max_drag_scroll_speed="0.8"
+        app:remove_enabled="true"
+        app:remove_mode="clickRemove"
+        app:slide_shuffle_speed="0.5"
         android:visibility="invisible" />
 
     <TextView

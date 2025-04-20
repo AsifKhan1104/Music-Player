@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="128.0dip"
-                android:background="@color/place_autocomplete_prediction_primary_text"
+                android:background="@android:color/transparent"
                 tools:ignore="ContentDescription">
 
     <!-- The height cannot be specified any other way. It must read "128.0dip" and cannot be referenced. I think it's a bug. -->

@@ -23,7 +23,7 @@ public class BuildMusicLibraryService extends Service implements AsyncBuildLibra
 	private Notification mNotification;
 	private NotificationManager mNotifyManager;
 	public static int mNotificationId = 92713;
-	private String CHANNEL_ID = "channel_007";
+	private final String CHANNEL_ID = "channel_007";
 
 	@Override
 	public void onCreate() {
@@ -35,6 +35,7 @@ public class BuildMusicLibraryService extends Service implements AsyncBuildLibra
 
 		//Create a persistent notification that keeps this service running and displays the scan progress.
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
 			createNotificationChannel(CHANNEL_ID);
 			mNotification = new Notification.Builder(mContext, CHANNEL_ID)
 					.setSmallIcon(R.drawable.notif_icon)
@@ -68,13 +69,12 @@ public class BuildMusicLibraryService extends Service implements AsyncBuildLibra
 	}
 
 	@RequiresApi(Build.VERSION_CODES.O)
-	private String createNotificationChannel(String channelId) {
+	private void createNotificationChannel(String channelId) {
 		NotificationChannel channel = new NotificationChannel(channelId,
 				getResources().getString(R.string.building_music_library),
 				NotificationManager.IMPORTANCE_DEFAULT);
 
 		((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
-		return channelId;
 	}
 
 	@Override

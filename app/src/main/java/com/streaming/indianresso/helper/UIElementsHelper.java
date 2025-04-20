@@ -332,12 +332,7 @@ public class UIElementsHelper {
 
     // changes status bar color programmatically
     public static void setStatusBarColor(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(getGeneralStatusBarBackgroundColor(activity));
-        } else {
-            Drawable drawable = new ColorDrawable(getGeneralStatusBarBackgroundColor(activity));
-            activity.getWindow().setBackgroundDrawable(drawable);
-        }
+        activity.getWindow().setStatusBarColor(getGeneralStatusBarBackgroundColor(activity));
     }
 
     /**

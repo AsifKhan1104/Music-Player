@@ -1201,10 +1201,7 @@ public class AudioPlaybackService extends Service {
             createNotificationChannel(CHANNEL_ID);
             return buildONotification(songHelper);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-            return buildJBNotification(songHelper);
-        else
-            return buildICSNotification(songHelper);
+        return buildJBNotification(songHelper);
     }
 
     /**
@@ -1216,10 +1213,8 @@ public class AudioPlaybackService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(CHANNEL_ID);
             notification = buildONotification(songHelper);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            notification = buildJBNotification(songHelper);
         } else {
-            notification = buildICSNotification(songHelper);
+            notification = buildJBNotification(songHelper);
         }
 
         //Update the current notification.
@@ -3316,12 +3311,15 @@ public class AudioPlaybackService extends Service {
     };
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private String createNotificationChannel(String channelId) {
+    private void createNotificationChannel(String channelId) {
         NotificationChannel channel = new NotificationChannel(channelId,
                 "Playing Songs",
                 NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription("Media playback controls");
 
-        ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
-        return channelId;
+        NotificationManager manager = mContext.getSystemService(NotificationManager.class);
+        if (manager != null) {
+            manager.createNotificationChannel(channel);
+        }
     }
 }

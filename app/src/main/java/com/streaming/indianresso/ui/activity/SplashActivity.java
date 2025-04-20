@@ -1,15 +1,24 @@
 package com.streaming.indianresso.ui.activity;
 
+import static com.streaming.indianresso.utility.MarshMallowUtils.getPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.incrementPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.resetPermissionDeniedCount;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.Settings;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,6 +37,7 @@ public class SplashActivity extends AppCompatActivity {
     private ImageView mImageViewAppLogo;
     private LinearLayout mLinearLayout;
     public static final int REQUEST_READ_PERMISSION = 786;
+    public static final int REQUEST_NOTIFICATION_PERMISSION = 788;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +109,21 @@ public class SplashActivity extends AppCompatActivity {
             permissionNeeded = Manifest.permission.READ_EXTERNAL_STORAGE;
         }
         if (!MarshMallowUtils.isPermissionGranted(this, permissionNeeded)) {
-            ActivityCompat.requestPermissions(this, new String[]{permissionNeeded}, REQUEST_READ_PERMISSION);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ActivityCompat.requestPermissions(this, new String[]{permissionNeeded, Manifest.permission.POST_NOTIFICATIONS}, REQUEST_READ_PERMISSION);
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{permissionNeeded}, REQUEST_READ_PERMISSION);
+            }
         } else {
-            goToLauncherScreen();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (!MarshMallowUtils.isPermissionGranted(this, Manifest.permission.POST_NOTIFICATIONS)) {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_NOTIFICATION_PERMISSION);
+                } else {
+                    goToLauncherScreen();
+                }
+            } else {
+                goToLauncherScreen();
+            }
         }
     }
 
@@ -109,20 +131,43 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_READ_PERMISSION && grantResults.length == 1) {
-            //do your code here
+        if (requestCode == REQUEST_READ_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                resetPermissionDeniedCount(SplashActivity.this);
                 goToLauncherScreen();
             } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                MarshMallowUtils.showDialog(this, getString(R.string.permission_denial_message), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        goToLauncherScreen();
-                    }
-                });
+                incrementPermissionDeniedCount(SplashActivity.this);
+                int denialCount = getPermissionDeniedCount(SplashActivity.this);
+                if (denialCount >= 2) {
+                    // 3rd time — redirect to settings
+                    showGoToSettingsDialog();
+                } else {
+                    // 1st or 2nd denial — show retry dialog
+                    MarshMallowUtils.showDialog(this, getString(R.string.permission_denial_message), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            checkForPermissions(); // ask again
+                        }
+                    });
+                }
             }
         }
+    }
+
+    private void showGoToSettingsDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Permission Needed")
+                .setMessage("You've denied permission multiple times. Please allow it manually from settings.")
+                .setPositiveButton("Open Settings", (dialog, which) -> {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setCancelable(false)
+                .show();
     }
 
     @Override

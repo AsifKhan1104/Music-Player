@@ -10,6 +10,7 @@ import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -162,7 +163,7 @@ public class NowPlayingActivity extends AppCompatActivity {
         mStreamingProgressBar.setVisibility(View.GONE);
 
         try {
-            mSeekbar.setThumb(getResources().getDrawable(R.drawable.transparent_drawable));
+            mSeekbar.setThumb(ContextCompat.getDrawable(mContext, R.drawable.transparent_drawable));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -783,13 +784,13 @@ public class NowPlayingActivity extends AppCompatActivity {
             //Remove the seekbar update runnable.
             mHandler.removeCallbacks(seekbarUpdateRunnable);
 
-			/*
+            /*
              * Scrolling the pager will automatically call the skipToTrack() method.
-			 * Since we're passing true for the dispatchToListener parameter, the 
-			 * onPageSelected() listener will receive a callback once the scrolling 
-			 * animation completes. This has the side-benefit of letting the animation 
-			 * finish before starting playback (keeps the animation buttery smooth).
-			 */
+             * Since we're passing true for the dispatchToListener parameter, the
+             * onPageSelected() listener will receive a callback once the scrolling
+             * animation completes. This has the side-benefit of letting the animation
+             * finish before starting playback (keeps the animation buttery smooth).
+             */
             int newPosition = mViewPager.getCurrentItem() - 1;
             if (newPosition > -1) {
                 scrollViewPager(newPosition, true, 1, true);
@@ -812,13 +813,13 @@ public class NowPlayingActivity extends AppCompatActivity {
             //Remove the seekbar update runnable.
             mHandler.removeCallbacks(seekbarUpdateRunnable);
 
-			/*
+            /*
              * Scrolling the pager will automatically call the skipToTrack() method.
-			 * Since we're passing true for the dispatchToListener parameter, the 
-			 * onPageSelected() listener will receive a callback once the scrolling 
-			 * animation completes. This has the side-benefit of letting the animation 
-			 * finish before starting playback (keeps the animation buttery smooth).
-			 */
+             * Since we're passing true for the dispatchToListener parameter, the
+             * onPageSelected() listener will receive a callback once the scrolling
+             * animation completes. This has the side-benefit of letting the animation
+             * finish before starting playback (keeps the animation buttery smooth).
+             */
             int newPosition = mViewPager.getCurrentItem() + 1;
             if (newPosition < mViewPagerAdapter.getCount()) {
                 scrollViewPager(newPosition, true, 1, true);
@@ -941,19 +942,19 @@ public class NowPlayingActivity extends AppCompatActivity {
         @Override
         public void onPageScrolled(final int pagerPosition, float swipeVelocity, int offsetFromCurrentPosition) {
 
-			/* swipeVelocity determines whether the viewpager has finished scrolling or not.
+            /* swipeVelocity determines whether the viewpager has finished scrolling or not.
              * Throw in an if statement that only allows the track to change when
-			 * swipeVelocity is 0 (which means the page is done scrolling). This ensures
-			 * that the tracks don't jump around or get truncated while the user is 
-			 * swiping between different pages.
-			 */
+             * swipeVelocity is 0 (which means the page is done scrolling). This ensures
+             * that the tracks don't jump around or get truncated while the user is
+             * swiping between different pages.
+             */
 
             if (mApp.isServiceRunning() && mApp.getService().getCursor().getCount() != 1) {
 
-				/* Change tracks ONLY when the user has finished the swiping gesture (swipeVelocity will be zero).
-				 * Also, don't skip tracks if the new pager position is the same as the current mCursor position (indicates 
-				 * that the starting and ending position of the pager is the same).
-				 */
+                /* Change tracks ONLY when the user has finished the swiping gesture (swipeVelocity will be zero).
+                 * Also, don't skip tracks if the new pager position is the same as the current mCursor position (indicates
+                 * that the starting and ending position of the pager is the same).
+                 */
                 if (swipeVelocity == 0.0f && pagerPosition != mApp.getService().getCurrentSongIndex()) {
                     if (USER_SCROLL) {
                         mHandler.removeCallbacks(seekbarUpdateRunnable);
@@ -1073,9 +1074,9 @@ public class NowPlayingActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-        	/* PlaylistPagerFragment.java will be shown on every pager screen. However, 
-        	 * the fragment will check which screen (position) is being shown, and will
-        	 * update its TextViews and ImageViews to match the song that's being played. */
+            /* PlaylistPagerFragment.java will be shown on every pager screen. However,
+             * the fragment will check which screen (position) is being shown, and will
+             * update its TextViews and ImageViews to match the song that's being played. */
             Fragment fragment = new PlaylistPagerFragment();
 
             Bundle bundle = new Bundle();
@@ -1133,9 +1134,9 @@ public class NowPlayingActivity extends AppCompatActivity {
 
     }
 
-	/*
-	 * Getter and setter methods.
-	 */
+    /*
+     * Getter and setter methods.
+     */
 
     public SeekBar getSeekbar() {
         return mSeekbar;
@@ -1185,7 +1186,8 @@ public class NowPlayingActivity extends AppCompatActivity {
 
         //Update the seekbar.
         try {
-            setSeekbarDuration(mApp.getService().getCurrentMediaPlayer().getDuration() / 1000);
+            if (mApp.getService() != null)
+                setSeekbarDuration(mApp.getService().getCurrentMediaPlayer().getDuration() / 1000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1230,12 +1232,12 @@ public class NowPlayingActivity extends AppCompatActivity {
         //Initialize the broadcast manager that will listen for track changes.
         LocalBroadcastManager.getInstance(mContext)
                 .registerReceiver((mReceiver), new IntentFilter(Common.UPDATE_UI_BROADCAST));
-    	
-    	/* Check if the service is up and running. If so, send out a broadcast message 
-    	 * that will initialize this activity fully. This code block is what will 
-    	 * initialize this activity fully if it is opened after the service is already 
-    	 * up and running (the onServiceRunning() callback isn't available at this point).
-    	 */
+
+        /* Check if the service is up and running. If so, send out a broadcast message
+         * that will initialize this activity fully. This code block is what will
+         * initialize this activity fully if it is opened after the service is already
+         * up and running (the onServiceRunning() callback isn't available at this point).
+         */
         if (mApp.isServiceRunning() && mApp.getService().getCursor() != null) {
             String[] updateFlags = new String[]{Common.UPDATE_PAGER_POSTIION,
                     Common.UPDATE_SEEKBAR_DURATION,

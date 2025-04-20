@@ -1,5 +1,7 @@
 package com.streaming.indianresso.utility;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,6 +9,8 @@ import android.content.DialogInterface;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.PermissionChecker;
+
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.streaming.indianresso.R;
@@ -78,12 +82,9 @@ public class MarshMallowUtils {
     public static void requestPermission(final Activity activity, final String[] permissions, final int requestCode, String message) {
         if (!message.isEmpty()) {
             showDialog(activity, message,
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(activity, permissions, requestCode);
-                            dialog.dismiss();
-                        }
+                    (dialog, which) -> {
+                        ActivityCompat.requestPermissions(activity, permissions, requestCode);
+                        dialog.dismiss();
                     });
             return;
         }
@@ -154,4 +155,20 @@ public class MarshMallowUtils {
         }
     }
 
+    private static final String PREFS_NAME = "permission_prefs";
+    private static final String KEY_PERMISSION_DENIAL_COUNT = "read_permission_denied_count";
+
+    public static int getPermissionDeniedCount(Context context) {
+        return context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_PERMISSION_DENIAL_COUNT, 0);
+    }
+
+    public static void incrementPermissionDeniedCount(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().putInt(KEY_PERMISSION_DENIAL_COUNT, getPermissionDeniedCount(context) + 1).apply();
+    }
+
+    public static void resetPermissionDeniedCount(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().remove(KEY_PERMISSION_DENIAL_COUNT).apply();
+    }
 }

@@ -2,9 +2,12 @@ package com.streaming.indianresso.ui.fragment;
 
 import android.Manifest;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,7 +116,11 @@ public class MusicFoldersFragment extends Fragment {
 
     // To check a single permission call (for marshmallow permission system)
     private void checkForPermissions() {
-        if (!MarshMallowUtils.isPermissionGranted(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        String permissionNeeded = Manifest.permission.READ_EXTERNAL_STORAGE;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissionNeeded = Manifest.permission.READ_MEDIA_AUDIO;
+        }
+        if (!MarshMallowUtils.isPermissionGranted(getActivity(), permissionNeeded)) {
             Toast.makeText(getActivity(), getString(R.string.permission_denial_conseq), Toast.LENGTH_LONG).show();
         }
     }

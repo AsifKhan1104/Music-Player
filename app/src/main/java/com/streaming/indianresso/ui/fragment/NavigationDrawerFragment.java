@@ -7,11 +7,15 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.core.content.ContextCompat;
+
 import android.text.SpannableString;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -35,6 +39,7 @@ import com.streaming.indianresso.ui.activity.MainActivity;
 import com.streaming.indianresso.ui.activity.SettingsActivity;
 import com.streaming.indianresso.ui.adapter.NavigationDrawerAdapter;
 import com.streaming.indianresso.ui.adapter.NavigationDrawerLibrariesAdapter;
+import com.streaming.indianresso.utility.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -286,9 +291,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         } else if (id == R.id.nav_playlists) {
             ((MainActivity) getActivity()).setCurrentFragmentId(Common.PLAYLISTS_FRAGMENT);
         } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(getActivity(), SettingsActivity.class);
+            /*Intent intent = new Intent(getActivity(), SettingsActivity.class);
             mSelectedFragmentId = ((MainActivity) getActivity()).getCurrentFragmentId();
-            startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+            startActivityForResult(intent, REQUEST_CODE_SETTINGS);*/
+            Toast.makeText(requireContext(), "We are working very hard to get this working. Until then, please use rest of the features", Toast.LENGTH_LONG).show();
         }
 
         //Update the fragment.

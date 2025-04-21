@@ -42,14 +42,14 @@
 
     </LinearLayout>
 
-    <ImageButton
+    <!--<ImageButton
         android:id="@+id/notification_base_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/btn_playback_previous_light"
-        android:visibility="gone" />
+        android:visibility="gone" />-->
 
-    <ImageButton
+    <ImageView
         android:id="@+id/notification_base_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,13 +57,13 @@
         android:paddingEnd="15dp"
         android:src="@drawable/btn_playback_play_light" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/notification_base_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/btn_playback_next_light" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/notification_base_collapse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

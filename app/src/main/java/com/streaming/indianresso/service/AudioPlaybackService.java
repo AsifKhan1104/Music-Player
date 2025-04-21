@@ -207,8 +207,10 @@ public class AudioPlaybackService extends Service {
                     mApp.getService().skipToTrack(index);
             }
         };
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(mChangeTrackReceiver, intentFilter1, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mChangeTrackReceiver, intentFilter1);
         }
 
         // Now Playing Activity Broadcast Receiver
@@ -226,8 +228,10 @@ public class AudioPlaybackService extends Service {
                 }
             }
         };
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            registerReceiver(mLaunchNowReceiver, intentFilter1, Context.RECEIVER_NOT_EXPORTED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mLaunchNowReceiver, intentFilter2, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mLaunchNowReceiver, intentFilter2);
         }
 
         // Play/Pause Broadcast Receiver
@@ -241,8 +245,10 @@ public class AudioPlaybackService extends Service {
                     mApp.getService().togglePlaybackState();
             }
         };
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            registerReceiver(mPlayPauseReceiver, intentFilter1, Context.RECEIVER_NOT_EXPORTED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mPlayPauseReceiver, intentFilter3, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mPlayPauseReceiver, intentFilter3);
         }
 
         // Previous Broadcast Receiver
@@ -256,8 +262,10 @@ public class AudioPlaybackService extends Service {
                     mApp.getService().skipToPreviousTrack();
             }
         };
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            registerReceiver(mPreviousReceiver, intentFilter1, Context.RECEIVER_NOT_EXPORTED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mPreviousReceiver, intentFilter4, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mPreviousReceiver, intentFilter4);
         }
 
         // Next Broadcast Receiver
@@ -271,8 +279,10 @@ public class AudioPlaybackService extends Service {
                     mApp.getService().skipToNextTrack();
             }
         };
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            registerReceiver(mNextReceiver, intentFilter1, Context.RECEIVER_NOT_EXPORTED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mNextReceiver, intentFilter5, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mNextReceiver, intentFilter5);
         }
 
         // Stop Service Broadcast Receiver
@@ -285,8 +295,10 @@ public class AudioPlaybackService extends Service {
                 app.getService().stopSelf();
             }
         };
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            registerReceiver(mStopServiceReceiver, intentFilter1, Context.RECEIVER_NOT_EXPORTED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(mStopServiceReceiver, intentFilter6, Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            registerReceiver(mStopServiceReceiver, intentFilter6);
         }
     }
 
@@ -914,7 +926,7 @@ public class AudioPlaybackService extends Service {
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_play, playPauseTrackPendingIntent);
 
             notificationView.setViewVisibility(R.id.notification_base_next, View.INVISIBLE);
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
 
         } else if (mApp.getService().isFirstSongInQueue()) {
@@ -924,7 +936,7 @@ public class AudioPlaybackService extends Service {
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_play, playPauseTrackPendingIntent);
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_next, nextTrackPendingIntent);
 
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.VISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
@@ -936,7 +948,7 @@ public class AudioPlaybackService extends Service {
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_play, playPauseTrackPendingIntent);
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_next, nextTrackPendingIntent);
 
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.INVISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
@@ -949,11 +961,11 @@ public class AudioPlaybackService extends Service {
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_next, nextTrackPendingIntent);
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_previous, previousTrackPendingIntent);
 
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.VISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
-            notificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
+            //notificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
 
         }
 
@@ -1061,7 +1073,7 @@ public class AudioPlaybackService extends Service {
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_play, playPauseTrackPendingIntent);
 
             notificationView.setViewVisibility(R.id.notification_base_next, View.INVISIBLE);
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
 
         } else if (mApp.getService().isFirstSongInQueue()) {
@@ -1071,7 +1083,7 @@ public class AudioPlaybackService extends Service {
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_play, playPauseTrackPendingIntent);
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_next, nextTrackPendingIntent);
 
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.VISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
@@ -1083,7 +1095,7 @@ public class AudioPlaybackService extends Service {
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_play, playPauseTrackPendingIntent);
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_next, nextTrackPendingIntent);
 
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.INVISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
@@ -1096,11 +1108,11 @@ public class AudioPlaybackService extends Service {
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_next, nextTrackPendingIntent);
             expNotificationView.setOnClickPendingIntent(R.id.notification_expanded_base_previous, previousTrackPendingIntent);
 
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.VISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
-            notificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
+            //notificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
 
         }
 
@@ -1178,30 +1190,30 @@ public class AudioPlaybackService extends Service {
         if (mApp.getService().isOnlySongInQueue()) {
             //This is the only song in the queue, so disable the previous/next buttons.
             notificationView.setViewVisibility(R.id.notification_base_next, View.INVISIBLE);
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
 
         } else if (mApp.getService().isFirstSongInQueue()) {
             //This is the the first song in the queue, so disable the previous button.
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.INVISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.VISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
 
         } else if (mApp.getService().isLastSongInQueue()) {
             //This is the last song in the cursor, so disable the next button.
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.INVISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
 
         } else {
             //We're smack dab in the middle of the queue, so keep the previous and next buttons enabled.
-            notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
+            //notificationView.setViewVisibility(R.id.notification_base_previous, View.VISIBLE);
             notificationView.setViewVisibility(R.id.notification_base_next, View.VISIBLE);
             notificationView.setOnClickPendingIntent(R.id.notification_base_play, playPauseTrackPendingIntent);
             notificationView.setOnClickPendingIntent(R.id.notification_base_next, nextTrackPendingIntent);
-            notificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
+            //notificationView.setOnClickPendingIntent(R.id.notification_base_previous, previousTrackPendingIntent);
 
         }
 

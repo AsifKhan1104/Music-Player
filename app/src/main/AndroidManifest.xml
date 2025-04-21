@@ -206,7 +206,7 @@
             android:name=".receiver.NextBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name=".NEXT_ACTION" />
+                <action android:name="com.streaming.indianresso.NEXT_ACTION" />
             </intent-filter>
         </receiver>
 

@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.streaming.indianresso.Common;
 import com.streaming.indianresso.R;
 import com.streaming.indianresso.helper.TypefaceHelper;
 import com.streaming.indianresso.helper.UIElementsHelper;
@@ -56,6 +57,11 @@ public class SplashActivity extends AppCompatActivity {
         mTextViewAppName.setTypeface(TypefaceHelper.getTypeface(mContext, "Roboto-Light"));
         mImageViewAppLogo = (ImageView) findViewById(R.id.imageview_logo);
         mLinearLayout = (LinearLayout) findViewById(R.id.linear_layout);
+
+        Common mApp = (Common) this.getApplicationContext();
+        if (mApp.getCurrentTheme() == Common.LIGHT_THEME) {
+            mLinearLayout.setBackgroundResource(R.drawable.splash_bg_themed_light);
+        }
     }
 
     private void goToLauncherScreen() {

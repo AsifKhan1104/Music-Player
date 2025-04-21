@@ -12,6 +12,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.MergeCursor;
@@ -30,8 +31,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -851,6 +854,10 @@ public class AudioPlaybackService extends Service {
         launchNowPlayingIntent.setAction(AudioPlaybackService.LAUNCH_NOW_PLAYING_ACTION);
         PendingIntent launchNowPlayingPendingIntent = PendingIntent.getBroadcast(mContext.getApplicationContext(), 0, launchNowPlayingIntent, PendingIntent.FLAG_IMMUTABLE);
 
+        //Check the current device theme
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        boolean isDarkTheme = (nightModeFlags == Configuration.UI_MODE_NIGHT_YES);
+
         //Grab the notification layouts.
         RemoteViews notificationView = new RemoteViews(mContext.getPackageName(), R.layout.notification_custom_layout);
         RemoteViews expNotificationView = new RemoteViews(mContext.getPackageName(), R.layout.notification_custom_expanded_layout);
@@ -874,11 +881,21 @@ public class AudioPlaybackService extends Service {
 
         //Check if audio is playing and set the appropriate play/pause button.
         if (mApp.getService().isPlayingMusic()) {
-            notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_pause_light);
-            expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_pause_light);
+            if (isDarkTheme) {
+                notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_pause_light);
+                expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_pause_light);
+            } else {
+                notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_pause);
+                expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_pause);
+            }
         } else {
-            notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_play_light);
-            expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_play_light);
+            if (isDarkTheme) {
+                notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_play_light);
+                expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_play_light);
+            } else {
+                notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_play);
+                expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_play);
+            }
         }
 
         //Set the notification content.
@@ -984,6 +1001,10 @@ public class AudioPlaybackService extends Service {
         PendingIntent launchNowPlayingPendingIntent = PendingIntent.getBroadcast(mContext.getApplicationContext(), 0, launchNowPlayingIntent, PendingIntent.FLAG_IMMUTABLE);
         builder.setContentIntent(launchNowPlayingPendingIntent);
 
+        //Check the current device theme
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        boolean isDarkTheme = (nightModeFlags == Configuration.UI_MODE_NIGHT_YES);
+
         //Grab the notification layouts.
         RemoteViews notificationView = new RemoteViews(mContext.getPackageName(), R.layout.notification_custom_layout);
         RemoteViews expNotificationView = new RemoteViews(mContext.getPackageName(), R.layout.notification_custom_expanded_layout);
@@ -1007,11 +1028,21 @@ public class AudioPlaybackService extends Service {
 
         //Check if audio is playing and set the appropriate play/pause button.
         if (mApp.getService().isPlayingMusic()) {
-            notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_pause_light);
-            expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_pause_light);
+            if (isDarkTheme) {
+                notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_pause_light);
+                expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_pause_light);
+            } else {
+                notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_pause);
+                expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_pause);
+            }
         } else {
-            notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_play_light);
-            expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_play_light);
+            if (isDarkTheme) {
+                notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_play_light);
+                expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_play_light);
+            } else {
+                notificationView.setImageViewResource(R.id.notification_base_play, R.drawable.btn_playback_play);
+                expNotificationView.setImageViewResource(R.id.notification_expanded_base_play, R.drawable.btn_playback_play);
+            }
         }
 
         //Set the notification content.

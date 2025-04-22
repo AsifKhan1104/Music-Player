@@ -1,14 +1,22 @@
 package com.streaming.indianresso.ui.activity;
 
+import static com.streaming.indianresso.utility.MarshMallowUtils.getNotificationPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.getReadPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.showGoToSettingsDialog;
+
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,6 +24,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +39,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.streaming.indianresso.Common;
 import com.streaming.indianresso.R;
 import com.streaming.indianresso.helper.UIElementsHelper;
+import com.streaming.indianresso.service.BuildMusicLibraryService;
 import com.streaming.indianresso.ui.dialog.AppExitDialog;
 import com.streaming.indianresso.ui.fragment.FilesFoldersFragment;
 import com.streaming.indianresso.ui.fragment.GridViewFragment;
@@ -37,6 +47,7 @@ import com.streaming.indianresso.ui.fragment.ListViewFragment;
 import com.streaming.indianresso.ui.fragment.NavigationDrawerFragment;
 import com.streaming.indianresso.ui.fragment.PlaylistFragment;
 import com.streaming.indianresso.ui.fragment.QueueDrawerFragment;
+import com.streaming.indianresso.utility.MarshMallowUtils;
 import com.streaming.indianresso.utility.Utils;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -71,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int GRID_LAYOUT = 1;
 
     private boolean isAppLaunched = false;
+    private static final int NOTIFICATION_PERMISSION = 5464;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +101,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (mApp.getSharedPreferences().getBoolean(Common.FIRST_RUN, true) == true) {
             showAlbumArtScanningDialog();
             mApp.getSharedPreferences().edit().putBoolean(Common.FIRST_RUN, false).commit();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API 33+
+            if (!MarshMallowUtils.isPermissionGranted(mContext, Manifest.permission.POST_NOTIFICATIONS)) {
+                int denialCount = getNotificationPermissionDeniedCount(mContext);
+
+                if (denialCount >= 2) {
+                    showGoToSettingsDialog(MainActivity.this, getString(R.string.goto_permission_settings_msg_notification));
+                } else {
+                    MarshMallowUtils.requestPermission(MainActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                            NOTIFICATION_PERMISSION, getString(R.string.permission_denial_message_notification));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == NOTIFICATION_PERMISSION) {
+            // do something
         }
     }
 

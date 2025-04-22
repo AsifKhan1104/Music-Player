@@ -6,11 +6,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.PermissionChecker;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.streaming.indianresso.R;
@@ -155,20 +159,54 @@ public class MarshMallowUtils {
         }
     }
 
+    public static void showGoToSettingsDialog(Context context, String message) {
+        new AlertDialog.Builder(context)
+                .setTitle("Permission Needed")
+                .setMessage(message)
+                .setPositiveButton("Open Settings", (dialog, which) -> {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+                    intent.setData(uri);
+                    context.startActivity(intent);
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .setCancelable(false)
+                .show();
+    }
+
     private static final String PREFS_NAME = "permission_prefs";
-    private static final String KEY_PERMISSION_DENIAL_COUNT = "read_permission_denied_count";
 
-    public static int getPermissionDeniedCount(Context context) {
-        return context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_PERMISSION_DENIAL_COUNT, 0);
+    // ========================== Read Permission ================================== //
+    private static final String KEY_READ_PERMISSION_DENIAL_COUNT = "read_permission_denied_count";
+
+    public static int getReadPermissionDeniedCount(Context context) {
+        return context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_READ_PERMISSION_DENIAL_COUNT, 0);
     }
 
-    public static void incrementPermissionDeniedCount(Context context) {
+    public static void incrementReadPermissionDeniedCount(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        prefs.edit().putInt(KEY_PERMISSION_DENIAL_COUNT, getPermissionDeniedCount(context) + 1).apply();
+        prefs.edit().putInt(KEY_READ_PERMISSION_DENIAL_COUNT, getReadPermissionDeniedCount(context) + 1).apply();
     }
 
-    public static void resetPermissionDeniedCount(Context context) {
+    public static void resetReadPermissionDeniedCount(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        prefs.edit().remove(KEY_PERMISSION_DENIAL_COUNT).apply();
+        prefs.edit().remove(KEY_READ_PERMISSION_DENIAL_COUNT).apply();
+    }
+
+    // ========================== Notification Permission ================================== //
+    private static final String KEY_NOTIFICATION_PERMISSION_DENIAL_COUNT = "read_permission_denied_count";
+
+    public static int getNotificationPermissionDeniedCount(Context context) {
+        return context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getInt(KEY_NOTIFICATION_PERMISSION_DENIAL_COUNT, 0);
+    }
+
+    public static void incrementNotificationPermissionDeniedCount(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().putInt(KEY_NOTIFICATION_PERMISSION_DENIAL_COUNT, getNotificationPermissionDeniedCount(context) + 1).apply();
+    }
+
+    public static void resetNotificationPermissionDeniedCount(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        prefs.edit().remove(KEY_NOTIFICATION_PERMISSION_DENIAL_COUNT).apply();
     }
 }

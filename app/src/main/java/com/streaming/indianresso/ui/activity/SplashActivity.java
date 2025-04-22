@@ -1,8 +1,12 @@
 package com.streaming.indianresso.ui.activity;
 
-import static com.streaming.indianresso.utility.MarshMallowUtils.getPermissionDeniedCount;
-import static com.streaming.indianresso.utility.MarshMallowUtils.incrementPermissionDeniedCount;
-import static com.streaming.indianresso.utility.MarshMallowUtils.resetPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.getNotificationPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.getReadPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.incrementNotificationPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.incrementReadPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.resetNotificationPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.resetReadPermissionDeniedCount;
+import static com.streaming.indianresso.utility.MarshMallowUtils.showGoToSettingsDialog;
 
 import android.Manifest;
 import android.content.Context;
@@ -31,6 +35,9 @@ import com.streaming.indianresso.R;
 import com.streaming.indianresso.helper.TypefaceHelper;
 import com.streaming.indianresso.helper.UIElementsHelper;
 import com.streaming.indianresso.utility.MarshMallowUtils;
+
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class SplashActivity extends AppCompatActivity {
     private Context mContext;
@@ -85,7 +92,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                checkForPermissions();
+                //checkForPermissions();
             }
 
             @Override
@@ -137,48 +144,68 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length == 0) return;
+
         if (requestCode == REQUEST_READ_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                resetPermissionDeniedCount(SplashActivity.this);
+                resetReadPermissionDeniedCount(this);
                 goToLauncherScreen();
-            } else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                incrementPermissionDeniedCount(SplashActivity.this);
-                int denialCount = getPermissionDeniedCount(SplashActivity.this);
-                if (denialCount >= 2) {
-                    // 3rd time — redirect to settings
-                    showGoToSettingsDialog();
-                } else {
-                    // 1st or 2nd denial — show retry dialog
-                    MarshMallowUtils.showDialog(this, getString(R.string.permission_denial_message), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            checkForPermissions(); // ask again
-                        }
-                    });
-                }
+            } else {
+                handleReadPermissionDenied();
+            }
+        } else if (requestCode == REQUEST_NOTIFICATION_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                resetNotificationPermissionDeniedCount(this);
+                goToLauncherScreen();
+            } else {
+                handleNotificationPermissionDenied();
             }
         }
     }
 
-    private void showGoToSettingsDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("Permission Needed")
-                .setMessage("You've denied permission multiple times. Please allow it manually from settings.")
-                .setPositiveButton("Open Settings", (dialog, which) -> {
-                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    Uri uri = Uri.fromParts("package", getPackageName(), null);
-                    intent.setData(uri);
-                    startActivity(intent);
-                })
-                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
-                .setCancelable(false)
-                .show();
+    private void handleReadPermissionDenied() {
+        incrementReadPermissionDeniedCount(this);
+        int denialCount = getReadPermissionDeniedCount(this);
+
+        if (denialCount >= 2) {
+            showGoToSettingsDialog(mContext, getString(R.string.goto_permission_settings_msg));
+        } else {
+            MarshMallowUtils.showDialog(this, getString(R.string.permission_denial_message), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    checkForPermissions(); // retry permission
+                }
+            });
+        }
+    }
+
+    private void handleNotificationPermissionDenied() {
+        incrementNotificationPermissionDeniedCount(this);
+        int denialCount = getNotificationPermissionDeniedCount(this);
+
+        if (denialCount >= 2) {
+            goToLauncherScreen();
+        } else {
+            MarshMallowUtils.showDialog(this, getString(R.string.permission_denial_message_notification), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    checkForPermissions(); // retry permission
+                }
+            });
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         UIElementsHelper.setStatusBarColor(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkForPermissions();
     }
 }

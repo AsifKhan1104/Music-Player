@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
+
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -40,8 +42,6 @@ import com.streaming.indianresso.utility.MarshMallowUtils;
 import com.viewpagerindicator.LinePageIndicator;
 
 public class WelcomeActivity extends FragmentActivity {
-
-    private static final int READ_STORAGE_PERMISSION = 5464;
     private Context mContext;
     private Common mApp;
     private ViewPager welcomeViewPager;
@@ -107,10 +107,10 @@ public class WelcomeActivity extends FragmentActivity {
         @Override
         public void onPageSelected(int page) {
 
-			/* If the user swiped away from the music folders 
+            /* If the user swiped away from the music folders
              * selection fragment, save the music folders to
-			 * the database.
-			 */
+             * the database.
+             */
             if (page == 0 || page == 2) {
                 new AsyncSaveMusicFoldersTask(mContext.getApplicationContext(),
                         mMusicFoldersFragment.getMusicFoldersSelectionFragment()
@@ -118,9 +118,9 @@ public class WelcomeActivity extends FragmentActivity {
                         .execute();
             }
 
-			/* If the user scrolls away from the Google Play Music page and 
+            /* If the user scrolls away from the Google Play Music page and
              * they have selected an account, check if the default Google Play
-			 * Music app is installed. */
+             * Music app is installed. */
             /*if (page==3) {
 
 				if (mApp.getSharedPreferences().getBoolean("GOOGLE_PLAY_MUSIC_ENABLED", false)==true) {
@@ -182,19 +182,8 @@ public class WelcomeActivity extends FragmentActivity {
         public void onAnimationEnd(Animation arg0) {
             indicator.setVisibility(View.INVISIBLE);
 
-            String permissionNeeded = "";
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API 33+
-                permissionNeeded = Manifest.permission.READ_MEDIA_AUDIO;
-            } else {
-                permissionNeeded = Manifest.permission.READ_EXTERNAL_STORAGE;
-            }
-            if (MarshMallowUtils.isPermissionGranted(WelcomeActivity.this, permissionNeeded)) {
-                Intent intent = new Intent(mContext, BuildMusicLibraryService.class);
-                startService(intent);
-            } else {
-                MarshMallowUtils.requestPermission(WelcomeActivity.this, new String[]{permissionNeeded}, READ_STORAGE_PERMISSION, getString(R.string.permission_denial_message));
-            }
-
+            Intent intent = new Intent(mContext, BuildMusicLibraryService.class);
+            startService(intent);
         }
 
         @Override
@@ -383,14 +372,5 @@ public class WelcomeActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         UIElementsHelper.setStatusBarColor(this);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == READ_STORAGE_PERMISSION) {
-            Intent intent = new Intent(mContext, BuildMusicLibraryService.class);
-            startService(intent);
-        }
     }
 }

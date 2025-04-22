@@ -420,8 +420,8 @@
     <string name="folders_layout">फ़ोल्डर्स लेआउट</string>
     <string name="select_music_folders">संगीत फ़ोल्डर्स चुनें</string>
     <string name="refresh_music_library">ताज़ा संगीत लाइब्रेरी</string>
-    <string name="permission_denial_message">संगीत फ़ोल्डर्स देखने के लिए आपको यह अनुमति प्रदान करने की आवश्यकता थी।</string>
-    <string name="permission_denial_message_notification">अधिसूचना पैनल के माध्यम से संगीत को नियंत्रित करने के लिए अधिसूचना अनुमति की आवश्यकता है।</string>
+    <string name="permission_denial_message">चलो संगीत बजाना शुरू करें! अपने गानों तक पहुँचने के लिए बस कुछ त्वरित अनुमतियों की आवश्यकता है।</string>
+    <string name="permission_denial_message_notification">चलो संगीत बजाना शुरू करें! अधिसूचना पैनल के माध्यम से गाने को नियंत्रित करने के लिए आपको बस एक त्वरित अनुमति की आवश्यकता है।</string>
     <string name="permission_denial_conseq">आपने इस सुविधा का उपयोग करने के लिए आवश्यक अनुमति नहीं दी है। कृपया एप्लिकेशन को पुनरारंभ करें और अनुमति दें।</string>
     <string name="timer_set_success">टाइमर सफलतापूर्वक सेट किया गया</string>
     <string name="timer_error_message">कृपया भविष्य के किसी भी समय का चयन करें</string>
@@ -487,4 +487,6 @@
     <string name="title_activity_browsser_sub_grid">BrowsserSubGridActivity</string>
     <string name="on_this_device">On This Device</string>
     <string name="all_libraries">All Music</string>
+    <string name="goto_permission_settings_msg">आपने कई बार अनुमति अस्वीकार की है। आपको बेहतर अनुभव प्रदान करने के लिए, कृपया सेटिंग से मैन्युअल रूप से \"संगीत और ऑडियो\" अनुमति दें।</string>
+    <string name="goto_permission_settings_msg_notification">आपने कई बार अनुमति अस्वीकार की है। आपको बेहतर अनुभव प्रदान करने के लिए, कृपया सेटिंग से मैन्युअल रूप से \"सूचनाएँ प्रबंधित करें\" अनुमति दें।</string>
 </resources>

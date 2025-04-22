@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // below code should run only once this class loads
                 if (!isAppLaunched) {
                     // check for shared preferences from settings
-                    mCurrentFragmentId = mApp.getSharedPreferences().getInt(Common.STARTUP_BROWSER, 0);
+                    mCurrentFragmentId = mApp.getSharedPreferences().getInt(Common.STARTUP_BROWSER, 3);
                     isAppLaunched = true;
                 }
             }

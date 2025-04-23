@@ -45,7 +45,7 @@ public class AutoFetchAlbumArtService extends Service {
         notification.flags |= Notification.FLAG_NO_CLEAR;
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
 
-        startForeground(NOTIFICATION_ID, notification);
+        //startForeground(NOTIFICATION_ID, notification);
 		
         //Call the AsyncTask that checks for missing art and downloads them.
 

@@ -23,7 +23,6 @@ import com.streaming.indianresso.utility.FileExtensionFilter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -54,10 +53,10 @@ public class AsyncBuildLibraryTask extends AsyncTask<String, String, Void> {
 	private PowerManager pm;
 	private PowerManager.WakeLock wakeLock;
 
-	public AsyncBuildLibraryTask(Context context, BuildMusicLibraryService service) {
+	public AsyncBuildLibraryTask(Context context, OnBuildLibraryProgressUpdate service) {
 		mContext = context;
 		mApp = (Common) mContext;
-        mService = service;
+        //mService = service;
         mBuildLibraryProgressUpdate = new ArrayList<OnBuildLibraryProgressUpdate>();
 	}
 

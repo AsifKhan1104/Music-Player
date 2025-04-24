@@ -34,7 +34,7 @@ public class BuildMusicLibraryService extends Service implements AsyncBuildLibra
 	public int onStartCommand(Intent intent, int startId, int flags) {
 
 		//Create a persistent notification that keeps this service running and displays the scan progress.
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+		/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
 			createNotificationChannel(CHANNEL_ID);
 			mNotification = new Notification.Builder(mContext, CHANNEL_ID)
@@ -57,7 +57,7 @@ public class BuildMusicLibraryService extends Service implements AsyncBuildLibra
 			mNotification.flags |= Notification.FLAG_INSISTENT | Notification.FLAG_NO_CLEAR;
 		}
 
-		startForeground(mNotificationId, mNotification);
+		startForeground(mNotificationId, mNotification);*/
 
 		//Go crazy with a full-on scan.
 		AsyncBuildLibraryTask task = new AsyncBuildLibraryTask(mContext, this);
@@ -85,13 +85,12 @@ public class BuildMusicLibraryService extends Service implements AsyncBuildLibra
 
 	@Override
 	public void onStartBuildingLibrary() {
-
 	}
 
 	@Override
 	public void onProgressUpdate(AsyncBuildLibraryTask task, String mCurrentTask, int overallProgress,
 								 int maxProgress, boolean mediaStoreTransferDone) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+		/*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			//createNotificationChannel(CHANNEL_ID);
 			mNotification = new Notification.Builder(mContext, CHANNEL_ID)
 					.setSmallIcon(R.drawable.notif_icon)
@@ -115,17 +114,16 @@ public class BuildMusicLibraryService extends Service implements AsyncBuildLibra
 
 		mNotifyManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotification.flags |= Notification.FLAG_INSISTENT | Notification.FLAG_NO_CLEAR;
-		mNotifyManager.notify(mNotificationId, mNotification);
+		mNotifyManager.notify(mNotificationId, mNotification);*/
 
 	}
 
 	@Override
 	public void onFinishBuildingLibrary(AsyncBuildLibraryTask task) {
-		mNotifyManager.cancel(mNotificationId);
+		//mNotifyManager.cancel(mNotificationId);
 		stopSelf();
 
 		Toast.makeText(mContext, R.string.finished_scanning_album_art, Toast.LENGTH_LONG).show();
-
 	}
 
 }

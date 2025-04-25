@@ -1,5 +1,0 @@
-com.velocity.view.pager.library
-drawable ic_launcher
-string app_name
-style AppBaseTheme
-style AppTheme

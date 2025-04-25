@@ -1,8 +1,0 @@
-com.velocity.view.pager.library.test.velocityviewpagerlibrary-media-1.0.0-0 /Users/asif/.gradle/caches/8.9/transforms/1d322f5dc37f619b7d88f33cdfda87c2/transformed/media-1.0.0/res
-com.velocity.view.pager.library.test.velocityviewpagerlibrary-coordinatorlayout-1.0.0-1 /Users/asif/.gradle/caches/8.9/transforms/6a305059a154163cf79094e4ddb49bfe/transformed/coordinatorlayout-1.0.0/res
-com.velocity.view.pager.library.test.velocityviewpagerlibrary-core-1.0.0-2 /Users/asif/.gradle/caches/8.9/transforms/deb83c94862c13fe78f8dd9079d6ecb0/transformed/core-1.0.0/res
-com.velocity.view.pager.library.test.velocityviewpagerlibrary-androidTest-3 /Users/asif/Android Projects/PLAYit Music Player/velocityviewpagerlibrary/build/generated/res/resValues/androidTest/debug
-com.velocity.view.pager.library.test.velocityviewpagerlibrary-mergeDebugAndroidTestResources-4 /Users/asif/Android Projects/PLAYit Music Player/velocityviewpagerlibrary/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
-com.velocity.view.pager.library.test.velocityviewpagerlibrary-mergeDebugAndroidTestResources-5 /Users/asif/Android Projects/PLAYit Music Player/velocityviewpagerlibrary/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
-com.velocity.view.pager.library.test.velocityviewpagerlibrary-debugAndroidTest-6 /Users/asif/Android Projects/PLAYit Music Player/velocityviewpagerlibrary/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
-com.velocity.view.pager.library.test.velocityviewpagerlibrary-debug-7 /Users/asif/Android Projects/PLAYit Music Player/velocityviewpagerlibrary/build/intermediates/packaged_res/debug/packageDebugResources

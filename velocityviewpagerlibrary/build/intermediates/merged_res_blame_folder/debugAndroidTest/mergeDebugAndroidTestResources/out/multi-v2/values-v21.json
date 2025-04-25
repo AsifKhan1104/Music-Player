@@ -1,0 +1,66 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.velocity.view.pager.library.test.velocityviewpagerlibrary-mergeDebugAndroidTestResources-4:/values-v21/values-v21.xml",
+            "map": [
+                {
+                    "source": "/Users/asif/.gradle/caches/8.9/transforms/deb83c94862c13fe78f8dd9079d6ecb0/transformed/core-1.0.0/res/values-v21/values-v21.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,13",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,159,223,290,354,470,596,722,850,1022",
+                        "endLines": "2,3,4,5,6,7,8,9,12,17",
+                        "endColumns": "103,63,66,63,115,125,125,127,12,12",
+                        "endOffsets": "154,218,285,349,465,591,717,845,1017,1355"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,10,11,18,22,26,29",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,159,223,290,540,656,1113,1407,1702,1874",
+                        "endLines": "2,3,4,5,10,11,18,22,28,33",
+                        "endColumns": "103,63,66,63,115,125,125,127,12,12",
+                        "endOffsets": "154,218,285,349,651,777,1234,1530,1869,2207"
+                    }
+                },
+                {
+                    "source": "/Users/asif/Android Projects/PLAYit Music Player/velocityviewpagerlibrary/build/intermediates/packaged_res/debug/packageDebugResources/values-v21/values-v21.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "236"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "354",
+                        "endLines": "9",
+                        "endColumns": "12",
+                        "endOffsets": "535"
+                    }
+                },
+                {
+                    "source": "/Users/asif/.gradle/caches/8.9/transforms/1d322f5dc37f619b7d88f33cdfda87c2/transformed/media-1.0.0/res/values-v21/values-v21.xml",
+                    "from": {
+                        "startLines": "2,5,8,11",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,223,386,554",
+                        "endLines": "4,7,10,13",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "218,381,549,716"
+                    },
+                    "to": {
+                        "startLines": "12,15,19,23",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "782,950,1239,1535",
+                        "endLines": "14,17,21,25",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "945,1108,1402,1697"
+                    }
+                }
+            ]
+        }
+    ]
+}

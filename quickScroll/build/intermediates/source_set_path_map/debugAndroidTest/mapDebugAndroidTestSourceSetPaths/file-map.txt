@@ -1,0 +1,6 @@
+com.andraskindler.quickscroll.test.quickScroll-debug-0 /Users/asif/Android Projects/PLAYit Music Player/picasso/build/intermediates/packaged_res/debug/packageDebugResources
+com.andraskindler.quickscroll.test.quickScroll-androidTest-1 /Users/asif/Android Projects/PLAYit Music Player/quickScroll/build/generated/res/resValues/androidTest/debug
+com.andraskindler.quickscroll.test.quickScroll-mergeDebugAndroidTestResources-2 /Users/asif/Android Projects/PLAYit Music Player/quickScroll/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.andraskindler.quickscroll.test.quickScroll-mergeDebugAndroidTestResources-3 /Users/asif/Android Projects/PLAYit Music Player/quickScroll/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.andraskindler.quickscroll.test.quickScroll-debugAndroidTest-4 /Users/asif/Android Projects/PLAYit Music Player/quickScroll/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
+com.andraskindler.quickscroll.test.quickScroll-debug-5 /Users/asif/Android Projects/PLAYit Music Player/quickScroll/build/intermediates/packaged_res/debug/packageDebugResources

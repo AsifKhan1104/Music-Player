@@ -1,0 +1,4 @@
+#Wed Apr 23 19:54:36 IST 2025
+base.0=/Users/asif/Android Projects/PLAYit Music Player/picasso/build/intermediates/dex/debugAndroidTest/mergeDexDebugAndroidTest/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

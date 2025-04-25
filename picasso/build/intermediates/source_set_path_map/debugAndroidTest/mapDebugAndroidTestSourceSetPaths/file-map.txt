@@ -1,0 +1,5 @@
+com.squareup.picasso.test.picasso-androidTest-0 /Users/asif/Android Projects/PLAYit Music Player/picasso/build/generated/res/resValues/androidTest/debug
+com.squareup.picasso.test.picasso-mergeDebugAndroidTestResources-1 /Users/asif/Android Projects/PLAYit Music Player/picasso/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.squareup.picasso.test.picasso-mergeDebugAndroidTestResources-2 /Users/asif/Android Projects/PLAYit Music Player/picasso/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.squareup.picasso.test.picasso-debugAndroidTest-3 /Users/asif/Android Projects/PLAYit Music Player/picasso/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources
+com.squareup.picasso.test.picasso-debug-4 /Users/asif/Android Projects/PLAYit Music Player/picasso/build/intermediates/packaged_res/debug/packageDebugResources

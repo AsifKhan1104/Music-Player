@@ -26,7 +26,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "IndianResso"
+rootProject.name = "PLAYit MusicPlayer"
 
 include ':app', ':quickScroll', ':velocityviewpagerlibrary', ':viewpagerindicatorlibrary', ':picasso'
 include ':drag_sort_library'

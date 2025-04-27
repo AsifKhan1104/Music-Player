@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.streaming.indianresso.R;
@@ -229,18 +230,32 @@ public class AsyncAddSongsToPlaylistTask2 extends AsyncTask<String, Integer, Boo
     private void addSongToPlaylist(ContentResolver resolver, long audioId, long playlistId) {
 
         String[] cols = new String[]{
-                "count(*)"
+                MediaStore.Audio.Playlists.Members.AUDIO_ID
         };
 
         Uri uri = MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId);
         Cursor cur = resolver.query(uri, cols, null, null, null);
-        cur.moveToFirst();
-        final int base = cur.getInt(0);
-        cur.close();
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Audio.Playlists.Members.PLAY_ORDER, Long.valueOf(base + audioId));
-        values.put(MediaStore.Audio.Playlists.Members.AUDIO_ID, audioId);
-        resolver.insert(uri, values);
+
+        if (cur != null && cur.getCount() > 0) {
+            cur.moveToFirst();
+            // base will be the count of existing entries in the playlist
+            final int base = cur.getCount();  // This gives the total number of songs in the playlist
+            cur.close();
+
+            // Now add the new song to the playlist
+            ContentValues values = new ContentValues();
+            //values.put(MediaStore.Audio.Playlists.Members.PLAY_ORDER, Long.valueOf(base + audioId));
+            values.put(MediaStore.Audio.Playlists.Members.PLAY_ORDER, (long) base); // Use the base count for PLAY_ORDER (next position)
+            values.put(MediaStore.Audio.Playlists.Members.AUDIO_ID, audioId);
+
+            // Insert the new song into the playlist
+            resolver.insert(uri, values);
+        } else {
+            Log.e("AsyncAddSongsToPlaylistTask2", "Failed to query playlist members.");
+            if (cur != null) {
+                cur.close();
+            }
+        }
     }
 
     private long getSongAudioId(String artist, String album, String title) {

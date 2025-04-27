@@ -28,20 +28,24 @@ public class PlaylistHelper {
         boolean flag = false;
         Uri playlists = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
         ContentResolver resolver = context.getContentResolver();
-        Cursor c = resolver.query(playlists, new String[]{"*"}, null, null,
+        Cursor c = resolver.query(playlists, new String[]{MediaStore.Audio.Playlists._ID,
+                        MediaStore.Audio.Playlists.NAME}, null, null,
                 null);
         long playlistId = 0;
-        c.moveToFirst();
-        do {
-            String plname = c.getString(c
-                    .getColumnIndex(MediaStore.Audio.Playlists.NAME));
-            if (plname.equalsIgnoreCase(pname)) {
-                playlistId = c.getLong(c
-                        .getColumnIndex(MediaStore.Audio.Playlists._ID));
-                break;
-            }
-        } while (c.moveToNext());
-        c.close();
+        // Ensure the Cursor has data before accessing it
+        if (c != null && c.getCount() > 0) {
+            c.moveToFirst();
+            do {
+                String plname = c.getString(c.getColumnIndex(MediaStore.Audio.Playlists.NAME));
+                if (plname.equalsIgnoreCase(pname)) {
+                    playlistId = c.getLong(c.getColumnIndex(MediaStore.Audio.Playlists._ID));
+                    break; // Found the playlist, break out of the loop
+                }
+            } while (c.moveToNext());
+            c.close(); // Close the Cursor after use
+        } else {
+            Log.d(TAG, "No playlists found.");
+        }
 
         if (playlistId != 0) {
             Uri deleteUri = ContentUris.withAppendedId(playlists, playlistId);
@@ -64,15 +68,17 @@ public class PlaylistHelper {
     }
 
     /* Queries all the playlists known to the MediaLibrary.
-            *
-            * @param context the context to use
-	 * @return The queried cursor.
-	 */
+     *
+     * @param context the context to use
+     * @return The queried cursor.
+     */
     public static ArrayList<Playlist> getAllPlaylists(Context context) {
         ArrayList<Playlist> list = new ArrayList<>();
         Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
         ContentResolver resolver = context.getContentResolver();
-        Cursor c = resolver.query(uri, new String[]{"*"}, null, null,
+        Cursor c = resolver.query(uri, new String[]{
+                        MediaStore.Audio.Playlists._ID,  // Playlist ID
+                        MediaStore.Audio.Playlists.NAME}, null, null,
                 null);
         if (c.getCount() > 0) {
             c.moveToFirst();

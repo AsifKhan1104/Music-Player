@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PLAYit</string>
-    <string name="app_name_extended">PLAYit म्यूजिक</string>
+    <string name="app_name">Music Player</string>
+    <string name="app_name_extended">Music Player</string>
     <string name="load_preset_caps">लोड प्रीसेट</string>
     <string name="save_preset_caps">सेव प्रीसेट</string>
     <string name="load_preset">लोड प्रीसेट</string>

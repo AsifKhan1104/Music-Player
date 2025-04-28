@@ -5,13 +5,13 @@ This app provides users with an easy-to-use interface and supports various music
 
 ## **Table of Contents**
 
-About
-Features
-Technologies Used
-Installation
-Usage
-Contributing
-License
+* About
+* Features
+* Technologies Used
+* Installation
+* Usage
+* Contributing
+* License
 
 ### **About**
 

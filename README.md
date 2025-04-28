@@ -21,21 +21,21 @@ formats and allows users to create a personalized music experience.
 
 ### **Features**
 
-* Play/Pause/Skip Tracks: Easy-to-use controls to manage your music playback.
-* Playlist Management: Create and manage custom playlists.
-* Repeat & Shuffle: Options to repeat a track or shuffle your playlist.
-* Track Information: Display song details such as title, artist, and album.
-* Material Design UI: Clean, user-friendly interface based on Material Design principles.
-* Support for multiple audio formats: Play MP3, WAV, and other common formats.
-* Background Playback: Continue listening while using other apps.
+* **Play/Pause/Skip Tracks:** Easy-to-use controls to manage your music playback.
+* **Playlist Management:** Create and manage custom playlists.
+* **Repeat & Shuffle:** Options to repeat a track or shuffle your playlist.
+* **Track Information:** Display song details such as title, artist, and album.
+* **Material Design UI:** Clean, user-friendly interface based on Material Design principles.
+* **Support for multiple audio formats:** Play MP3, WAV, and other common formats.
+* **Background Playback:** Continue listening while using other apps.
 
 ### **Technologies Used**
 
-* Android: Java/Kotlin (specify the language used for the app development)
-* UI: Material Design Components
-* Audio Playback: Android MediaPlayer or ExoPlayer for audio playback
-* Database: SQLite or Room (if applicable for storing playlists)
-* Permissions: Runtime permissions for accessing storage (for music files)
+* **Android:** Java/Kotlin (specify the language used for the app development)
+* **UI:** Material Design Components
+* **Audio Playback:** Android MediaPlayer or ExoPlayer for audio playback
+* **Database:** SQLite or Room (if applicable for storing playlists)
+* **Permissions:** Runtime permissions for accessing storage (for music files)
 
 ### **Installation**
 

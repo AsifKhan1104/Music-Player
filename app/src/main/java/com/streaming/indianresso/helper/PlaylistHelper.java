@@ -32,6 +32,7 @@ public class PlaylistHelper {
                         MediaStore.Audio.Playlists.NAME}, null, null,
                 null);
         long playlistId = 0;
+
         // Ensure the Cursor has data before accessing it
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();

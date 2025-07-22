@@ -8,15 +8,15 @@ plugins {
 android {
     namespace 'com.streaming.indianresso'
 
-    compileSdkVersion 34
+    compileSdkVersion 35
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.streaming.indianresso"
         minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 11
-        versionName "1.3.8"
+        targetSdkVersion 35
+        versionCode 12
+        versionName "1.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         // Enabling multidex support
         multiDexEnabled true
